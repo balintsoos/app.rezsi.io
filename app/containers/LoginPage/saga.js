@@ -5,9 +5,9 @@ import API from 'utils/API';
 import { LOGIN_REQUEST } from './constants';
 import { loginSuccess, loginError } from './actions';
 
-export function* login(props) {
+export function* login({ email, password }) {
   try {
-    yield call(API.login, props);
+    yield call(API.login, { email, password });
     yield put(loginSuccess());
     yield put(push('/'));
   } catch (err) {
