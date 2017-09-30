@@ -12,18 +12,20 @@
  */
 
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
-import HomePage from 'containers/HomePage/Loadable';
-import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import Router from './router';
 
 export default function App() {
   return (
     <div>
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route component={NotFoundPage} />
-      </Switch>
+      <Helmet
+        titleTemplate="%s | rezsi.io"
+        defaultTitle="rezsi.io"
+      >
+      </Helmet>
+
+      <Router />
     </div>
   );
 }
