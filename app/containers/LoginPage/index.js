@@ -7,48 +7,93 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import { Card, CardActions, CardTitle, CardText } from 'material-ui/Card';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 
+import Head from 'components/Head';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectLoginPage from './selectors';
+
+import { makeSelectLoading, makeSelectError } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
+import { loginRequest } from './actions';
 
 export class LoginPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  constructor() {
+    super();
+    this.state = { email: '', password: '' };
+  }
+
+  onFieldChanged = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
+  }
+
+  onSubmit = (event) => {
+    event.preventDefault();
+
+    if (!this.props.loading) {
+      this.props.login(this.state);
+    }
+  }
+
   render() {
     return (
       <div>
-        <Helmet>
-          <FormattedMessage {...messages.title}>
-            {(message) => <title>{message}</title>}
-          </FormattedMessage>
-          <FormattedMessage {...messages.description}>
-            {(message) => <meta name="description" content={message} />}
-          </FormattedMessage>
-        </Helmet>
+        <Head title={messages.title} />
 
-        <FormattedMessage {...messages.title} />
+        <Card>
+          <CardTitle title={<FormattedMessage {...messages.title} />} />
+
+          <CardText>
+            <TextField
+              fullWidth
+              name="email"
+              type="email"
+              floatingLabelText={<FormattedMessage {...messages.email} />}
+              onChange={this.onFieldChanged}
+            />
+
+            <TextField
+              fullWidth
+              name="password"
+              type="password"
+              floatingLabelText={<FormattedMessage {...messages.password} />}
+              onChange={this.onFieldChanged}
+            />
+          </CardText>
+
+          <CardActions>
+            <RaisedButton
+              primary
+              label={<FormattedMessage {...messages.title} />}
+              onClick={this.onSubmit}
+            />
+          </CardActions>
+        </Card>
       </div>
     );
   }
 }
 
 LoginPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  loginpage: makeSelectLoginPage(),
+  loading: makeSelectLoading(),
+  error: makeSelectError(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    login: (props) => dispatch(loginRequest(props)),
   };
 }
 

@@ -10,8 +10,16 @@ export default defineMessages({
     id: 'app.containers.LoginPage.title',
     defaultMessage: 'Log In',
   },
-  description: {
-    id: 'app.containers.LoginPage.description',
-    defaultMessage: 'Log into rezsi.io',
+  email: {
+    id: 'app.containers.LoginPage.email',
+    defaultMessage: 'Email',
+  },
+  password: {
+    id: 'app.containers.LoginPage.password',
+    defaultMessage: 'Password',
+  },
+  error: {
+    id: 'app.containers.LoginPage.error',
+    defaultMessage: 'Invalid email address or password',
   },
 });
