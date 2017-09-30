@@ -15,6 +15,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
 import Head from 'components/Head';
+import Notification from 'components/Notification';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
@@ -42,6 +43,14 @@ export class LoginPage extends React.Component { // eslint-disable-line react/pr
     }
   }
 
+  errorMessage = () => {
+    if (!messages[this.props.error]) {
+      return this.props.error;
+    }
+
+    return <FormattedMessage {...messages[this.props.error]} />;
+  }
+
   render() {
     return (
       <div>
@@ -58,7 +67,6 @@ export class LoginPage extends React.Component { // eslint-disable-line react/pr
               floatingLabelText={<FormattedMessage {...messages.email} />}
               onChange={this.onFieldChanged}
             />
-
             <TextField
               fullWidth
               name="password"
@@ -76,6 +84,11 @@ export class LoginPage extends React.Component { // eslint-disable-line react/pr
             />
           </CardActions>
         </Card>
+
+        <Notification
+          watcher={this.props.error}
+          message={this.errorMessage()}
+        />
       </div>
     );
   }
@@ -84,6 +97,7 @@ export class LoginPage extends React.Component { // eslint-disable-line react/pr
 LoginPage.propTypes = {
   login: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
+  error: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({

@@ -11,10 +11,9 @@ export function* login(props) {
     yield put(loginSuccess());
     yield put(push('/'));
   } catch (err) {
-    yield put(loginError(err));
+    yield put(loginError(err.message));
   }
 }
-
 
 // Root saga
 export default function* rootSaga() {
