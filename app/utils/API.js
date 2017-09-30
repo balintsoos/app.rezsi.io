@@ -14,9 +14,14 @@ export function createApiConnector(baseUrl = '') {
   );
 
   return {
-    login: (props) => call('/auth/login', {
+    login: (payload) => call('/auth/login', {
       method: 'POST',
-      body: JSON.stringify(props),
+      body: JSON.stringify(payload),
+    }),
+
+    signUp: (payload) => call('/users', {
+      method: 'POST',
+      body: JSON.stringify(payload),
     }),
   };
 }
