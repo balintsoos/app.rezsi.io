@@ -11,14 +11,32 @@
 
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { Link } from 'react-router-dom';
+import RaisedButton from 'material-ui/RaisedButton';
+
+import Head from 'components/Head';
+
 import messages from './messages';
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <h1>
-        <FormattedMessage {...messages.header} />
-      </h1>
+      <div>
+        <Head title={messages.title} />
+
+        <FormattedMessage {...messages.title} />
+
+        <RaisedButton
+          primary
+          label={<FormattedMessage {...messages.signUp} />}
+          containerElement={<Link to="/signup" />}
+        />
+
+        <RaisedButton
+          label={<FormattedMessage {...messages.login} />}
+          containerElement={<Link to="/login" />}
+        />
+      </div>
     );
   }
 }
