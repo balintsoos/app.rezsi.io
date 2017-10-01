@@ -13,7 +13,6 @@
 
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import Router from './router';
 
@@ -26,9 +25,7 @@ export default function App() {
       >
       </Helmet>
 
-      <MuiThemeProvider>
-        <Router />
-      </MuiThemeProvider>
+      <Router />
     </div>
   );
 }
