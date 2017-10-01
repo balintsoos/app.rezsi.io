@@ -10,11 +10,13 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Card, CardActions, CardTitle, CardText } from 'material-ui/Card';
+import { CardActions, CardTitle, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import Divider from 'material-ui/Divider';
 
 import Head from 'components/Head';
+import UserFlowCard from 'components/UserFlowCard';
 import Notification from 'components/Notification';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -56,8 +58,13 @@ export class LoginPage extends React.Component { // eslint-disable-line react/pr
       <div>
         <Head title={messages.title} />
 
-        <Card>
-          <CardTitle title={<FormattedMessage {...messages.title} />} />
+        <UserFlowCard>
+          <CardTitle
+            title={<FormattedMessage {...messages.title} />}
+            subtitle={<FormattedMessage {...messages.subtitle} />}
+          />
+
+          <Divider />
 
           <CardText>
             <TextField
@@ -79,11 +86,12 @@ export class LoginPage extends React.Component { // eslint-disable-line react/pr
           <CardActions>
             <RaisedButton
               primary
+              fullWidth
               label={<FormattedMessage {...messages.title} />}
               onClick={this.onSubmit}
             />
           </CardActions>
-        </Card>
+        </UserFlowCard>
 
         <Notification
           watcher={this.props.error}

@@ -7,14 +7,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Card, CardActions, CardTitle, CardText } from 'material-ui/Card';
+import { CardActions, CardTitle, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
+import Divider from 'material-ui/Divider';
 
 import Head from 'components/Head';
+import UserFlowCard from 'components/UserFlowCard';
+import UserFlowNavigation from 'components/UserFlowNavigation';
 import Notification from 'components/Notification';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -24,6 +29,7 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import { signUpRequest } from './actions';
+import LegalNotice from './components/LegalNotice';
 
 export class SignUpPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor() {
@@ -60,8 +66,13 @@ export class SignUpPage extends React.Component { // eslint-disable-line react/p
       <div>
         <Head title={messages.title} />
 
-        <Card>
-          <CardTitle title={<FormattedMessage {...messages.title} />} />
+        <UserFlowCard>
+          <CardTitle
+            title={<FormattedMessage {...messages.title} />}
+            subtitle={<FormattedMessage {...messages.subtitle} />}
+          />
+
+          <Divider />
 
           <CardText>
             <TextField
@@ -87,14 +98,34 @@ export class SignUpPage extends React.Component { // eslint-disable-line react/p
             />
           </CardText>
 
+          <LegalNotice>
+            <FormattedMessage {...messages.legal} />
+          </LegalNotice>
+
           <CardActions>
             <RaisedButton
               primary
+              fullWidth
               label={<FormattedMessage {...messages.title} />}
               onClick={this.onSubmit}
             />
           </CardActions>
-        </Card>
+
+          <Divider />
+
+          <UserFlowNavigation>
+            <FlatButton
+              disabled
+              label={<FormattedMessage {...messages.alreadySignedUp} />}
+              containerElement={<Link to="/login" />}
+            />
+            <FlatButton
+              primary
+              label={<FormattedMessage {...messages.login} />}
+              containerElement={<Link to="/login" />}
+            />
+          </UserFlowNavigation>
+        </UserFlowCard>
 
         <Notification
           watcher={this.props.error}

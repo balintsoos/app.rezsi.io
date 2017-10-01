@@ -10,6 +10,10 @@ export default defineMessages({
     id: 'app.containers.LoginPage.title',
     defaultMessage: 'Log In',
   },
+  subtitle: {
+    id: 'app.containers.LoginPage.subtitle',
+    defaultMessage: 'Sign in to your existing account',
+  },
   email: {
     id: 'app.containers.LoginPage.email',
     defaultMessage: 'Email',
