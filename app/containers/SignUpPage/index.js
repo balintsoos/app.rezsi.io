@@ -117,7 +117,6 @@ export class SignUpPage extends React.Component { // eslint-disable-line react/p
             <FlatButton
               disabled
               label={<FormattedMessage {...messages.alreadySignedUp} />}
-              containerElement={<Link to="/login" />}
             />
             <FlatButton
               primary
