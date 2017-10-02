@@ -9,13 +9,13 @@ const selectLoginPageDomain = (state) => state.get('loginPage');
  * Other specific selectors
  */
 const makeSelectLoading = () => createSelector(
- selectLoginPageDomain,
- (pageState) => pageState.get('loading')
+  selectLoginPageDomain,
+  (pageState) => pageState.get('loading')
 );
 
 const makeSelectError = () => createSelector(
- selectLoginPageDomain,
- (pageState) => pageState.get('error')
+  selectLoginPageDomain,
+  (pageState) => pageState.get('error')
 );
 
 /**

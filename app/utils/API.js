@@ -1,5 +1,5 @@
 import request from 'utils/request';
-import token from 'utils/token';
+import { exist, get } from 'utils/token';
 import merge from 'utils/merge';
 
 export class ApiConnector {
@@ -15,13 +15,13 @@ export class ApiConnector {
   }
 
   options = () => {
-    if (!token.exist()) {
+    if (!exist()) {
       return this.default;
     }
 
     return merge(this.default, {
       headers: {
-        Authorization: `Bearer ${token.get()}`,
+        Authorization: `Bearer ${get()}`,
       },
     });
   }
@@ -30,6 +30,10 @@ export class ApiConnector {
     `${this.baseUrl}${endpoint}`,
     merge(this.options(), options)
   )
+
+  auth = () => this.call('/auth', {
+    method: 'GET',
+  })
 
   login = (payload) => this.call('/auth/login', {
     method: 'POST',
