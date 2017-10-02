@@ -18,4 +18,8 @@ export default defineMessages({
     id: 'app.components.HomePage.login',
     defaultMessage: 'Log In',
   },
+  motto: {
+    id: 'app.components.HomePage.motto',
+    defaultMessage: 'The simpler way to manage household consumption bills',
+  },
 });

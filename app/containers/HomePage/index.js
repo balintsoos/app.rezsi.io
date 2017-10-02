@@ -9,16 +9,38 @@
  * the linting exception.
  */
 
+/* eslint-disable space-infix-ops */
 import React from 'react';
+import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
-import { CardText } from 'material-ui/Card';
+import { Flex } from 'grid-styled';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import Head from 'components/Head';
-import UserFlowCard from 'components/UserFlowCard';
+import Hero from 'components/Hero';
+import Logo from 'components/Logo';
 
 import messages from './messages';
+
+const Panel = styled(Flex)`
+  height: 100vh;
+`;
+
+const Motto = styled.div`
+  font-size: 40px;
+  font-weight: 300;
+  margin: 32px;
+  text-align: center;
+`;
+
+const Navigation = styled.div`
+  text-align: center;
+`;
+
+const NavButton = styled(RaisedButton)`
+  margin: 10px;
+`;
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
@@ -26,20 +48,31 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
       <div>
         <Head title={messages.title} />
 
-        <UserFlowCard>
-          <CardText>
-            <RaisedButton
-              primary
-              label={<FormattedMessage {...messages.signUp} />}
-              containerElement={<Link to="/signup" />}
-            />
+        <Flex wrap>
+          <Panel width={[1, 1, 1/2]} order={[2, 2, 1]}>
+            <Hero />
+          </Panel>
+          <Panel width={[1, 1, 1/2]} order={[1, 1, 2]} column justify={'center'}>
+            <Logo />
 
-            <RaisedButton
-              label={<FormattedMessage {...messages.login} />}
-              containerElement={<Link to="/login" />}
-            />
-          </CardText>
-        </UserFlowCard>
+            <Motto>
+              <FormattedMessage {...messages.motto} />
+            </Motto>
+
+            <Navigation>
+              <NavButton
+                primary
+                label={<FormattedMessage {...messages.signUp} />}
+                containerElement={<Link to="/signup" />}
+              />
+
+              <NavButton
+                label={<FormattedMessage {...messages.login} />}
+                containerElement={<Link to="/login" />}
+              />
+            </Navigation>
+          </Panel>
+        </Flex>
       </div>
     );
   }
