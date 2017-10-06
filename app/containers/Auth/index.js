@@ -15,6 +15,7 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { exist as tokenExist } from 'utils/token';
 
 import { makeSelectAuthenticated } from './selectors';
 import reducer from './reducer';
@@ -23,7 +24,7 @@ import { authenticate } from './actions';
 
 export class Auth extends React.Component { // eslint-disable-line react/prefer-stateless-function
   componentDidMount() {
-    if (this.props.authenticated === null) {
+    if (tokenExist() && this.props.authenticated === null) {
       this.props.authenticate();
     }
   }
@@ -31,10 +32,6 @@ export class Auth extends React.Component { // eslint-disable-line react/prefer-
   componentWillReceiveProps(nextProps) {
     if (nextProps.authenticated === this.props.authenticated) {
       return;
-    }
-
-    if (nextProps.authenticated === null) {
-      return this.props.authenticate();
     }
 
     if (nextProps.authenticated === false && nextProps.options.unauthenticated) {
@@ -88,10 +85,10 @@ export const AuthComponent = compose(
   withConnect,
 )(Auth);
 
-export default function withAuth(node, options) {
-  return (
+export default function withAuth(Component, options) {
+  return () => (
     <AuthComponent options={options}>
-      {node}
+      <Component />
     </AuthComponent>
   );
 }
