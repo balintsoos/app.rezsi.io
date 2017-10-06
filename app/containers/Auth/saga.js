@@ -1,11 +1,10 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
-import { push } from 'react-router-redux';
 
 import API from 'utils/API';
 import { remove } from 'utils/token';
 
 import { AUTHENTICATE, UNAUTHENTICATE } from './constants';
-import { authSuccess, authError } from './actions';
+import { authSuccess, authFail } from './actions';
 
 export function* authenticate() {
   try {
@@ -13,14 +12,12 @@ export function* authenticate() {
     yield put(authSuccess(user));
   } catch (err) {
     remove();
-    yield put(authError(err.message));
-    yield put(push('/login'));
+    yield put(authFail(err.message));
   }
 }
 
 export function* unauthenticate() {
   remove();
-  yield put(push('/login'));
 }
 
 // Root saga

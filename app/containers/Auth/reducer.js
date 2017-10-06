@@ -8,7 +8,7 @@ import { fromJS } from 'immutable';
 
 import {
   AUTH_SUCCESS,
-  AUTH_ERROR,
+  AUTH_FAIL,
   UNAUTHENTICATE,
 } from './constants';
 
@@ -24,7 +24,7 @@ function authReducer(state = initialState, action) {
         .set('authenticated', true)
         .set('user', action.user);
 
-    case AUTH_ERROR:
+    case AUTH_FAIL:
       return state
         .set('authenticated', false)
         .set('user', null);

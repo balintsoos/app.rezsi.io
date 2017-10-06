@@ -7,7 +7,7 @@
 import {
   AUTHENTICATE,
   AUTH_SUCCESS,
-  AUTH_ERROR,
+  AUTH_FAIL,
   UNAUTHENTICATE,
 } from './constants';
 
@@ -24,10 +24,9 @@ export function authSuccess(user) {
   };
 }
 
-export function authError(error) {
+export function authFail() {
   return {
-    type: AUTH_ERROR,
-    error,
+    type: AUTH_FAIL,
   };
 }
 

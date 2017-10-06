@@ -4,9 +4,12 @@
  *
  */
 
+/* eslint-disable consistent-return */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
@@ -19,9 +22,27 @@ import saga from './saga';
 import { authenticate } from './actions';
 
 export class Auth extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.authenticated === null) {
       this.props.authenticate();
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.authenticated === this.props.authenticated) {
+      return;
+    }
+
+    if (nextProps.authenticated === null) {
+      return this.props.authenticate();
+    }
+
+    if (nextProps.authenticated === false && nextProps.options.unauthenticated) {
+      return this.props.redirect(nextProps.options.unauthenticated);
+    }
+
+    if (nextProps.authenticated === true && nextProps.options.authenticated) {
+      return this.props.redirect(nextProps.options.authenticated);
     }
   }
 
@@ -36,8 +57,13 @@ export class Auth extends React.Component { // eslint-disable-line react/prefer-
 
 Auth.propTypes = {
   children: PropTypes.node,
+  redirect: PropTypes.func.isRequired,
   authenticate: PropTypes.func.isRequired,
   authenticated: PropTypes.bool,
+  options: PropTypes.shape({
+    authenticated: PropTypes.string,
+    unauthenticated: PropTypes.string,
+  }),
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -47,6 +73,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     authenticate: () => dispatch(authenticate()),
+    redirect: (endpoint) => dispatch(push(endpoint)),
   };
 }
 
@@ -55,8 +82,16 @@ const withConnect = connect(mapStateToProps, mapDispatchToProps);
 const withReducer = injectReducer({ key: 'auth', reducer });
 const withSaga = injectSaga({ key: 'auth', saga });
 
-export default compose(
+export const AuthComponent = compose(
   withReducer,
   withSaga,
   withConnect,
 )(Auth);
+
+export default function withAuth(node, options) {
+  return (
+    <AuthComponent options={options}>
+      {node}
+    </AuthComponent>
+  );
+}
