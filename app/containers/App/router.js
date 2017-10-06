@@ -9,16 +9,18 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 export default function Router() {
   return (
-    <Auth>
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/signup" component={SignUpPage} />
-        <Route exact path="/login" component={LoginPage} />
+    <Switch>
+      <Route exact path="/" component={HomePage} />
+      <Route exact path="/signup" component={SignUpPage} />
+      <Route exact path="/login" component={LoginPage} />
 
-        <Route path="/groups" component={HomePage} />
+      <Auth>
+        <Switch>
+          <Route path="/groups" component={HomePage} />
 
-        <Route component={NotFoundPage} />
-      </Switch>
-    </Auth>
+          <Route component={NotFoundPage} />
+        </Switch>
+      </Auth>
+    </Switch>
   );
 }

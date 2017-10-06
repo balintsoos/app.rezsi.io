@@ -9,7 +9,7 @@ import { authSuccess, authError } from './actions';
 
 export function* authenticate() {
   try {
-    const user = yield call(API.authenticate);
+    const user = yield call(API.auth);
     yield put(authSuccess(user));
   } catch (err) {
     remove();

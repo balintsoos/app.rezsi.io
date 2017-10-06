@@ -13,7 +13,7 @@ import {
 } from './constants';
 
 const initialState = fromJS({
-  authenticated: false,
+  authenticated: null,
   user: null,
 });
 

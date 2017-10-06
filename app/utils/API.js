@@ -35,7 +35,7 @@ export class ApiConnector {
     method: 'GET',
   })
 
-  login = (payload) => this.call('/auth/login', {
+  login = (payload) => this.call('/auth/token', {
     method: 'POST',
     body: JSON.stringify(payload),
   })

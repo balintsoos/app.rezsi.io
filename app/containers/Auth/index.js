@@ -12,7 +12,6 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { exist } from 'utils/token';
 
 import { makeSelectAuthenticated } from './selectors';
 import reducer from './reducer';
@@ -21,7 +20,7 @@ import { authenticate } from './actions';
 
 export class Auth extends React.Component { // eslint-disable-line react/prefer-stateless-function
   componentWillMount() {
-    if (exist() && !this.props.authenticated) {
+    if (this.props.authenticated === null) {
       this.props.authenticate();
     }
   }
@@ -38,7 +37,7 @@ export class Auth extends React.Component { // eslint-disable-line react/prefer-
 Auth.propTypes = {
   children: PropTypes.node,
   authenticate: PropTypes.func.isRequired,
-  authenticated: PropTypes.bool.isRequired,
+  authenticated: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
