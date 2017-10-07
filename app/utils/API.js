@@ -44,6 +44,10 @@ export class ApiConnector {
     method: 'POST',
     body: JSON.stringify(payload),
   })
+
+  groups = () => this.call('/groups', {
+    method: 'GET',
+  })
 }
 
 const baseUrl = process.env.NODE_ENV !== 'production'

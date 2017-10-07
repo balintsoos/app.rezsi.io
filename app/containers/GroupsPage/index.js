@@ -7,43 +7,66 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
+import Head from 'components/Head';
+import Notification from 'components/Notification';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectGroupsPage from './selectors';
+
+import { makeSelectLoading, makeSelectError } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
+import { fetch } from './actions';
 
 export class GroupsPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  componentDidMount() {
+    if (!this.props.loading) {
+      this.props.fetch();
+    }
+  }
+
+  errorMessage = () => {
+    if (!messages[this.props.error]) {
+      return this.props.error;
+    }
+
+    return <FormattedMessage {...messages[this.props.error]} />;
+  }
+
   render() {
     return (
       <div>
-        <Helmet>
-          <title>GroupsPage</title>
-          <meta name="description" content="Description of GroupsPage" />
-        </Helmet>
-        <FormattedMessage {...messages.header} />
+        <Head title={messages.title} />
+
+        <FormattedMessage {...messages.title} />
+
+        <Notification
+          watcher={this.props.error}
+          message={this.errorMessage()}
+        />
       </div>
     );
   }
 }
 
 GroupsPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  fetch: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  error: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  groupspage: makeSelectGroupsPage(),
+  loading: makeSelectLoading(),
+  error: makeSelectError(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    fetch: () => dispatch(fetch()),
   };
 }
 

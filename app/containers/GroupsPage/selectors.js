@@ -8,7 +8,15 @@ const selectGroupsPageDomain = (state) => state.get('groupsPage');
 /**
  * Other specific selectors
  */
+const makeSelectLoading = () => createSelector(
+  selectGroupsPageDomain,
+  (pageState) => pageState.get('loading')
+);
 
+const makeSelectError = () => createSelector(
+  selectGroupsPageDomain,
+  (pageState) => pageState.get('error')
+);
 
 /**
  * Default selector used by GroupsPage
@@ -22,4 +30,6 @@ const makeSelectGroupsPage = () => createSelector(
 export default makeSelectGroupsPage;
 export {
   selectGroupsPageDomain,
+  makeSelectLoading,
+  makeSelectError,
 };
