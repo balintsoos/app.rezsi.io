@@ -21,6 +21,7 @@ import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
 import SettingsIcon from 'material-ui/svg-icons/action/settings';
 import LogoutIcon from 'material-ui/svg-icons/action/power-settings-new';
+import { cyan500 as backgroundColor } from 'material-ui/styles/colors';
 
 import { makeSelectUser } from 'containers/Auth/selectors';
 import { unauthenticate } from 'containers/Auth/actions';
@@ -30,16 +31,19 @@ import messages from './messages';
 function Header(props) {
   return (
     <Paper zDepth={1}>
-      <Toolbar>
+      <Toolbar style={{ backgroundColor }}>
         <ToolbarGroup>
-          <ToolbarTitle text={'rezsi.io'} />
+          <ToolbarTitle
+            text={<FormattedMessage {...messages.title} />}
+            style={{ color: '#ffffff' }}
+          />
         </ToolbarGroup>
         <ToolbarGroup lastChild>
           <Gravatar email={props.user.email} />
 
           <IconMenu
             iconButtonElement={
-              <IconButton touch>
+              <IconButton touch iconStyle={{ color: '#ffffff' }}>
                 <ExpandMoreIcon />
               </IconButton>
             }

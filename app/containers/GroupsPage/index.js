@@ -12,6 +12,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 import RaisedButton from 'material-ui/RaisedButton';
+import AddIcon from 'material-ui/svg-icons/content/add';
 
 import Header from 'containers/Header';
 import Head from 'components/Head';
@@ -57,7 +58,11 @@ export class GroupsPage extends React.Component { // eslint-disable-line react/p
         <Header />
 
         <Subheader title={<FormattedMessage {...messages.title} />}>
-          <RaisedButton primary label={<FormattedMessage {...messages.create} />} />
+          <RaisedButton
+            primary
+            icon={<AddIcon />}
+            label={<FormattedMessage {...messages.create} />}
+          />
         </Subheader>
 
         <Notification

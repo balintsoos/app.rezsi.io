@@ -6,6 +6,10 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
+  title: {
+    id: 'app.containers.Header.title',
+    defaultMessage: 'rezsi.io',
+  },
   settings: {
     id: 'app.containers.Header.settings',
     defaultMessage: 'Settings',
