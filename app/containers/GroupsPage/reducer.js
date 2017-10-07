@@ -4,7 +4,7 @@
  *
  */
 
-import { fromJS } from 'immutable';
+import { fromJS, List } from 'immutable';
 
 import {
   FETCH,
@@ -29,7 +29,7 @@ function groupsPageReducer(state = initialState, action) {
       return state
         .set('loading', false)
         .set('error', '')
-        .set('groups', action.groups);
+        .set('groups', List(action.groups));
 
     case FETCH_ERROR:
       return state

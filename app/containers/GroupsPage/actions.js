@@ -10,7 +10,7 @@ import {
   FETCH_ERROR,
 } from './constants';
 
-export function fetch() {
+export function fetchRequest() {
   return {
     type: FETCH,
   };

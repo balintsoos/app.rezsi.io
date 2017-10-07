@@ -5,7 +5,7 @@ import API from 'utils/API';
 import { FETCH } from './constants';
 import { fetchSuccess, fetchError } from './actions';
 
-export function* fetch() {
+export function* fetchGroups() {
   try {
     const groups = yield call(API.groups);
     yield put(fetchSuccess(groups));
@@ -16,5 +16,5 @@ export function* fetch() {
 
 // Root saga
 export default function* rootSaga() {
-  yield takeLatest(FETCH, fetch);
+  yield takeLatest(FETCH, fetchGroups);
 }

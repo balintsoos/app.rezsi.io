@@ -10,4 +10,8 @@ export default defineMessages({
     id: 'app.containers.GroupsPage.title',
     defaultMessage: 'Groups',
   },
+  create: {
+    id: 'app.containers.GroupsPage.create',
+    defaultMessage: 'Create group',
+  },
 });

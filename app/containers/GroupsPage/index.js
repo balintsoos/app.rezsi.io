@@ -11,22 +11,34 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
+import RaisedButton from 'material-ui/RaisedButton';
+
+import Header from 'containers/Header';
 import Head from 'components/Head';
+import Subheader from 'components/Subheader';
 import Notification from 'components/Notification';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
-import { makeSelectLoading, makeSelectError } from './selectors';
+import { makeSelectLoading, makeSelectError, makeSelectGroups } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { fetch } from './actions';
+import { fetchRequest } from './actions';
 
 export class GroupsPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   componentDidMount() {
     if (!this.props.loading) {
       this.props.fetch();
     }
+  }
+
+  groupList() {
+    return (
+      <ul>
+        {this.props.groups.map((group) => <li>{group.name}</li>)}
+      </ul>
+    );
   }
 
   errorMessage = () => {
@@ -42,7 +54,11 @@ export class GroupsPage extends React.Component { // eslint-disable-line react/p
       <div>
         <Head title={messages.title} />
 
-        <FormattedMessage {...messages.title} />
+        <Header />
+
+        <Subheader title={<FormattedMessage {...messages.title} />}>
+          <RaisedButton primary label={<FormattedMessage {...messages.create} />} />
+        </Subheader>
 
         <Notification
           watcher={this.props.error}
@@ -57,16 +73,18 @@ GroupsPage.propTypes = {
   fetch: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.string.isRequired,
+  groups: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   loading: makeSelectLoading(),
   error: makeSelectError(),
+  groups: makeSelectGroups(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetch: () => dispatch(fetch()),
+    fetch: () => dispatch(fetchRequest()),
   };
 }
 

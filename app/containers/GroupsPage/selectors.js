@@ -18,6 +18,11 @@ const makeSelectError = () => createSelector(
   (pageState) => pageState.get('error')
 );
 
+const makeSelectGroups = () => createSelector(
+  selectGroupsPageDomain,
+  (pageState) => pageState.get('groups')
+);
+
 /**
  * Default selector used by GroupsPage
  */
@@ -32,4 +37,5 @@ export {
   selectGroupsPageDomain,
   makeSelectLoading,
   makeSelectError,
+  makeSelectGroups,
 };
