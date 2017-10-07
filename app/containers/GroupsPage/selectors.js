@@ -20,7 +20,12 @@ const makeSelectError = () => createSelector(
 
 const makeSelectGroups = () => createSelector(
   selectGroupsPageDomain,
-  (pageState) => pageState.get('groups')
+  (pageState) => pageState.get('groups').toJS()
+);
+
+const makeSelectDialog = (dialog) => createSelector(
+  selectGroupsPageDomain,
+  (pageState) => pageState.get(dialog)
 );
 
 /**
@@ -38,4 +43,5 @@ export {
   makeSelectLoading,
   makeSelectError,
   makeSelectGroups,
+  makeSelectDialog,
 };

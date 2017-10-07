@@ -45,8 +45,13 @@ export class ApiConnector {
     body: JSON.stringify(payload),
   })
 
-  groups = () => this.call('/groups', {
+  getGroups = () => this.call('/groups', {
     method: 'GET',
+  })
+
+  createGroup = (payload) => this.call('/groups', {
+    method: 'POST',
+    body: JSON.stringify(payload),
   })
 }
 

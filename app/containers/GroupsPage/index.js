@@ -22,40 +22,33 @@ import Notification from 'components/Notification';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
-import { makeSelectLoading, makeSelectError, makeSelectGroups } from './selectors';
+import {
+  makeSelectLoading,
+  makeSelectError,
+  makeSelectGroups,
+  makeSelectDialog,
+} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { fetchRequest } from './actions';
+import {
+  fetchRequest,
+  createRequest,
+  openDialog,
+  closeDialog,
+} from './actions';
 
 export class GroupsPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  constructor() {
-    super();
-    this.state = { createDialog: false };
-  }
-
   componentDidMount() {
     if (!this.props.loading) {
       this.props.fetch();
     }
   }
 
-  openCreateDialog = () => {
-    this.setState({ createDialog: true });
-  }
-
-  closeCreateDialog = () => {
-    this.setState({ createDialog: false });
-  }
-
-  submitCreateDialog = () => {
-    // TODO
-  }
-
-  groupList() {
+  GroupList() {
     return (
       <ul>
-        {this.props.groups.map((group) => <li>{group.name}</li>)}
+        {this.props.groups.map((group) => <li key={group.name}>{group.name}</li>)}
       </ul>
     );
   }
@@ -80,14 +73,16 @@ export class GroupsPage extends React.Component { // eslint-disable-line react/p
             primary
             icon={<AddIcon />}
             label={<FormattedMessage {...messages.create} />}
-            onClick={this.openCreateDialog}
+            onClick={this.props.openCreateDialog}
           />
         </Subheader>
 
+        {this.GroupList()}
+
         <CreateGroupDialog
-          open={this.state.createDialog}
-          submit={this.submitCreateDialog}
-          cancel={this.closeCreateDialog}
+          open={this.props.createDialog}
+          cancel={this.props.closeCreateDialog}
+          submit={this.props.create}
         />
 
         <Notification
@@ -101,20 +96,28 @@ export class GroupsPage extends React.Component { // eslint-disable-line react/p
 
 GroupsPage.propTypes = {
   fetch: PropTypes.func.isRequired,
+  create: PropTypes.func.isRequired,
+  createDialog: PropTypes.bool.isRequired,
+  openCreateDialog: PropTypes.func.isRequired,
+  closeCreateDialog: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.string.isRequired,
-  groups: PropTypes.object,
+  groups: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
   loading: makeSelectLoading(),
   error: makeSelectError(),
+  createDialog: makeSelectDialog('createDialog'),
   groups: makeSelectGroups(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     fetch: () => dispatch(fetchRequest()),
+    create: (group) => dispatch(createRequest(group)),
+    openCreateDialog: () => dispatch(openDialog('createDialog')),
+    closeCreateDialog: () => dispatch(closeDialog('createDialog')),
   };
 }
 
