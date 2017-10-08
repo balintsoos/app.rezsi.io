@@ -17,24 +17,27 @@ import Divider from 'material-ui/Divider';
 
 import messages from './messages';
 
-const openGroupElement = (
+const OpenButton = (open) => (
   <IconButton
     touch
     tooltip={<FormattedMessage {...messages.open} />}
     tooltipPosition="bottom-left"
+    onClick={open}
   >
     <OpenIcon color={grey400} />
   </IconButton>
 );
 
 function GroupListItem(props) {
+  const select = () => props.select(props.id);
+
   return (
     <div>
       <ListItem
         leftAvatar={<Avatar>{props.name[0].toUpperCase()}</Avatar>}
         primaryText={props.name}
-        rightIconButton={props.select ? openGroupElement : null}
-        onClick={props.select ? () => props.select(props.id) : null}
+        rightIconButton={props.select ? OpenButton(select) : null}
+        onClick={props.select ? select : null}
         disabled={!props.select}
       />
       <Divider inset />
