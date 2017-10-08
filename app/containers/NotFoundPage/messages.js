@@ -10,4 +10,12 @@ export default defineMessages({
     id: 'app.components.NotFoundPage.title',
     defaultMessage: '404',
   },
+  status: {
+    id: 'app.components.NotFoundPage.status',
+    defaultMessage: '4{icon}4',
+  },
+  subtitle: {
+    id: 'app.components.NotFoundPage.subtitle',
+    defaultMessage: 'Sorry, page not found',
+  },
 });
