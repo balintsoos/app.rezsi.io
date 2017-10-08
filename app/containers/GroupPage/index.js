@@ -7,6 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
@@ -15,9 +16,9 @@ import RaisedButton from 'material-ui/RaisedButton';
 import InviteIcon from 'material-ui/svg-icons/social/person-add';
 
 import Header from 'containers/Header';
-import Head from 'components/Head';
 import Subheader from 'components/Subheader';
 import Notification from 'components/Notification';
+import InviteDialog from 'components/InviteDialog';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
@@ -32,12 +33,23 @@ import {
 } from './selectors';
 
 export class GroupPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  componentDidMount() {
-    console.log(this.props);
+  constructor() {
+    super();
+    this.state = { inviteDialog: false };
+  }
 
+  componentDidMount() {
     if (!this.props.loading && this.props.match.params.id) {
       this.props.fetch(this.props.match.params.id);
     }
+  }
+
+  openInviteDialog = () => {
+    this.setState({ inviteDialog: true });
+  }
+
+  closeInviteDialog = () => {
+    this.setState({ inviteDialog: false });
   }
 
   errorMessage = () => {
@@ -48,10 +60,19 @@ export class GroupPage extends React.Component { // eslint-disable-line react/pr
     return <FormattedMessage {...messages[this.props.error]} />;
   }
 
+  inviteUrl = () => {
+    const origin = window.location.origin;
+    const id = this.props.group.id;
+
+    return `${origin}/signup?invite=${id}`;
+  }
+
   render() {
     return (
       <div>
-        <Head title={messages.title} />
+        <Helmet>
+          <title>{this.props.group.name}</title>
+        </Helmet>
 
         <Header />
 
@@ -60,8 +81,15 @@ export class GroupPage extends React.Component { // eslint-disable-line react/pr
             primary
             icon={<InviteIcon />}
             label={<FormattedMessage {...messages.invite} />}
+            onClick={this.openInviteDialog}
           />
         </Subheader>
+
+        <InviteDialog
+          open={this.state.inviteDialog}
+          ok={this.closeInviteDialog}
+          url={this.inviteUrl()}
+        />
 
         <Notification
           watcher={this.props.error}
