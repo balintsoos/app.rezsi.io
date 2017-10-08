@@ -1,5 +1,6 @@
 {
   "name": "rezsi.io",
+  "short_name": "rezsi.io",
   "theme_color": "#00bcd4",
   "background_color": "#fafafa",
   "display": "standalone",
