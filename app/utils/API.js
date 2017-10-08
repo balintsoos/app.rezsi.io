@@ -55,6 +55,8 @@ export class ApiConnector {
 
   getGroups = () => this.get('/groups')
 
+  getGroup = (id) => this.get(`/groups/${id}`)
+
   createGroup = (payload) => this.post('/groups', {
     body: JSON.stringify(payload),
   })

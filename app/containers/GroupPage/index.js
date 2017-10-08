@@ -7,43 +7,92 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
+import RaisedButton from 'material-ui/RaisedButton';
+import InviteIcon from 'material-ui/svg-icons/social/person-add';
+
+import Header from 'containers/Header';
+import Head from 'components/Head';
+import Subheader from 'components/Subheader';
+import Notification from 'components/Notification';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectGroupPage from './selectors';
+
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
+import { fetchRequest } from './actions';
+import {
+  makeSelectLoading,
+  makeSelectError,
+  makeSelectGroup,
+} from './selectors';
 
 export class GroupPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  componentDidMount() {
+    console.log(this.props);
+
+    if (!this.props.loading && this.props.match.params.id) {
+      this.props.fetch(this.props.match.params.id);
+    }
+  }
+
+  errorMessage = () => {
+    if (!messages[this.props.error]) {
+      return this.props.error;
+    }
+
+    return <FormattedMessage {...messages[this.props.error]} />;
+  }
+
   render() {
     return (
       <div>
-        <Helmet>
-          <title>GroupPage</title>
-          <meta name="description" content="Description of GroupPage" />
-        </Helmet>
-        <FormattedMessage {...messages.header} />
+        <Head title={messages.title} />
+
+        <Header />
+
+        <Subheader title={this.props.group.name}>
+          <RaisedButton
+            primary
+            icon={<InviteIcon />}
+            label={<FormattedMessage {...messages.invite} />}
+          />
+        </Subheader>
+
+        <Notification
+          watcher={this.props.error}
+          message={this.errorMessage()}
+        />
       </div>
     );
   }
 }
 
 GroupPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  fetch: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  error: PropTypes.string.isRequired,
+  group: PropTypes.object.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }),
+  }),
 };
 
 const mapStateToProps = createStructuredSelector({
-  grouppage: makeSelectGroupPage(),
+  loading: makeSelectLoading(),
+  error: makeSelectError(),
+  group: makeSelectGroup(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    fetch: (id) => dispatch(fetchRequest(id)),
   };
 }
 

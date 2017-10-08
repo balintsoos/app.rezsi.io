@@ -5,11 +5,28 @@
  */
 
 import {
-  DEFAULT_ACTION,
+  FETCH,
+  FETCH_SUCCESS,
+  FETCH_ERROR,
 } from './constants';
 
-export function defaultAction() {
+export function fetchRequest(id) {
   return {
-    type: DEFAULT_ACTION,
+    type: FETCH,
+    id,
+  };
+}
+
+export function fetchSuccess(group) {
+  return {
+    type: FETCH_SUCCESS,
+    group,
+  };
+}
+
+export function fetchError(error) {
+  return {
+    type: FETCH_ERROR,
+    error,
   };
 }

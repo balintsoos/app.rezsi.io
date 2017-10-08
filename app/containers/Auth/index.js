@@ -93,9 +93,9 @@ export const AuthComponent = compose(
 )(Auth);
 
 export default function withAuth(Component, options) {
-  return () => (
+  return (props) => (
     <AuthComponent options={options}>
-      <Component />
+      <Component {...props} />
     </AuthComponent>
   );
 }
