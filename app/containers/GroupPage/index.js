@@ -7,6 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
@@ -76,7 +77,10 @@ export class GroupPage extends React.Component { // eslint-disable-line react/pr
 
         <Header />
 
-        <Subheader title={this.props.group.name}>
+        <Subheader
+          title={this.props.group.name}
+          back={this.props.backToGroups}
+        >
           <RaisedButton
             primary
             icon={<InviteIcon />}
@@ -102,6 +106,7 @@ export class GroupPage extends React.Component { // eslint-disable-line react/pr
 
 GroupPage.propTypes = {
   fetch: PropTypes.func.isRequired,
+  backToGroups: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.string.isRequired,
   group: PropTypes.object.isRequired,
@@ -121,6 +126,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     fetch: (id) => dispatch(fetchRequest(id)),
+    backToGroups: () => dispatch(push('/groups')),
   };
 }
 
