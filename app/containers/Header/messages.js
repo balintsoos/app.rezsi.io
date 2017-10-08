@@ -14,6 +14,14 @@ export default defineMessages({
     id: 'app.containers.Header.settings',
     defaultMessage: 'Settings',
   },
+  help: {
+    id: 'app.containers.Header.help',
+    defaultMessage: 'Help',
+  },
+  feedback: {
+    id: 'app.containers.Header.feedback',
+    defaultMessage: 'Feedback',
+  },
   logout: {
     id: 'app.containers.Header.logout',
     defaultMessage: 'Logout',

@@ -20,6 +20,8 @@ import ExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
 import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
 import SettingsIcon from 'material-ui/svg-icons/action/settings';
+import HelpIcon from 'material-ui/svg-icons/action/help';
+import FeedbackIcon from 'material-ui/svg-icons/action/announcement';
 import LogoutIcon from 'material-ui/svg-icons/action/power-settings-new';
 import { cyan500 as backgroundColor } from 'material-ui/styles/colors';
 
@@ -51,11 +53,25 @@ function Header(props) {
             targetOrigin={{ horizontal: 'right', vertical: 'top' }}
           >
             <MenuItem
+              primaryText={props.user.displayName}
+              leftIcon={<Gravatar email={props.user.email} />}
+            />
+            <Divider />
+            <MenuItem
               primaryText={<FormattedMessage {...messages.settings} />}
               leftIcon={<SettingsIcon />}
               onClick={() => props.redirect('/settings')}
             />
-            <Divider />
+            <MenuItem
+              primaryText={<FormattedMessage {...messages.help} />}
+              leftIcon={<HelpIcon />}
+              onClick={() => props.redirect('/help')}
+            />
+            <MenuItem
+              primaryText={<FormattedMessage {...messages.feedback} />}
+              leftIcon={<FeedbackIcon />}
+              onClick={() => props.redirect('/feedback')}
+            />
             <MenuItem
               primaryText={<FormattedMessage {...messages.logout} />}
               leftIcon={<LogoutIcon />}
