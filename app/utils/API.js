@@ -1,5 +1,5 @@
 import request from 'utils/request';
-import { exist, get } from 'utils/token';
+import { exist as tokenExist, get as getToken } from 'utils/token';
 import merge from 'utils/merge';
 
 export class ApiConnector {
@@ -9,48 +9,53 @@ export class ApiConnector {
       credentials: 'include',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
       },
     };
   }
 
   options = () => {
-    if (!exist()) {
+    if (!tokenExist()) {
       return this.default;
     }
 
-    return merge(this.default, {
+    return merge({}, this.default, {
       headers: {
-        Authorization: `Bearer ${get()}`,
+        Authorization: `Bearer ${getToken()}`,
       },
     });
   }
 
   call = (endpoint, options) => request(
     `${this.baseUrl}${endpoint}`,
-    merge(this.options(), options)
+    merge({}, this.options(), options)
   )
 
-  auth = () => this.call('/auth', {
-    method: 'GET',
-  })
+  get = (endpoint, options = {}) => this.call(
+    endpoint,
+    merge({}, options, { method: 'GET' })
+  )
 
-  login = (payload) => this.call('/auth/token', {
-    method: 'POST',
+  post = (endpoint, options) => this.call(
+    endpoint,
+    merge({}, options, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+    })
+  )
+
+  auth = () => this.get('/auth')
+
+  login = (payload) => this.post('/auth/token', {
     body: JSON.stringify(payload),
   })
 
-  signUp = (payload) => this.call('/users', {
-    method: 'POST',
+  signUp = (payload) => this.post('/users', {
     body: JSON.stringify(payload),
   })
 
-  getGroups = () => this.call('/groups', {
-    method: 'GET',
-  })
+  getGroups = () => this.get('/groups')
 
-  createGroup = (payload) => this.call('/groups', {
-    method: 'POST',
+  createGroup = (payload) => this.post('/groups', {
     body: JSON.stringify(payload),
   })
 }
