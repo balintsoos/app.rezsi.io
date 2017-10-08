@@ -13,6 +13,7 @@ import { push } from 'react-router-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
+import ProgressBar from 'components/ProgressBar';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { exist as tokenExist } from 'utils/token';
@@ -20,11 +21,15 @@ import { exist as tokenExist } from 'utils/token';
 import { makeSelectAuthenticated } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { authenticate } from './actions';
+import { authenticate, unauthenticate } from './actions';
 
 export class Auth extends React.Component { // eslint-disable-line react/prefer-stateless-function
   componentDidMount() {
-    if (tokenExist() && this.props.authenticated === null) {
+    if (!tokenExist()) {
+      return this.props.unauthenticate();
+    }
+
+    if (this.props.authenticated === null) {
       this.props.authenticate();
     }
   }
@@ -44,11 +49,11 @@ export class Auth extends React.Component { // eslint-disable-line react/prefer-
   }
 
   render() {
-    return (
-      <div>
-        {this.props.children}
-      </div>
-    );
+    if (this.props.authenticated === null) {
+      return <ProgressBar />;
+    }
+
+    return this.props.children;
   }
 }
 
@@ -56,6 +61,7 @@ Auth.propTypes = {
   children: PropTypes.node,
   redirect: PropTypes.func.isRequired,
   authenticate: PropTypes.func.isRequired,
+  unauthenticate: PropTypes.func.isRequired,
   authenticated: PropTypes.bool,
   options: PropTypes.shape({
     authenticated: PropTypes.string,
@@ -70,6 +76,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     authenticate: () => dispatch(authenticate()),
+    unauthenticate: () => dispatch(unauthenticate()),
     redirect: (endpoint) => dispatch(push(endpoint)),
   };
 }
