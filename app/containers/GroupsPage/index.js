@@ -7,6 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
@@ -17,6 +18,7 @@ import AddIcon from 'material-ui/svg-icons/content/add';
 import Header from 'containers/Header';
 import Head from 'components/Head';
 import Subheader from 'components/Subheader';
+import GroupList from 'components/GroupList';
 import CreateGroupDialog from 'components/CreateGroupDialog';
 import Notification from 'components/Notification';
 import injectSaga from 'utils/injectSaga';
@@ -45,12 +47,8 @@ export class GroupsPage extends React.Component { // eslint-disable-line react/p
     }
   }
 
-  GroupList() {
-    return (
-      <ul>
-        {this.props.groups.map((group) => <li key={group.name}>{group.name}</li>)}
-      </ul>
-    );
+  onSelectGroup = (id) => {
+    this.props.redirect(`/groups/${id}`);
   }
 
   errorMessage = () => {
@@ -77,7 +75,7 @@ export class GroupsPage extends React.Component { // eslint-disable-line react/p
           />
         </Subheader>
 
-        {this.GroupList()}
+        <GroupList groups={this.props.groups} select={this.onSelectGroup} />
 
         <CreateGroupDialog
           open={this.props.createDialog}
@@ -97,12 +95,13 @@ export class GroupsPage extends React.Component { // eslint-disable-line react/p
 GroupsPage.propTypes = {
   fetch: PropTypes.func.isRequired,
   create: PropTypes.func.isRequired,
+  redirect: PropTypes.func.isRequired,
   createDialog: PropTypes.bool.isRequired,
   openCreateDialog: PropTypes.func.isRequired,
   closeCreateDialog: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.string.isRequired,
-  groups: PropTypes.array,
+  groups: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -118,6 +117,7 @@ function mapDispatchToProps(dispatch) {
     create: (group) => dispatch(createRequest(group)),
     openCreateDialog: () => dispatch(openDialog('createDialog')),
     closeCreateDialog: () => dispatch(closeDialog('createDialog')),
+    redirect: (to) => dispatch(push(to)),
   };
 }
 
