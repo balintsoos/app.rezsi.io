@@ -4,7 +4,7 @@
  *
  */
 
-import { fromJS, Map } from 'immutable';
+import { fromJS } from 'immutable';
 
 import {
   FETCH,
@@ -18,6 +18,7 @@ const initialState = fromJS({
   group: {
     id: '',
     name: '',
+    users: [],
   },
 });
 
@@ -32,7 +33,7 @@ function groupPageReducer(state = initialState, action) {
       return state
         .set('loading', false)
         .set('error', '')
-        .set('group', Map(action.group));
+        .update('group', (group) => group.merge(action.group));
 
     case FETCH_ERROR:
       return state

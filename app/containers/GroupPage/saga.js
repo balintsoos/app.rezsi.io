@@ -8,7 +8,7 @@ import {
   fetchError,
 } from './actions';
 
-export function* fetchGroups({ id }) {
+export function* fetchGroup({ id }) {
   try {
     const group = yield call(API.getGroup, id);
     yield put(fetchSuccess(group));
@@ -19,5 +19,5 @@ export function* fetchGroups({ id }) {
 
 // Root saga
 export default function* rootSaga() {
-  yield takeLatest(FETCH, fetchGroups);
+  yield takeLatest(FETCH, fetchGroup);
 }

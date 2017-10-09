@@ -8,6 +8,6 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   invite: {
     id: 'app.containers.GroupPage.invite',
-    defaultMessage: 'Invite new member',
+    defaultMessage: 'Invite',
   },
 });

@@ -18,8 +18,9 @@ import InviteIcon from 'material-ui/svg-icons/social/person-add';
 
 import Header from 'containers/Header';
 import Subheader from 'components/Subheader';
-import Notification from 'components/Notification';
+import UserList from 'components/UserList';
 import InviteDialog from 'components/InviteDialog';
+import Notification from 'components/Notification';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
@@ -43,6 +44,12 @@ export class GroupPage extends React.Component { // eslint-disable-line react/pr
     if (!this.props.loading && this.props.match.params.id) {
       this.props.fetch(this.props.match.params.id);
     }
+  }
+
+  onSelectUser = (userId) => {
+    const groupId = this.props.group.id;
+
+    this.props.redirect(`/groups/${groupId}/users/${userId}`);
   }
 
   openInviteDialog = () => {
@@ -89,6 +96,8 @@ export class GroupPage extends React.Component { // eslint-disable-line react/pr
           />
         </Subheader>
 
+        <UserList users={this.props.group.users} select={this.onSelectUser} />
+
         <InviteDialog
           open={this.state.inviteDialog}
           ok={this.closeInviteDialog}
@@ -107,6 +116,7 @@ export class GroupPage extends React.Component { // eslint-disable-line react/pr
 GroupPage.propTypes = {
   fetch: PropTypes.func.isRequired,
   backToGroups: PropTypes.func.isRequired,
+  redirect: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.string.isRequired,
   group: PropTypes.object.isRequired,
@@ -127,6 +137,7 @@ function mapDispatchToProps(dispatch) {
   return {
     fetch: (id) => dispatch(fetchRequest(id)),
     backToGroups: () => dispatch(push('/groups')),
+    redirect: (to) => dispatch(push(to)),
   };
 }
 
