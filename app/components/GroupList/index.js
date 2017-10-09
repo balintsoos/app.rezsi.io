@@ -6,17 +6,19 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
 
 import { List } from 'material-ui/List';
 
 import GroupListItem from 'components/GroupListItem';
-
-import messages from './messages';
+import ListPlaceholder from 'components/ListPlaceholder';
 
 function GroupList(props) {
-  if (!props.groups.length) {
-    return <FormattedMessage {...messages.empty} />;
+  if (!props.groups.length && props.placeholder) {
+    return (
+      <ListPlaceholder>
+        {props.placeholder}
+      </ListPlaceholder>
+    );
   }
 
   return (
@@ -31,6 +33,7 @@ function GroupList(props) {
 GroupList.propTypes = {
   groups: PropTypes.array.isRequired,
   select: PropTypes.func,
+  placeholder: PropTypes.node,
 };
 
 export default GroupList;

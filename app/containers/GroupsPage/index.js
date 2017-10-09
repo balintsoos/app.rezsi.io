@@ -59,6 +59,18 @@ export class GroupsPage extends React.Component { // eslint-disable-line react/p
     return <FormattedMessage {...messages[this.props.error]} />;
   }
 
+  GroupListPlaceholder = () => (
+    <div>
+      <p><FormattedMessage {...messages.empty} /></p>
+
+      <RaisedButton
+        icon={<AddIcon />}
+        label={<FormattedMessage {...messages.create} />}
+        onClick={this.props.openCreateDialog}
+      />
+    </div>
+  )
+
   render() {
     return (
       <div>
@@ -75,7 +87,11 @@ export class GroupsPage extends React.Component { // eslint-disable-line react/p
           />
         </Subheader>
 
-        <GroupList groups={this.props.groups} select={this.onSelectGroup} />
+        <GroupList
+          groups={this.props.groups}
+          select={this.onSelectGroup}
+          placeholder={this.GroupListPlaceholder()}
+        />
 
         <CreateGroupDialog
           open={this.props.createDialog}

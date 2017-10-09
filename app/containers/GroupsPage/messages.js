@@ -14,4 +14,8 @@ export default defineMessages({
     id: 'app.containers.GroupsPage.create',
     defaultMessage: 'Create group',
   },
+  empty: {
+    id: 'app.containers.GroupsPage.empty',
+    defaultMessage: 'You have no groups yet.',
+  },
 });
