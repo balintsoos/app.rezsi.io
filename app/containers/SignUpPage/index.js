@@ -41,6 +41,15 @@ export class SignUpPage extends React.Component { // eslint-disable-line react/p
     };
   }
 
+  componentWillMount() {
+    const query = new URLSearchParams(this.props.location.search);
+    const invite = query.get('invite');
+
+    if (invite) {
+      this.setState({ group: invite });
+    }
+  }
+
   onFieldChanged = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   }
@@ -139,6 +148,9 @@ SignUpPage.propTypes = {
   signUp: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.string.isRequired,
+  location: PropTypes.shape({
+    search: PropTypes.string.isRequired,
+  }),
 };
 
 const mapStateToProps = createStructuredSelector({
