@@ -6,17 +6,19 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
 
 import { List } from 'material-ui/List';
 
 import UserListItem from 'components/UserListItem';
-
-import messages from './messages';
+import ListPlaceholder from 'components/ListPlaceholder';
 
 function UserList(props) {
-  if (!props.users.length) {
-    return <FormattedMessage {...messages.empty} />;
+  if (!props.users.length && props.placeholder) {
+    return (
+      <ListPlaceholder>
+        {props.placeholder}
+      </ListPlaceholder>
+    );
   }
 
   return (
@@ -31,6 +33,7 @@ function UserList(props) {
 UserList.propTypes = {
   users: PropTypes.array.isRequired,
   select: PropTypes.func,
+  placeholder: PropTypes.node,
 };
 
 export default UserList;

@@ -75,6 +75,18 @@ export class GroupPage extends React.Component { // eslint-disable-line react/pr
     return `${origin}/signup?invite=${id}`;
   }
 
+  UserListPlaceholder = () => (
+    <div>
+      <p><FormattedMessage {...messages.empty} /></p>
+
+      <RaisedButton
+        icon={<InviteIcon />}
+        label={<FormattedMessage {...messages.invite} />}
+        onClick={this.openInviteDialog}
+      />
+    </div>
+  )
+
   render() {
     return (
       <div>
@@ -91,12 +103,16 @@ export class GroupPage extends React.Component { // eslint-disable-line react/pr
           <RaisedButton
             primary
             icon={<InviteIcon />}
-            label={<FormattedMessage {...messages.invite} />}
+            label={<FormattedMessage {...messages.inviteShort} />}
             onClick={this.openInviteDialog}
           />
         </Subheader>
 
-        <UserList users={this.props.group.users} select={this.onSelectUser} />
+        <UserList
+          users={this.props.group.users}
+          select={this.onSelectUser}
+          placeholder={this.UserListPlaceholder()}
+        />
 
         <InviteDialog
           open={this.state.inviteDialog}
