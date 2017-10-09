@@ -29,22 +29,24 @@ export class Auth extends React.Component { // eslint-disable-line react/prefer-
       return this.props.unauthenticate();
     }
 
-    if (this.props.authenticated === null) {
-      this.props.authenticate();
-    }
+    this.authFlow(this.props.authenticated);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.authenticated === this.props.authenticated) {
-      return;
+    this.authFlow(nextProps.authenticated);
+  }
+
+  authFlow(authenticated) {
+    if (authenticated === null) {
+      return this.props.authenticate();
     }
 
-    if (nextProps.authenticated === false && nextProps.options.unauthenticated) {
-      return this.props.redirect(nextProps.options.unauthenticated);
+    if (authenticated === false && this.props.options.unauthenticated) {
+      return this.props.redirect(this.props.options.unauthenticated);
     }
 
-    if (nextProps.authenticated === true && nextProps.options.authenticated) {
-      return this.props.redirect(nextProps.options.authenticated);
+    if (authenticated === true && this.props.options.authenticated) {
+      return this.props.redirect(this.props.options.authenticated);
     }
   }
 
@@ -94,7 +96,7 @@ export const AuthComponent = compose(
 
 export default function withAuth(Component, options) {
   return (props) => (
-    <AuthComponent options={options}>
+    <AuthComponent options={options} {...props}>
       <Component {...props} />
     </AuthComponent>
   );
