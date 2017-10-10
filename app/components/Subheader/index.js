@@ -25,7 +25,7 @@ function Subheader(props) {
             <IconButton
               touch
               tooltip={<FormattedMessage {...messages.back} />}
-              tooltipPosition={'bottom-right'}
+              tooltipPosition={'top-right'}
               onClick={props.back}
             >
               <BackIcon color={IconColor} />
