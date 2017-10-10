@@ -7,6 +7,7 @@ import SignUpPage from 'containers/SignUpPage/Loadable';
 import LoginPage from 'containers/LoginPage/Loadable';
 import GroupsPage from 'containers/GroupsPage/Loadable';
 import GroupPage from 'containers/GroupPage/Loadable';
+import UserPage from 'containers/UserPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 export default function Router() {
@@ -18,6 +19,8 @@ export default function Router() {
 
       <Route exact path="/groups" component={withAuth(GroupsPage, { unauthenticated: '/login' })} />
       <Route exact path="/groups/:id" component={withAuth(GroupPage, { unauthenticated: '/login' })} />
+
+      <Route exact path="/users/:id" component={withAuth(UserPage, { unauthenticated: '/login' })} />
 
       <Route component={NotFoundPage} />
     </Switch>

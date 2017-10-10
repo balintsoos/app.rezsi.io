@@ -47,9 +47,7 @@ export class GroupPage extends React.Component { // eslint-disable-line react/pr
   }
 
   onSelectUser = (userId) => {
-    const groupId = this.props.group.id;
-
-    this.props.redirect(`/groups/${groupId}/users/${userId}`);
+    this.props.redirect(`/users/${userId}`);
   }
 
   openInviteDialog = () => {
