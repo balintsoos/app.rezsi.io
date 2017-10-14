@@ -60,6 +60,8 @@ export class ApiConnector {
   createGroup = (payload) => this.post('/groups', {
     body: JSON.stringify(payload),
   })
+
+  getUser = ({ groupId, userId }) => this.get(`/groups/${groupId}/users/${userId}`)
 }
 
 const baseUrl = process.env.NODE_ENV !== 'production'

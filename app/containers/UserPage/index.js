@@ -7,43 +7,101 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
+import Header from 'containers/Header';
+import Subheader from 'components/Subheader';
+import Notification from 'components/Notification';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectUserPage from './selectors';
+
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
+import { fetchRequest } from './actions';
+import {
+  makeSelectLoading,
+  makeSelectError,
+  makeSelectUser,
+} from './selectors';
 
 export class UserPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  componentDidMount() {
+    if (!this.props.loading) {
+      const { groupId = '', userId = '' } = this.props.match.params;
+
+      this.props.fetch(groupId, userId);
+    }
+  }
+
+  backToGroup = () => {
+    const { groupId } = this.props.match.params;
+
+    this.props.backToGroup(groupId);
+  }
+
+  errorMessage = () => {
+    if (!messages[this.props.error]) {
+      return this.props.error;
+    }
+
+    return <FormattedMessage {...messages[this.props.error]} />;
+  }
+
   render() {
     return (
       <div>
         <Helmet>
-          <title>UserPage</title>
-          <meta name="description" content="Description of UserPage" />
+          <title>{this.props.user.displayName}</title>
         </Helmet>
-        <FormattedMessage {...messages.header} />
+
+        <Header />
+
+        <Subheader
+          title={this.props.user.displayName}
+          back={this.backToGroup}
+        >
+        </Subheader>
+
+        <Notification
+          watcher={this.props.error}
+          message={this.errorMessage()}
+        />
       </div>
     );
   }
 }
 
 UserPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  fetch: PropTypes.func.isRequired,
+  backToGroup: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  error: PropTypes.string.isRequired,
+  user: PropTypes.shape({
+    displayName: PropTypes.string.isRequired,
+  }),
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      groupId: PropTypes.string.isRequired,
+      userId: PropTypes.string.isRequired,
+    }),
+  }),
 };
 
 const mapStateToProps = createStructuredSelector({
-  userpage: makeSelectUserPage(),
+  loading: makeSelectLoading(),
+  error: makeSelectError(),
+  user: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    fetch: (groupId, userId) => dispatch(fetchRequest(groupId, userId)),
+    backToGroup: (groupId) => dispatch(push(`/groups/${groupId}`)),
   };
 }
 
