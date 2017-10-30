@@ -15,7 +15,7 @@ const makeSelectAuthenticated = () => createSelector(
 
 const makeSelectUser = () => createSelector(
   selectAuthDomain,
-  (pageState) => pageState.get('user')
+  (pageState) => pageState.get('user').toJS()
 );
 
 /**

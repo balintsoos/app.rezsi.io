@@ -1,6 +1,6 @@
 /*
  *
- * UserPage reducer
+ * GroupMemberPage reducer
  *
  */
 
@@ -20,7 +20,7 @@ const initialState = fromJS({
   },
 });
 
-function userPageReducer(state = initialState, action) {
+function groupMemberPageReducer(state = initialState, action) {
   switch (action.type) {
     case FETCH:
       return state
@@ -43,4 +43,4 @@ function userPageReducer(state = initialState, action) {
   }
 }
 
-export default userPageReducer;
+export default groupMemberPageReducer;

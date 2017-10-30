@@ -1,6 +1,6 @@
 /**
  *
- * UserPage
+ * GroupMemberPage
  *
  */
 
@@ -29,7 +29,7 @@ import {
   makeSelectUser,
 } from './selectors';
 
-export class UserPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export class GroupMemberPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   componentDidMount() {
     if (!this.props.loading) {
       const { groupId = '', userId = '' } = this.props.match.params;
@@ -63,6 +63,7 @@ export class UserPage extends React.Component { // eslint-disable-line react/pre
 
         <Subheader
           title={this.props.user.displayName}
+          gravatar={this.props.user.email}
           back={this.backToGroup}
         >
         </Subheader>
@@ -76,14 +77,12 @@ export class UserPage extends React.Component { // eslint-disable-line react/pre
   }
 }
 
-UserPage.propTypes = {
+GroupMemberPage.propTypes = {
   fetch: PropTypes.func.isRequired,
   backToGroup: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.string.isRequired,
-  user: PropTypes.shape({
-    displayName: PropTypes.string.isRequired,
-  }),
+  user: PropTypes.object,
   match: PropTypes.shape({
     params: PropTypes.shape({
       groupId: PropTypes.string.isRequired,
@@ -107,11 +106,11 @@ function mapDispatchToProps(dispatch) {
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
-const withReducer = injectReducer({ key: 'userPage', reducer });
-const withSaga = injectSaga({ key: 'userPage', saga });
+const withReducer = injectReducer({ key: 'groupMemberPage', reducer });
+const withSaga = injectSaga({ key: 'groupMemberPage', saga });
 
 export default compose(
   withReducer,
   withSaga,
   withConnect,
-)(UserPage);
+)(GroupMemberPage);

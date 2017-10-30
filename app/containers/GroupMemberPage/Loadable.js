@@ -1,6 +1,6 @@
 /**
  *
- * Asynchronously loads the component for UserPage
+ * Asynchronously loads the component for GroupMemberPage
  *
  */
 

@@ -1,26 +1,32 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import withAuth from 'containers/Auth';
+// Auth HOCs
+import {
+  isNotLoggedIn,
+  isLoggedInGroupLeader,
+  // isLoggedInGroupMember,
+} from 'containers/Auth/controllers';
+
+// Pages
 import HomePage from 'containers/HomePage/Loadable';
 import SignUpPage from 'containers/SignUpPage/Loadable';
 import LoginPage from 'containers/LoginPage/Loadable';
 import GroupsPage from 'containers/GroupsPage/Loadable';
 import GroupPage from 'containers/GroupPage/Loadable';
-import UserPage from 'containers/UserPage/Loadable';
+import GroupMemberPage from 'containers/GroupMemberPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 export default function Router() {
   return (
     <Switch>
-      <Route exact path="/" component={withAuth(HomePage, { authenticated: '/groups' })} />
-      <Route exact path="/signup" component={withAuth(SignUpPage, { authenticated: '/groups' })} />
-      <Route exact path="/login" component={withAuth(LoginPage, { authenticated: '/groups' })} />
+      <Route exact path="/" component={isNotLoggedIn(HomePage)} />
+      <Route exact path="/signup" component={isNotLoggedIn(SignUpPage)} />
+      <Route exact path="/login" component={isNotLoggedIn(LoginPage)} />
 
-      <Route exact path="/groups" component={withAuth(GroupsPage, { unauthenticated: '/login' })} />
-      <Route exact path="/groups/:id" component={withAuth(GroupPage, { unauthenticated: '/login' })} />
-
-      <Route exact path="/groups/:groupId/users/:userId" component={withAuth(UserPage, { unauthenticated: '/login' })} />
+      <Route exact path="/groups" component={isLoggedInGroupLeader(GroupsPage)} />
+      <Route exact path="/groups/:id" component={isLoggedInGroupLeader(GroupPage)} />
+      <Route exact path="/groups/:groupId/users/:userId" component={isLoggedInGroupLeader(GroupMemberPage)} />
 
       <Route component={NotFoundPage} />
     </Switch>

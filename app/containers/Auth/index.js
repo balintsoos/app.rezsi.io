@@ -18,7 +18,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { exist as tokenExist } from 'utils/token';
 
-import { makeSelectAuthenticated } from './selectors';
+import { makeSelectAuthenticated, makeSelectUser } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { authenticate, unauthenticate } from './actions';
@@ -41,13 +41,7 @@ export class Auth extends React.Component { // eslint-disable-line react/prefer-
       return this.props.authenticate();
     }
 
-    if (authenticated === false && this.props.options.unauthenticated) {
-      return this.props.redirect(this.props.options.unauthenticated);
-    }
-
-    if (authenticated === true && this.props.options.authenticated) {
-      return this.props.redirect(this.props.options.authenticated);
-    }
+    this.props.controller(authenticated, this.props.user, this.props.redirect);
   }
 
   render() {
@@ -65,14 +59,13 @@ Auth.propTypes = {
   authenticate: PropTypes.func.isRequired,
   unauthenticate: PropTypes.func.isRequired,
   authenticated: PropTypes.bool,
-  options: PropTypes.shape({
-    authenticated: PropTypes.string,
-    unauthenticated: PropTypes.string,
-  }),
+  user: PropTypes.object,
+  controller: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   authenticated: makeSelectAuthenticated(),
+  user: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -88,16 +81,8 @@ const withConnect = connect(mapStateToProps, mapDispatchToProps);
 const withReducer = injectReducer({ key: 'auth', reducer });
 const withSaga = injectSaga({ key: 'auth', saga });
 
-export const AuthComponent = compose(
+export default compose(
   withReducer,
   withSaga,
   withConnect,
 )(Auth);
-
-export default function withAuth(Component, options) {
-  return (props) => (
-    <AuthComponent options={options} {...props}>
-      <Component {...props} />
-    </AuthComponent>
-  );
-}

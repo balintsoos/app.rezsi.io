@@ -1,6 +1,6 @@
 /*
  *
- * UserPage actions
+ * GroupMemberPage actions
  *
  */
 

@@ -14,7 +14,7 @@ import {
 
 const initialState = fromJS({
   authenticated: null,
-  user: null,
+  user: {},
 });
 
 function authReducer(state = initialState, action) {
@@ -22,17 +22,17 @@ function authReducer(state = initialState, action) {
     case AUTH_SUCCESS:
       return state
         .set('authenticated', true)
-        .set('user', action.user);
+        .update('user', (user) => user.merge(action.user));
 
     case AUTH_FAIL:
       return state
         .set('authenticated', false)
-        .set('user', null);
+        .update('user', (user) => user.clear());
 
     case UNAUTHENTICATE:
       return state
         .set('authenticated', false)
-        .set('user', null);
+        .update('user', (user) => user.clear());
 
     default:
       return state;

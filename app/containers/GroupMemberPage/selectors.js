@@ -1,41 +1,41 @@
 import { createSelector } from 'reselect';
 
 /**
- * Direct selector to the userPage state domain
+ * Direct selector to the groupMemberPage state domain
  */
-const selectUserPageDomain = (state) => state.get('userPage');
+const selectGroupMemberPageDomain = (state) => state.get('groupMemberPage');
 
 /**
  * Other specific selectors
  */
 const makeSelectLoading = () => createSelector(
-  selectUserPageDomain,
+  selectGroupMemberPageDomain,
   (pageState) => pageState.get('loading')
 );
 
 const makeSelectError = () => createSelector(
-  selectUserPageDomain,
+  selectGroupMemberPageDomain,
   (pageState) => pageState.get('error')
 );
 
 const makeSelectUser = () => createSelector(
-  selectUserPageDomain,
+  selectGroupMemberPageDomain,
   (pageState) => pageState.get('user').toJS()
 );
 
 
 /**
- * Default selector used by UserPage
+ * Default selector used by GroupMemberPage
  */
 
-const makeSelectUserPage = () => createSelector(
-  selectUserPageDomain,
+const makeSelectGroupMemberPage = () => createSelector(
+  selectGroupMemberPageDomain,
   (substate) => substate.toJS()
 );
 
-export default makeSelectUserPage;
+export default makeSelectGroupMemberPage;
 export {
-  selectUserPageDomain,
+  selectGroupMemberPageDomain,
   makeSelectLoading,
   makeSelectError,
   makeSelectUser,
