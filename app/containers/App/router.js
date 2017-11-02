@@ -15,6 +15,7 @@ import LoginPage from 'containers/LoginPage/Loadable';
 import GroupsPage from 'containers/GroupsPage/Loadable';
 import GroupPage from 'containers/GroupPage/Loadable';
 import GroupMemberPage from 'containers/GroupMemberPage/Loadable';
+import UserPage from 'containers/UserPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 export default function Router() {
@@ -28,7 +29,7 @@ export default function Router() {
       <Route exact path="/groups/:id" component={isLoggedInGroupLeader(GroupPage)} />
       <Route exact path="/groups/:groupId/users/:userId" component={isLoggedInGroupLeader(GroupMemberPage)} />
 
-      <Route exact path="/user" component={isLoggedInGroupMember(GroupMemberPage)} />
+      <Route exact path="/user" component={isLoggedInGroupMember(UserPage)} />
 
       <Route component={NotFoundPage} />
     </Switch>
