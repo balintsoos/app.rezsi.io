@@ -17,6 +17,7 @@ import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
 import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
 import ExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
+import { ListItem } from 'material-ui/List';
 import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
 import SettingsIcon from 'material-ui/svg-icons/action/settings';
@@ -52,9 +53,11 @@ function Header(props) {
             anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
             targetOrigin={{ horizontal: 'right', vertical: 'top' }}
           >
-            <MenuItem
+            <ListItem
+              disabled
               primaryText={props.user.displayName}
-              leftIcon={<Gravatar email={props.user.email} />}
+              secondaryText={props.user.email}
+              leftAvatar={<Gravatar email={props.user.email} />}
             />
             <Divider />
             <MenuItem
