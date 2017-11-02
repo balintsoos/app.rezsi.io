@@ -12,20 +12,31 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
+import RaisedButton from 'material-ui/RaisedButton';
+import AddIcon from 'material-ui/svg-icons/content/add';
+
 import Header from 'containers/Header';
+import Subheader from 'components/Subheader';
 import Notification from 'components/Notification';
+import CreateReportDialog from 'components/CreateReportDialog';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { fetchRequest } from './actions';
 import {
   makeSelectLoading,
   makeSelectError,
   makeSelectUser,
+  makeSelectCreateReportDialog,
 } from './selectors';
+import {
+  fetchRequest,
+  createReportRequest,
+  openDialog,
+  closeDialog,
+} from './actions';
 
 export class UserPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   componentDidMount() {
@@ -51,7 +62,22 @@ export class UserPage extends React.Component { // eslint-disable-line react/pre
 
         <Header />
 
+        <Subheader title={this.props.user.group}>
+          <RaisedButton
+            primary
+            icon={<AddIcon />}
+            label={<FormattedMessage {...messages.createReport} />}
+            onClick={() => this.props.openDialog('createReportDialog')}
+          />
+        </Subheader>
+
         {JSON.stringify(this.props.user)}
+
+        <CreateReportDialog
+          open={this.props.createReportDialog}
+          cancel={() => this.props.closeDialog('createReportDialog')}
+          submit={this.props.createReport}
+        />
 
         <Notification
           watcher={this.props.error}
@@ -67,17 +93,25 @@ UserPage.propTypes = {
   loading: PropTypes.bool.isRequired,
   error: PropTypes.string.isRequired,
   user: PropTypes.object.isRequired,
+  openDialog: PropTypes.func.isRequired,
+  closeDialog: PropTypes.func.isRequired,
+  createReport: PropTypes.func.isRequired,
+  createReportDialog: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   loading: makeSelectLoading(),
   error: makeSelectError(),
   user: makeSelectUser(),
+  createReportDialog: makeSelectCreateReportDialog(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     fetch: () => dispatch(fetchRequest()),
+    openDialog: (dialog) => dispatch(openDialog(dialog)),
+    closeDialog: (dialog) => dispatch(closeDialog(dialog)),
+    createReport: (report) => dispatch(createReportRequest(report)),
   };
 }
 

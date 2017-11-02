@@ -6,8 +6,8 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
-    id: 'app.containers.UserPage.header',
-    defaultMessage: 'This is UserPage container !',
+  createReport: {
+    id: 'app.containers.UserPage.createReport',
+    defaultMessage: 'Create report',
   },
 });

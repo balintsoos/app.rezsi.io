@@ -23,6 +23,10 @@ const makeSelectUser = () => createSelector(
   (pageState) => pageState.get('user').toJS()
 );
 
+const makeSelectCreateReportDialog = () => createSelector(
+  selectUserPageDomain,
+  (pageState) => pageState.get('createReportDialog')
+);
 
 /**
  * Default selector used by UserPage
@@ -39,4 +43,5 @@ export {
   makeSelectLoading,
   makeSelectError,
   makeSelectUser,
+  makeSelectCreateReportDialog,
 };
