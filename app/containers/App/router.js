@@ -5,7 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 import {
   isNotLoggedIn,
   isLoggedInGroupLeader,
-  // isLoggedInGroupMember,
+  isLoggedInGroupMember,
 } from 'containers/Auth/controllers';
 
 // Pages
@@ -27,6 +27,8 @@ export default function Router() {
       <Route exact path="/groups" component={isLoggedInGroupLeader(GroupsPage)} />
       <Route exact path="/groups/:id" component={isLoggedInGroupLeader(GroupPage)} />
       <Route exact path="/groups/:groupId/users/:userId" component={isLoggedInGroupLeader(GroupMemberPage)} />
+
+      <Route exact path="/user" component={isLoggedInGroupMember(GroupMemberPage)} />
 
       <Route component={NotFoundPage} />
     </Switch>

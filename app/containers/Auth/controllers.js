@@ -41,7 +41,7 @@ export function isNotLoggedIn(Component) {
     }
 
     if (user.role === 'MEMBER') {
-      return redirect('/loggedinmember'); // eslint-disable-line consistent-return
+      return redirect('/user'); // eslint-disable-line consistent-return
     }
   });
 }
