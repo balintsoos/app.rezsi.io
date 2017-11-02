@@ -62,8 +62,6 @@ export class ApiConnector {
   })
 
   getGroupMember = ({ groupId, userId }) => this.get(`/groups/${groupId}/users/${userId}`)
-
-  getUser = () => this.get('/user')
 }
 
 const baseUrl = process.env.NODE_ENV !== 'production'

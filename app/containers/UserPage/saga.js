@@ -10,7 +10,7 @@ import {
 
 export function* fetchUser() {
   try {
-    const user = yield call(API.getUser);
+    const user = yield call(API.auth);
     yield put(fetchSuccess(user));
   } catch (err) {
     yield put(fetchError(err.message));
