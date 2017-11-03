@@ -56,8 +56,6 @@ export class UserPage extends React.Component { // eslint-disable-line react/pre
   }
 
   render() {
-    console.log(this.props.user);
-
     return (
       <div>
         <Helmet>

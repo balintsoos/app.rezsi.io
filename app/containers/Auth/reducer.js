@@ -32,12 +32,12 @@ function authReducer(state = initialState, action) {
     case AUTH_FAIL:
       return state
         .set('authenticated', false)
-        .update('user', (user) => user.clear());
+        .set('user', initialState.get('user'));
 
     case UNAUTHENTICATE:
       return state
         .set('authenticated', false)
-        .update('user', (user) => user.clear());
+        .set('user', initialState.get('user'));
 
     default:
       return state;
