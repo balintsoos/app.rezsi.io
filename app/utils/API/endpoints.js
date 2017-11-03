@@ -1,10 +1,10 @@
-export const makeAuth = (get) =>
+export const makeGetAuth = (get) =>
   () => get('/auth');
 
-export const makeLogin = (post) =>
-  (payload) => post('/auth/token', payload);
+export const makePostAuth = (post) =>
+  (payload) => post('/auth', payload);
 
-export const makeSignUp = (post) =>
+export const makePostUser = (post) =>
   (payload) => post('/users', payload);
 
 export const makeGetGroups = (get) =>
@@ -13,11 +13,14 @@ export const makeGetGroups = (get) =>
 export const makeGetGroup = (get) =>
   (id) => get(`/groups/${id}`);
 
-export const makeCreateGroup = (post) =>
+export const makePostGroup = (post) =>
   (payload) => post('/groups', payload);
 
 export const makeGetGroupMember = (get) =>
   ({ groupId, userId }) => get(`/groups/${groupId}/users/${userId}`);
 
+export const makeGetReports = (get) =>
+  () => get('/reports');
+
 export const makePostReport = (post) =>
-  (payload) => post('/user/reports', payload);
+  (payload) => post('/reports', payload);

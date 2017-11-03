@@ -22,13 +22,15 @@ import CreateReportDialog from 'components/CreateReportDialog';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
+import { makeSelectUser } from 'containers/Auth/selectors';
+
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import {
   makeSelectLoading,
   makeSelectError,
-  makeSelectUser,
+  makeSelectReports,
   makeSelectCreateReportDialog,
 } from './selectors';
 import {
@@ -54,6 +56,8 @@ export class UserPage extends React.Component { // eslint-disable-line react/pre
   }
 
   render() {
+    console.log(this.props.user);
+
     return (
       <div>
         <Helmet>
@@ -72,6 +76,8 @@ export class UserPage extends React.Component { // eslint-disable-line react/pre
         </Subheader>
 
         {JSON.stringify(this.props.user)}
+
+        {JSON.stringify(this.props.reports)}
 
         <CreateReportDialog
           open={this.props.createReportDialog}
@@ -93,6 +99,7 @@ UserPage.propTypes = {
   loading: PropTypes.bool.isRequired,
   error: PropTypes.string.isRequired,
   user: PropTypes.object.isRequired,
+  reports: PropTypes.array.isRequired,
   openDialog: PropTypes.func.isRequired,
   closeDialog: PropTypes.func.isRequired,
   createReport: PropTypes.func.isRequired,
@@ -103,6 +110,7 @@ const mapStateToProps = createStructuredSelector({
   loading: makeSelectLoading(),
   error: makeSelectError(),
   user: makeSelectUser(),
+  reports: makeSelectReports(),
   createReportDialog: makeSelectCreateReportDialog(),
 });
 

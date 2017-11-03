@@ -11,13 +11,14 @@ import {
 } from './core';
 
 import {
-  makeAuth,
-  makeLogin,
-  makeSignUp,
+  makeGetAuth,
+  makePostAuth,
+  makePostUser,
   makeGetGroups,
   makeGetGroup,
-  makeCreateGroup,
+  makePostGroup,
   makeGetGroupMember,
+  makeGetReports,
   makePostReport,
 } from './endpoints';
 
@@ -39,20 +40,21 @@ const get = makeGet({ merge, call });
 const post = makePost({ merge, call });
 
 const ApiConnector = {
-  auth: makeAuth(get),
-  login: makeLogin(post),
-  signUp: makeSignUp(post),
+  auth: makeGetAuth(get),
+  login: makePostAuth(post),
+  signUp: makePostUser(post),
   groups: {
     get: makeGetGroups(get),
-  },
-  group: {
-    get: makeGetGroup(get),
-    post: makeCreateGroup(post),
-    member: {
-      get: makeGetGroupMember(get),
+    post: makePostGroup(post),
+    group: {
+      get: makeGetGroup(get),
+      member: {
+        get: makeGetGroupMember(get),
+      },
     },
   },
-  report: {
+  reports: {
+    get: makeGetReports(get),
     post: makePostReport(post),
   },
 };

@@ -14,7 +14,12 @@ import {
 
 const initialState = fromJS({
   authenticated: null,
-  user: {},
+  user: {
+    displayName: '',
+    email: '',
+    role: '',
+    group: '',
+  },
 });
 
 function authReducer(state = initialState, action) {

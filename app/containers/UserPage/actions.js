@@ -21,10 +21,10 @@ export function fetchRequest() {
   };
 }
 
-export function fetchSuccess(user) {
+export function fetchSuccess(reports) {
   return {
     type: FETCH_SUCCESS,
-    user,
+    reports,
   };
 }
 

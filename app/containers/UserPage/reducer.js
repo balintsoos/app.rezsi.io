@@ -4,7 +4,7 @@
  *
  */
 
-import { fromJS } from 'immutable';
+import { fromJS, List, Map } from 'immutable';
 
 import {
   FETCH,
@@ -21,9 +21,7 @@ const initialState = fromJS({
   loading: false,
   error: '',
   createReportDialog: false,
-  user: {
-    group: '',
-  },
+  reports: [],
 });
 
 function userPageReducer(state = initialState, action) {
@@ -37,7 +35,7 @@ function userPageReducer(state = initialState, action) {
       return state
         .set('loading', false)
         .set('error', '')
-        .update('user', (user) => user.merge(action.user));
+        .set('reports', List(action.reports));
 
     case FETCH_ERROR:
       return state
@@ -54,7 +52,7 @@ function userPageReducer(state = initialState, action) {
         .set('loading', false)
         .set('error', '')
         .set('createReportDialog', false)
-        .updateIn(['user', 'consumptionReports'], (reports) => reports.unshift(Map(action.report)));
+        .update('reports', (reports) => reports.unshift(Map(action.report)));
 
     case CREATE_REPORT_ERROR:
       return state

@@ -14,10 +14,10 @@ import {
   createReportError,
 } from './actions';
 
-export function* fetchUser() {
+export function* fetchReports() {
   try {
-    const user = yield call(API.auth);
-    yield put(fetchSuccess(user));
+    const reports = yield call(API.reports.get);
+    yield put(fetchSuccess(reports));
   } catch (err) {
     yield put(fetchError(err.message));
   }
@@ -25,7 +25,7 @@ export function* fetchUser() {
 
 export function* createReport(action) {
   try {
-    const report = yield call(API.report.post, action.report);
+    const report = yield call(API.reports.post, action.report);
     yield put(createReportSuccess(report));
   } catch (err) {
     yield put(createReportError(err.message));
@@ -34,6 +34,6 @@ export function* createReport(action) {
 
 // Root saga
 export default function* rootSaga() {
-  yield takeLatest(FETCH, fetchUser);
+  yield takeLatest(FETCH, fetchReports);
   yield takeLatest(CREATE_REPORT, createReport);
 }

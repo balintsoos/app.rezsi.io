@@ -18,9 +18,9 @@ const makeSelectError = () => createSelector(
   (pageState) => pageState.get('error')
 );
 
-const makeSelectUser = () => createSelector(
+const makeSelectReports = () => createSelector(
   selectUserPageDomain,
-  (pageState) => pageState.get('user').toJS()
+  (pageState) => pageState.get('reports').toJS()
 );
 
 const makeSelectCreateReportDialog = () => createSelector(
@@ -42,6 +42,6 @@ export {
   selectUserPageDomain,
   makeSelectLoading,
   makeSelectError,
-  makeSelectUser,
+  makeSelectReports,
   makeSelectCreateReportDialog,
 };

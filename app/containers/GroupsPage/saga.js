@@ -21,7 +21,7 @@ export function* fetchGroups() {
 
 export function* createGroup(action) {
   try {
-    const group = yield call(API.group.post, action.group);
+    const group = yield call(API.groups.post, action.group);
     yield put(createSuccess(group));
   } catch (err) {
     yield put(createError(err.message));

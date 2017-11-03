@@ -10,7 +10,7 @@ import {
 
 export function* fetchGroup({ id }) {
   try {
-    const group = yield call(API.group.get, id);
+    const group = yield call(API.groups.group.get, id);
     yield put(fetchSuccess(group));
   } catch (err) {
     yield put(fetchError(err.message));
