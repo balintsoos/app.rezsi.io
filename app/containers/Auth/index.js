@@ -16,7 +16,7 @@ import { compose } from 'redux';
 import ProgressBar from 'components/ProgressBar';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { exist as tokenExist } from 'utils/token';
+import TokenStorage from 'utils/TokenStorage';
 
 import { makeSelectAuthenticated, makeSelectUser } from './selectors';
 import reducer from './reducer';
@@ -25,7 +25,7 @@ import { authenticate, unauthenticate } from './actions';
 
 export class Auth extends React.Component { // eslint-disable-line react/prefer-stateless-function
   componentDidMount() {
-    if (!tokenExist()) {
+    if (!TokenStorage.exist()) {
       return this.props.unauthenticate();
     }
 

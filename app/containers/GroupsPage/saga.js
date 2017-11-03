@@ -12,7 +12,7 @@ import {
 
 export function* fetchGroups() {
   try {
-    const groups = yield call(API.getGroups);
+    const groups = yield call(API.groups.get);
     yield put(fetchSuccess(groups));
   } catch (err) {
     yield put(fetchError(err.message));
@@ -21,7 +21,7 @@ export function* fetchGroups() {
 
 export function* createGroup(action) {
   try {
-    const group = yield call(API.createGroup, action.group);
+    const group = yield call(API.group.post, action.group);
     yield put(createSuccess(group));
   } catch (err) {
     yield put(createError(err.message));

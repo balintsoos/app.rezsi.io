@@ -2,7 +2,7 @@ import { takeLatest, call, put } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 
 import API from 'utils/API';
-import { set } from 'utils/token';
+import TokenStorage from 'utils/TokenStorage';
 import { authSuccess } from 'containers/Auth/actions';
 
 import { LOGIN_REQUEST } from './constants';
@@ -12,7 +12,7 @@ export function* login({ email, password }) {
   try {
     const { user, token } = yield call(API.login, { email, password });
     yield put(loginSuccess());
-    set(token);
+    TokenStorage.set(token);
     yield put(authSuccess(user));
     yield put(push('/'));
   } catch (err) {

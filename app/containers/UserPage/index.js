@@ -57,7 +57,7 @@ export class UserPage extends React.Component { // eslint-disable-line react/pre
     return (
       <div>
         <Helmet>
-          <title>{'TODO'}</title>
+          <title>{this.props.user.group}</title>
         </Helmet>
 
         <Header />

@@ -1,7 +1,7 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
 
 import API from 'utils/API';
-import { remove } from 'utils/token';
+import TokenStorage from 'utils/TokenStorage';
 
 import { AUTHENTICATE, UNAUTHENTICATE } from './constants';
 import { authSuccess, authFail } from './actions';
@@ -11,13 +11,13 @@ export function* authenticate() {
     const user = yield call(API.auth);
     yield put(authSuccess(user));
   } catch (err) {
-    remove();
+    TokenStorage.remove();
     yield put(authFail(err.message));
   }
 }
 
 export function* unauthenticate() {
-  remove();
+  TokenStorage.remove();
 }
 
 // Root saga
