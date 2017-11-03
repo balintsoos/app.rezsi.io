@@ -73,8 +73,6 @@ export class UserPage extends React.Component { // eslint-disable-line react/pre
           />
         </Subheader>
 
-        {JSON.stringify(this.props.user)}
-
         {JSON.stringify(this.props.reports)}
 
         <CreateReportDialog
