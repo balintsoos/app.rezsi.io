@@ -16,6 +16,7 @@ import { compose } from 'redux';
 import Header from 'containers/Header';
 import Subheader from 'components/Subheader';
 import Notification from 'components/Notification';
+import ReportList from 'components/ReportList';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
@@ -67,6 +68,8 @@ export class GroupMemberPage extends React.Component { // eslint-disable-line re
           back={this.backToGroup}
         >
         </Subheader>
+
+        <ReportList reports={this.props.user.reports} />
 
         <Notification
           watcher={this.props.error}
