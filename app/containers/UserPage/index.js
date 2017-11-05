@@ -19,6 +19,7 @@ import Header from 'containers/Header';
 import Subheader from 'components/Subheader';
 import Notification from 'components/Notification';
 import CreateReportDialog from 'components/CreateReportDialog';
+import ReportList from 'components/ReportList';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
@@ -73,7 +74,7 @@ export class UserPage extends React.Component { // eslint-disable-line react/pre
           />
         </Subheader>
 
-        {JSON.stringify(this.props.reports)}
+        <ReportList reports={this.props.reports} />
 
         <CreateReportDialog
           open={this.props.createReportDialog}
