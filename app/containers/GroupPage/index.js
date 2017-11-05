@@ -27,7 +27,10 @@ import injectReducer from 'utils/injectReducer';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { fetchRequest } from './actions';
+import {
+  fetchRequest,
+  deleteUser,
+} from './actions';
 import {
   makeSelectLoading,
   makeSelectError,
@@ -50,6 +53,12 @@ export class GroupPage extends React.Component { // eslint-disable-line react/pr
     const groupId = this.props.match.params.id;
 
     this.props.redirect(`/groups/${groupId}/users/${userId}`);
+  }
+
+  onDeleteUser = (userId) => {
+    const groupId = this.props.match.params.id;
+
+    this.props.deleteUser({ groupId, userId });
   }
 
   openInviteDialog = () => {
@@ -111,6 +120,7 @@ export class GroupPage extends React.Component { // eslint-disable-line react/pr
         <UserList
           users={this.props.group.users}
           select={this.onSelectUser}
+          delete={this.onDeleteUser}
           placeholder={this.UserListPlaceholder()}
         />
 
@@ -133,6 +143,7 @@ GroupPage.propTypes = {
   fetch: PropTypes.func.isRequired,
   backToGroups: PropTypes.func.isRequired,
   redirect: PropTypes.func.isRequired,
+  deleteUser: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.string.isRequired,
   group: PropTypes.object.isRequired,
@@ -153,6 +164,7 @@ function mapDispatchToProps(dispatch) {
   return {
     fetch: (id) => dispatch(fetchRequest(id)),
     backToGroups: () => dispatch(push('/groups')),
+    deleteUser: (id) => dispatch(deleteUser(id)),
     redirect: (to) => dispatch(push(to)),
   };
 }

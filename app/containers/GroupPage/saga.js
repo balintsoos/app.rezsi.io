@@ -2,10 +2,16 @@ import { takeLatest, call, put } from 'redux-saga/effects';
 
 import API from 'utils/API';
 
-import { FETCH } from './constants';
+import {
+  FETCH,
+  DELETE_USER,
+} from './constants';
+
 import {
   fetchSuccess,
   fetchError,
+  deleteUserSuccess,
+  deleteUserError,
 } from './actions';
 
 export function* fetchGroup({ id }) {
@@ -17,7 +23,17 @@ export function* fetchGroup({ id }) {
   }
 }
 
+export function* deleteUser({ groupId, userId }) {
+  try {
+    const deletedUser = yield call(API.groups.group.member.delete, { groupId, userId });
+    yield put(deleteUserSuccess(deletedUser.id));
+  } catch (err) {
+    yield put(deleteUserError(err.message));
+  }
+}
+
 // Root saga
 export default function* rootSaga() {
   yield takeLatest(FETCH, fetchGroup);
+  yield takeLatest(DELETE_USER, deleteUser);
 }

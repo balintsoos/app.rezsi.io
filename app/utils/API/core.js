@@ -30,3 +30,7 @@ export const makePost = ({ call, merge }) =>
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
     }, options));
+
+export const makeDelete = ({ call, merge }) =>
+  (endpoint, options) =>
+    call(endpoint, merge({ method: 'DELETE' }, options));

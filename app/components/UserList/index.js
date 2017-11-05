@@ -24,7 +24,12 @@ function UserList(props) {
   return (
     <List>
       {props.users.map((user) => (
-        <UserListItem key={user.id} select={props.select} {...user} />
+        <UserListItem
+          key={user.id}
+          select={() => props.select(user.id)}
+          delete={() => props.delete(user.id)}
+          {...user}
+        />
       ))}
     </List>
   );
@@ -32,7 +37,6 @@ function UserList(props) {
 
 UserList.propTypes = {
   users: PropTypes.array.isRequired,
-  select: PropTypes.func,
   placeholder: PropTypes.node,
 };
 

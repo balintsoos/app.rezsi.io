@@ -19,6 +19,9 @@ export const makePostGroup = (post) =>
 export const makeGetGroupMember = (get) =>
   ({ groupId, userId }) => get(`/groups/${groupId}/users/${userId}`);
 
+export const makeDeleteGroupMember = (deleteMethod) =>
+  ({ groupId, userId }) => deleteMethod(`/groups/${groupId}/users/${userId}`);
+
 export const makeGetReports = (get) =>
   () => get('/reports');
 

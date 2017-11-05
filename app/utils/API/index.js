@@ -8,6 +8,7 @@ import {
   makeCall,
   makeGet,
   makePost,
+  makeDelete,
 } from './core';
 
 import {
@@ -18,6 +19,7 @@ import {
   makeGetGroup,
   makePostGroup,
   makeGetGroupMember,
+  makeDeleteGroupMember,
   makeGetReports,
   makePostReport,
 } from './endpoints';
@@ -38,6 +40,7 @@ const getOptions = makeGetOptions({ merge, defaults, TokenStorage });
 const call = makeCall({ request, getUrl, getOptions });
 const get = makeGet({ merge, call });
 const post = makePost({ merge, call });
+const deleteMethod = makeDelete({ merge, call });
 
 const ApiConnector = {
   auth: makeGetAuth(get),
@@ -50,6 +53,7 @@ const ApiConnector = {
       get: makeGetGroup(get),
       member: {
         get: makeGetGroupMember(get),
+        delete: makeDeleteGroupMember(deleteMethod),
       },
     },
   },
