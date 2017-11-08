@@ -6,16 +6,12 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  invite: {
-    id: 'app.containers.GroupPage.invite',
-    defaultMessage: 'Invite new members',
+  users: {
+    id: 'app.containers.GroupPage.users',
+    defaultMessage: 'Users',
   },
-  inviteShort: {
-    id: 'app.containers.GroupPage.inviteShort',
-    defaultMessage: 'Invite',
-  },
-  empty: {
-    id: 'app.components.GroupPage.empty',
-    defaultMessage: 'There are no members in this group.',
+  bills: {
+    id: 'app.containers.GroupPage.bills',
+    defaultMessage: 'Bills',
   },
 });
