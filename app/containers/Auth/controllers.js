@@ -12,10 +12,6 @@ export function AuthComponent(Component, controller) {
 
 export function isLoggedInGroupLeader(Component) {
   return AuthComponent(Component, (isAuthenticated, user, redirect) => {
-    if (user.role === '') {
-      return;
-    }
-
     if (isAuthenticated && user.role === 'LEADER') {
       return;
     }
@@ -26,10 +22,6 @@ export function isLoggedInGroupLeader(Component) {
 
 export function isLoggedInGroupMember(Component) {
   return AuthComponent(Component, (isAuthenticated, user, redirect) => {
-    if (user.role === '') {
-      return;
-    }
-
     if (isAuthenticated && user.role === 'MEMBER') {
       return;
     }

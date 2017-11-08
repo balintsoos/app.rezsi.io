@@ -29,19 +29,19 @@ export class Auth extends React.Component { // eslint-disable-line react/prefer-
       return this.props.unauthenticate();
     }
 
-    this.authFlow(this.props.authenticated);
+    this.authFlow(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.authFlow(nextProps.authenticated);
+    this.authFlow(nextProps);
   }
 
-  authFlow(authenticated) {
-    if (authenticated === null) {
+  authFlow(props) {
+    if (props.authenticated === null) {
       return this.props.authenticate();
     }
 
-    this.props.controller(authenticated, this.props.user, this.props.redirect);
+    this.props.controller(props.authenticated, props.user, this.props.redirect);
   }
 
   render() {
@@ -59,7 +59,6 @@ Auth.propTypes = {
   authenticate: PropTypes.func.isRequired,
   unauthenticate: PropTypes.func.isRequired,
   authenticated: PropTypes.bool,
-  user: PropTypes.object,
   controller: PropTypes.func.isRequired,
 };
 
