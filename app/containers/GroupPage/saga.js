@@ -16,7 +16,7 @@ import {
 
 export function* fetchGroup({ id }) {
   try {
-    const group = yield call(API.groups.group.get, id);
+    const group = yield call(API.group.get, id);
     yield put(fetchSuccess(group));
   } catch (err) {
     yield put(fetchError(err.message));
@@ -25,7 +25,7 @@ export function* fetchGroup({ id }) {
 
 export function* deleteUser({ groupId, userId }) {
   try {
-    const deletedUser = yield call(API.groups.group.member.delete, { groupId, userId });
+    const deletedUser = yield call(API.group.user.delete, { groupId, userId });
     yield put(deleteUserSuccess(deletedUser.id));
   } catch (err) {
     yield put(deleteUserError(err.message));
