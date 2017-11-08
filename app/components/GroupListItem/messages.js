@@ -6,8 +6,12 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  open: {
-    id: 'app.components.GroupListItem.open',
-    defaultMessage: 'open',
+  edit: {
+    id: 'app.components.GroupListItem.edit',
+    defaultMessage: 'Edit',
+  },
+  delete: {
+    id: 'app.components.GroupListItem.delete',
+    defaultMessage: 'Delete',
   },
 });

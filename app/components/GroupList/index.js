@@ -24,7 +24,13 @@ function GroupList(props) {
   return (
     <List>
       {props.groups.map((group) => (
-        <GroupListItem key={group.id} select={props.select} {...group} />
+        <GroupListItem
+          key={group.id}
+          select={() => props.select(group.id)}
+          edit={() => props.edit(group.id)}
+          delete={() => props.delete(group.id)}
+          {...group}
+        />
       ))}
     </List>
   );
@@ -32,7 +38,6 @@ function GroupList(props) {
 
 GroupList.propTypes = {
   groups: PropTypes.array.isRequired,
-  select: PropTypes.func,
   placeholder: PropTypes.node,
 };
 

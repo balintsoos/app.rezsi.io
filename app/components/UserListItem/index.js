@@ -15,15 +15,22 @@ import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
+import { grey600 as IconColor } from 'material-ui/styles/colors';
 
 import Gravatar from 'components/Gravatar';
 
 import messages from './messages';
 
 function UserListItem(props) {
+  const optionsButton = (
+    <IconButton touch>
+      <MoreVertIcon color={IconColor} />
+    </IconButton>
+  );
+
   const options = (
     <IconMenu
-      iconButtonElement={<IconButton touch><MoreVertIcon /></IconButton>}
+      iconButtonElement={optionsButton}
       anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
       targetOrigin={{ horizontal: 'right', vertical: 'top' }}
     >
@@ -40,9 +47,9 @@ function UserListItem(props) {
       <ListItem
         leftAvatar={<Gravatar email={props.email} />}
         primaryText={props.displayName}
+        rightIconButton={props.delete ? options : null}
         onClick={props.select ? props.select : null}
         disabled={!props.select}
-        rightIconButton={props.delete ? options : null}
       />
       <Divider inset />
     </div>
