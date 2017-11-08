@@ -38,4 +38,20 @@ export default defineMessages({
     id: 'app.components.SignUpPage.legal',
     defaultMessage: 'By signing up, you agree to our terms of use and privacy policy.',
   },
+  success: {
+    id: 'app.components.SignUpPage.success',
+    defaultMessage: 'Thank you for signing up',
+  },
+  confirm: {
+    id: 'app.components.SignUpPage.confirm',
+    defaultMessage: 'Please confirm your email address',
+  },
+  confirmed: {
+    id: 'app.components.SignUpPage.confirmed',
+    defaultMessage: 'Are you ready?',
+  },
+  goToEmail: {
+    id: 'app.components.SignUpPage.goToEmail',
+    defaultMessage: 'Go to {email}',
+  },
 });

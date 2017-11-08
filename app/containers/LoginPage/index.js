@@ -10,13 +10,13 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { CardActions, CardTitle, CardText } from 'material-ui/Card';
+import { Card, CardActions, CardTitle, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
 
 import Head from 'components/Head';
-import UserFlowCard from 'components/UserFlowCard';
+import UserFlowTemplate from 'components/UserFlowTemplate';
 import Notification from 'components/Notification';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -58,40 +58,42 @@ export class LoginPage extends React.Component { // eslint-disable-line react/pr
       <div>
         <Head title={messages.title} />
 
-        <UserFlowCard>
-          <CardTitle
-            title={<FormattedMessage {...messages.title} />}
-            subtitle={<FormattedMessage {...messages.subtitle} />}
-          />
-
-          <Divider />
-
-          <CardText>
-            <TextField
-              fullWidth
-              name="email"
-              type="email"
-              floatingLabelText={<FormattedMessage {...messages.email} />}
-              onChange={this.onFieldChanged}
+        <UserFlowTemplate>
+          <Card>
+            <CardTitle
+              title={<FormattedMessage {...messages.title} />}
+              subtitle={<FormattedMessage {...messages.subtitle} />}
             />
-            <TextField
-              fullWidth
-              name="password"
-              type="password"
-              floatingLabelText={<FormattedMessage {...messages.password} />}
-              onChange={this.onFieldChanged}
-            />
-          </CardText>
 
-          <CardActions>
-            <RaisedButton
-              primary
-              fullWidth
-              label={<FormattedMessage {...messages.title} />}
-              onClick={this.onSubmit}
-            />
-          </CardActions>
-        </UserFlowCard>
+            <Divider />
+
+            <CardText>
+              <TextField
+                fullWidth
+                name="email"
+                type="email"
+                floatingLabelText={<FormattedMessage {...messages.email} />}
+                onChange={this.onFieldChanged}
+              />
+              <TextField
+                fullWidth
+                name="password"
+                type="password"
+                floatingLabelText={<FormattedMessage {...messages.password} />}
+                onChange={this.onFieldChanged}
+              />
+            </CardText>
+
+            <CardActions>
+              <RaisedButton
+                primary
+                fullWidth
+                label={<FormattedMessage {...messages.title} />}
+                onClick={this.onSubmit}
+              />
+            </CardActions>
+          </Card>
+        </UserFlowTemplate>
 
         <Notification
           watcher={this.props.error}

@@ -11,14 +11,14 @@ import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { CardActions, CardTitle, CardText } from 'material-ui/Card';
+import { Card, CardActions, CardTitle, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
 
 import Head from 'components/Head';
-import UserFlowCard from 'components/UserFlowCard';
+import UserFlowTemplate from 'components/UserFlowTemplate';
 import UserFlowNavigation from 'components/UserFlowNavigation';
 import Notification from 'components/Notification';
 import injectSaga from 'utils/injectSaga';
@@ -42,8 +42,7 @@ export class SignUpPage extends React.Component { // eslint-disable-line react/p
   }
 
   componentWillMount() {
-    const query = new URLSearchParams(this.props.location.search);
-    const invite = query.get('invite');
+    const invite = this.URLSearchParam('invite');
 
     if (invite) {
       this.setState({ group: invite });
@@ -62,6 +61,11 @@ export class SignUpPage extends React.Component { // eslint-disable-line react/p
     }
   }
 
+  URLSearchParam = (param) => {
+    const query = new URLSearchParams(this.props.location.search);
+    return query.get(param);
+  }
+
   errorMessage = () => {
     if (!messages[this.props.error]) {
       return this.props.error;
@@ -75,65 +79,103 @@ export class SignUpPage extends React.Component { // eslint-disable-line react/p
       <div>
         <Head title={messages.title} />
 
-        <UserFlowCard>
-          <CardTitle
-            title={<FormattedMessage {...messages.title} />}
-            subtitle={<FormattedMessage {...messages.subtitle} />}
-          />
+        <UserFlowTemplate>
+          {!this.URLSearchParam('success') ? (
+            <Card>
+              <CardTitle
+                title={<FormattedMessage {...messages.title} />}
+                subtitle={<FormattedMessage {...messages.subtitle} />}
+              />
 
-          <Divider />
+              <Divider />
 
-          <CardText>
-            <TextField
-              fullWidth
-              name="email"
-              type="email"
-              floatingLabelText={<FormattedMessage {...messages.email} />}
-              onChange={this.onFieldChanged}
-            />
-            <TextField
-              fullWidth
-              name="displayName"
-              type="text"
-              floatingLabelText={<FormattedMessage {...messages.displayName} />}
-              onChange={this.onFieldChanged}
-            />
-            <TextField
-              fullWidth
-              name="password"
-              type="password"
-              floatingLabelText={<FormattedMessage {...messages.password} />}
-              onChange={this.onFieldChanged}
-            />
-          </CardText>
+              <CardText>
+                <TextField
+                  fullWidth
+                  name="email"
+                  type="email"
+                  floatingLabelText={<FormattedMessage {...messages.email} />}
+                  onChange={this.onFieldChanged}
+                />
+                <TextField
+                  fullWidth
+                  name="displayName"
+                  type="text"
+                  floatingLabelText={<FormattedMessage {...messages.displayName} />}
+                  onChange={this.onFieldChanged}
+                />
+                <TextField
+                  fullWidth
+                  name="password"
+                  type="password"
+                  floatingLabelText={<FormattedMessage {...messages.password} />}
+                  onChange={this.onFieldChanged}
+                />
+              </CardText>
 
-          <LegalNotice>
-            <FormattedMessage {...messages.legal} />
-          </LegalNotice>
+              <LegalNotice>
+                <FormattedMessage {...messages.legal} />
+              </LegalNotice>
 
-          <CardActions>
-            <RaisedButton
-              primary
-              fullWidth
-              label={<FormattedMessage {...messages.title} />}
-              onClick={this.onSubmit}
-            />
-          </CardActions>
+              <CardActions>
+                <RaisedButton
+                  primary
+                  fullWidth
+                  label={<FormattedMessage {...messages.title} />}
+                  onClick={this.onSubmit}
+                  disabled={this.props.loading}
+                />
+              </CardActions>
 
-          <Divider />
+              <Divider />
 
-          <UserFlowNavigation>
-            <FlatButton
-              disabled
-              label={<FormattedMessage {...messages.alreadySignedUp} />}
-            />
-            <FlatButton
-              primary
-              label={<FormattedMessage {...messages.login} />}
-              containerElement={<Link to="/login" />}
-            />
-          </UserFlowNavigation>
-        </UserFlowCard>
+              <UserFlowNavigation>
+                <FlatButton
+                  disabled
+                  label={<FormattedMessage {...messages.alreadySignedUp} />}
+                />
+                <FlatButton
+                  primary
+                  label={<FormattedMessage {...messages.login} />}
+                  containerElement={<Link to="/login" />}
+                />
+              </UserFlowNavigation>
+            </Card>
+          ) : (
+            <Card>
+              <CardTitle
+                title={<FormattedMessage {...messages.success} />}
+                subtitle={<FormattedMessage {...messages.confirm} />}
+              />
+
+              <CardActions>
+                <RaisedButton
+                  primary
+                  fullWidth
+                  href={`https://${this.URLSearchParam('success')}`}
+                  label={<FormattedMessage
+                    {...messages.goToEmail}
+                    values={{ email: this.URLSearchParam('success') }}
+                  />}
+                />
+              </CardActions>
+
+              <Divider />
+
+              <UserFlowNavigation>
+                <FlatButton
+                  disabled
+                  label={<FormattedMessage {...messages.confirmed} />}
+                />
+                <FlatButton
+                  primary
+                  label={<FormattedMessage {...messages.login} />}
+                  containerElement={<Link to="/login" />}
+                />
+              </UserFlowNavigation>
+            </Card>
+          )}
+        </UserFlowTemplate>
 
         <Notification
           watcher={this.props.error}

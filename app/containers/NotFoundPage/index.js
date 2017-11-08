@@ -16,7 +16,7 @@ import { FormattedMessage } from 'react-intl';
 import Emoticon from 'material-ui/svg-icons/social/sentiment-dissatisfied';
 
 import Head from 'components/Head';
-import { UserFlowTemplate } from 'components/UserFlowCard';
+import UserFlowTemplate from 'components/UserFlowTemplate';
 
 import messages from './messages';
 

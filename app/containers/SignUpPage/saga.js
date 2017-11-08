@@ -7,9 +7,9 @@ import { signUpSuccess, signUpError } from './actions';
 
 export function* signUp({ userData }) {
   try {
-    yield call(API.signUp, userData);
+    const { domain } = yield call(API.signUp, userData);
     yield put(signUpSuccess());
-    yield put(push('/'));
+    yield put(push(`/signup?success=${domain}`));
   } catch (err) {
     yield put(signUpError(err.message));
   }
