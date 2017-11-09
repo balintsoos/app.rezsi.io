@@ -6,8 +6,12 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
-    id: 'app.containers.SummariesTab.header',
-    defaultMessage: 'This is SummariesTab container !',
+  create: {
+    id: 'app.containers.SummariesTab.create',
+    defaultMessage: 'Create new bill',
+  },
+  empty: {
+    id: 'app.components.SummariesTab.empty',
+    defaultMessage: 'There are no bills in this group.',
   },
 });

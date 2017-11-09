@@ -11,7 +11,11 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
+import RaisedButton from 'material-ui/RaisedButton';
+import AddIcon from 'material-ui/svg-icons/content/add';
+
 import Notification from 'components/Notification';
+import SummaryList from 'components/SummaryList';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
@@ -46,10 +50,25 @@ export class SummariesTab extends React.Component { // eslint-disable-line react
     return <FormattedMessage {...messages[this.props.error]} />;
   }
 
+  SummaryListPlaceholder = () => (
+    <div>
+      <p><FormattedMessage {...messages.empty} /></p>
+
+      <RaisedButton
+        icon={<AddIcon />}
+        label={<FormattedMessage {...messages.create} />}
+        onClick={() => this.props.openDialog('createDialog')}
+      />
+    </div>
+  )
+
   render() {
     return (
       <div>
-        {JSON.stringify(this.props.summaries)}
+        <SummaryList
+          summaries={this.props.summaries}
+          placeholder={this.SummaryListPlaceholder()}
+        />
 
         <Notification
           watcher={this.props.error}
@@ -66,7 +85,7 @@ SummariesTab.propTypes = {
   loading: PropTypes.bool.isRequired,
   error: PropTypes.string.isRequired,
   // createDialog: PropTypes.bool.isRequired,
-  // openDialog: PropTypes.func.isRequired,
+  openDialog: PropTypes.func.isRequired,
   // closeDialog: PropTypes.func.isRequired,
   summaries: PropTypes.array.isRequired,
   match: PropTypes.shape({
