@@ -16,6 +16,7 @@ import AddIcon from 'material-ui/svg-icons/content/add';
 
 import Notification from 'components/Notification';
 import SummaryList from 'components/SummaryList';
+import CreateSummaryDialog from 'components/CreateSummaryDialog';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
@@ -40,6 +41,12 @@ export class SummariesTab extends React.Component { // eslint-disable-line react
     if (!this.props.loading && this.props.match.params.id) {
       this.props.fetch(this.props.match.params.id);
     }
+  }
+
+  onCreateSummary = (summary) => {
+    const id = this.props.match.params.id;
+
+    this.props.create(id, summary);
   }
 
   errorMessage = () => {
@@ -70,6 +77,12 @@ export class SummariesTab extends React.Component { // eslint-disable-line react
           placeholder={this.SummaryListPlaceholder()}
         />
 
+        <CreateSummaryDialog
+          open={this.props.createDialog}
+          cancel={() => this.props.closeDialog('createDialog')}
+          submit={this.onCreateSummary}
+        />
+
         <Notification
           watcher={this.props.error}
           message={this.errorMessage()}
@@ -81,12 +94,12 @@ export class SummariesTab extends React.Component { // eslint-disable-line react
 
 SummariesTab.propTypes = {
   fetch: PropTypes.func.isRequired,
-  // create: PropTypes.func.isRequired,
+  create: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.string.isRequired,
-  // createDialog: PropTypes.bool.isRequired,
+  createDialog: PropTypes.bool.isRequired,
   openDialog: PropTypes.func.isRequired,
-  // closeDialog: PropTypes.func.isRequired,
+  closeDialog: PropTypes.func.isRequired,
   summaries: PropTypes.array.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
