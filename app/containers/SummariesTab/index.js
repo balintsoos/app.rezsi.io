@@ -1,24 +1,16 @@
 /**
  *
- * GroupPage
+ * SummariesTab
  *
  */
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
-import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
-import { Tabs, Tab } from 'material-ui/Tabs';
-
-import Header from 'containers/Header';
-import UsersTab from 'containers/UsersTab';
-import SummariesTab from 'containers/SummariesTab';
-import Subheader from 'components/Subheader';
 import Notification from 'components/Notification';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -28,14 +20,18 @@ import saga from './saga';
 import messages from './messages';
 import {
   fetchRequest,
+  createRequest,
+  openDialog,
+  closeDialog,
 } from './actions';
 import {
   makeSelectLoading,
   makeSelectError,
-  makeSelectGroup,
+  makeSelectSummaries,
+  makeSelectDialog,
 } from './selectors';
 
-export class GroupPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export class SummariesTab extends React.Component { // eslint-disable-line react/prefer-stateless-function
   componentDidMount() {
     if (!this.props.loading && this.props.match.params.id) {
       this.props.fetch(this.props.match.params.id);
@@ -53,26 +49,7 @@ export class GroupPage extends React.Component { // eslint-disable-line react/pr
   render() {
     return (
       <div>
-        <Helmet>
-          <title>{this.props.group.name}</title>
-        </Helmet>
-
-        <Header />
-
-        <Subheader
-          title={this.props.group.name}
-          back={this.props.backToGroups}
-        >
-        </Subheader>
-
-        <Tabs>
-          <Tab label={<FormattedMessage {...messages.users} />}>
-            <UsersTab {...this.props} />
-          </Tab>
-          <Tab label={<FormattedMessage {...messages.bills} />}>
-            <SummariesTab {...this.props} />
-          </Tab>
-        </Tabs>
+        {JSON.stringify(this.props.summaries)}
 
         <Notification
           watcher={this.props.error}
@@ -83,12 +60,15 @@ export class GroupPage extends React.Component { // eslint-disable-line react/pr
   }
 }
 
-GroupPage.propTypes = {
+SummariesTab.propTypes = {
   fetch: PropTypes.func.isRequired,
-  backToGroups: PropTypes.func.isRequired,
+  // create: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.string.isRequired,
-  group: PropTypes.object.isRequired,
+  // createDialog: PropTypes.bool.isRequired,
+  // openDialog: PropTypes.func.isRequired,
+  // closeDialog: PropTypes.func.isRequired,
+  summaries: PropTypes.array.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -99,23 +79,26 @@ GroupPage.propTypes = {
 const mapStateToProps = createStructuredSelector({
   loading: makeSelectLoading(),
   error: makeSelectError(),
-  group: makeSelectGroup(),
+  summaries: makeSelectSummaries(),
+  createDialog: makeSelectDialog('createDialog'),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     fetch: (id) => dispatch(fetchRequest(id)),
-    backToGroups: () => dispatch(push('/groups')),
+    create: (id, summary) => dispatch(createRequest(id, summary)),
+    openDialog: (dialog) => dispatch(openDialog(dialog)),
+    closeDialog: (dialog) => dispatch(closeDialog(dialog)),
   };
 }
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
-const withReducer = injectReducer({ key: 'groupPage', reducer });
-const withSaga = injectSaga({ key: 'groupPage', saga });
+const withReducer = injectReducer({ key: 'summariesTab', reducer });
+const withSaga = injectSaga({ key: 'summariesTab', saga });
 
 export default compose(
   withReducer,
   withSaga,
   withConnect,
-)(GroupPage);
+)(SummariesTab);
