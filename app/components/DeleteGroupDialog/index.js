@@ -15,19 +15,17 @@ import RaisedButton from 'material-ui/RaisedButton';
 import messages from './messages';
 
 class DeleteGroupDialog extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  actions() {
-    return [
-      <FlatButton
-        label={<FormattedMessage {...messages.cancel} />}
-        onClick={this.props.cancel}
-      />,
-      <RaisedButton
-        label={<FormattedMessage {...messages.submit} />}
-        primary
-        onClick={() => this.props.submit(this.state)}
-      />,
-    ];
-  }
+  actions = () => [
+    <FlatButton
+      label={<FormattedMessage {...messages.cancel} />}
+      onClick={this.props.cancel}
+    />,
+    <RaisedButton
+      label={<FormattedMessage {...messages.submit} />}
+      primary
+      onClick={() => this.props.submit(this.props.group)}
+    />,
+  ]
 
   render() {
     return (

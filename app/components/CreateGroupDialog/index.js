@@ -27,19 +27,17 @@ class CreateGroupDialog extends React.PureComponent { // eslint-disable-line rea
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  actions() {
-    return [
-      <FlatButton
-        label={<FormattedMessage {...messages.cancel} />}
-        onClick={this.props.cancel}
-      />,
-      <RaisedButton
-        label={<FormattedMessage {...messages.submit} />}
-        primary
-        onClick={() => this.props.submit(this.state)}
-      />,
-    ];
-  }
+  actions = () => [
+    <FlatButton
+      label={<FormattedMessage {...messages.cancel} />}
+      onClick={this.props.cancel}
+    />,
+    <RaisedButton
+      label={<FormattedMessage {...messages.submit} />}
+      primary
+      onClick={() => this.props.submit(this.state)}
+    />,
+  ]
 
   render() {
     return (
