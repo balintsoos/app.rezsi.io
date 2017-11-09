@@ -13,6 +13,12 @@ import {
   CREATE,
   CREATE_SUCCESS,
   CREATE_ERROR,
+  EDIT,
+  EDIT_SUCCESS,
+  EDIT_ERROR,
+  DELETE,
+  DELETE_SUCCESS,
+  DELETE_ERROR,
   OPEN_DIALOG,
   CLOSE_DIALOG,
 } from './constants';
@@ -57,6 +63,42 @@ function groupsPageReducer(state = initialState, action) {
         .update('groups', (groups) => groups.unshift(Map(action.group)));
 
     case CREATE_ERROR:
+      return state
+        .set('loading', false)
+        .set('error', action.error);
+
+    case EDIT:
+      return state
+        .set('loading', true)
+        .set('error', '');
+
+    case EDIT_SUCCESS:
+      return state
+        .set('loading', false)
+        .set('error', '')
+        .set('editDialog', false)
+        .update('groups', (groups) => groups
+          .set(groups.findIndex((group) => group.id === action.group.id), Map(action.group)));
+
+    case EDIT_ERROR:
+      return state
+        .set('loading', false)
+        .set('error', action.error);
+
+    case DELETE:
+      return state
+        .set('loading', true)
+        .set('error', '');
+
+    case DELETE_SUCCESS:
+      return state
+        .set('loading', false)
+        .set('error', '')
+        .set('deleteDialog', false)
+        .update('groups', (groups) => groups
+          .remove(groups.findIndex((group) => group.id === action.id)));
+
+    case DELETE_ERROR:
       return state
         .set('loading', false)
         .set('error', action.error);
