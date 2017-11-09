@@ -18,12 +18,44 @@ export default defineMessages({
     id: 'app.components.CreateSummaryDialog.cancel',
     defaultMessage: 'Cancel',
   },
-  fromLabel: {
-    id: 'app.components.CreateSummaryDialog.fromLabel',
-    defaultMessage: 'From',
-  },
   fromHint: {
     id: 'app.components.CreateSummaryDialog.fromHint',
-    defaultMessage: 'From date',
+    defaultMessage: 'From',
+  },
+  toHint: {
+    id: 'app.components.CreateSummaryDialog.toHint',
+    defaultMessage: 'To',
+  },
+  currencyLabel: {
+    id: 'app.components.CreateSummaryDialog.currencyLabel',
+    defaultMessage: 'Currency',
+  },
+  currencyHint: {
+    id: 'app.components.CreateSummaryDialog.currencyHint',
+    defaultMessage: 'e.g. EUR, HUF',
+  },
+  hotWaterPriceLabel: {
+    id: 'app.components.CreateSummaryDialog.hotWaterPriceLabel',
+    defaultMessage: 'Hot water price',
+  },
+  hotWaterPriceHint: {
+    id: 'app.components.CreateSummaryDialog.hotWaterPriceHint',
+    defaultMessage: 'price / {cubicMeter}',
+  },
+  coldWaterPriceLabel: {
+    id: 'app.components.CreateSummaryDialog.coldWaterPriceLabel',
+    defaultMessage: 'Cold water price',
+  },
+  coldWaterPriceHint: {
+    id: 'app.components.CreateSummaryDialog.coldWaterPriceHint',
+    defaultMessage: 'price / {cubicMeter}',
+  },
+  heatPriceLabel: {
+    id: 'app.components.CreateSummaryDialog.heatPriceLabel',
+    defaultMessage: 'Heat price',
+  },
+  heatPriceHint: {
+    id: 'app.components.CreateSummaryDialog.heatPriceHint',
+    defaultMessage: 'price / kWh',
   },
 });

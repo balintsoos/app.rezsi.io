@@ -12,8 +12,11 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import DatePicker from 'material-ui/DatePicker';
 
 import messages from './messages';
+
+const cubicMeter = (<span>m<sup>3</sup></span>);
 
 class CreateSummaryDialog extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor() {
@@ -21,6 +24,10 @@ class CreateSummaryDialog extends React.Component { // eslint-disable-line react
     this.state = {
       from: '',
       to: '',
+      currency: '',
+      hotWaterPrice: '',
+      coldWaterPrice: '',
+      heatPrice: '',
     };
   }
 
@@ -51,12 +58,47 @@ class CreateSummaryDialog extends React.Component { // eslint-disable-line react
         open={this.props.open}
         onRequestClose={this.props.cancel}
       >
+        <DatePicker
+          hintText={<FormattedMessage {...messages.fromHint} />}
+        />
+
+        <DatePicker
+          hintText={<FormattedMessage {...messages.toHint} />}
+        />
+
         <TextField
           fullWidth
-          name="from"
+          name="currency"
           type="text"
-          floatingLabelText={<FormattedMessage {...messages.fromLabel} />}
-          hintText={<FormattedMessage {...messages.fromHint} />}
+          floatingLabelText={<FormattedMessage {...messages.currencyLabel} />}
+          hintText={<FormattedMessage {...messages.currencyHint} />}
+          onChange={this.onFieldChanged}
+        />
+
+        <TextField
+          fullWidth
+          name="hotWaterPrice"
+          type="number"
+          floatingLabelText={<FormattedMessage {...messages.hotWaterPriceLabel} />}
+          hintText={<FormattedMessage {...messages.hotWaterPriceHint} values={{ cubicMeter }} />}
+          onChange={this.onFieldChanged}
+        />
+
+        <TextField
+          fullWidth
+          name="coldWaterPrice"
+          type="number"
+          floatingLabelText={<FormattedMessage {...messages.coldWaterPriceLabel} />}
+          hintText={<FormattedMessage {...messages.coldWaterPriceHint} values={{ cubicMeter }} />}
+          onChange={this.onFieldChanged}
+        />
+
+        <TextField
+          fullWidth
+          name="heatPrice"
+          type="number"
+          floatingLabelText={<FormattedMessage {...messages.heatPriceLabel} />}
+          hintText={<FormattedMessage {...messages.heatPriceHint} />}
           onChange={this.onFieldChanged}
         />
       </Dialog>
