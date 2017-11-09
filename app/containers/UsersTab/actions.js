@@ -11,6 +11,8 @@ import {
   DELETE_USER,
   DELETE_USER_SUCCESS,
   DELETE_USER_ERROR,
+  OPEN_DIALOG,
+  CLOSE_DIALOG,
 } from './constants';
 
 export function fetchRequest(id) {
@@ -53,5 +55,19 @@ export function deleteUserError(error) {
   return {
     type: DELETE_USER_ERROR,
     error,
+  };
+}
+
+export function openDialog(dialog) {
+  return {
+    type: OPEN_DIALOG,
+    dialog,
+  };
+}
+
+export function closeDialog(dialog) {
+  return {
+    type: CLOSE_DIALOG,
+    dialog,
   };
 }

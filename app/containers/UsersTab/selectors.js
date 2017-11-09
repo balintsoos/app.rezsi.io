@@ -23,6 +23,11 @@ const makeSelectUsers = () => createSelector(
   (pageState) => pageState.get('users').toJS()
 );
 
+const makeSelectDialog = (dialog) => createSelector(
+  selectUsersTabDomain,
+  (pageState) => pageState.get(dialog)
+);
+
 
 /**
  * Default selector used by UsersTab
@@ -39,4 +44,5 @@ export {
   makeSelectLoading,
   makeSelectError,
   makeSelectUsers,
+  makeSelectDialog,
 };

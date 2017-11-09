@@ -13,11 +13,15 @@ import {
   DELETE_USER,
   DELETE_USER_SUCCESS,
   DELETE_USER_ERROR,
+  OPEN_DIALOG,
+  CLOSE_DIALOG,
 } from './constants';
 
 const initialState = fromJS({
   loading: false,
   error: '',
+  inviteDialog: false,
+  deleteDialog: false,
   users: [],
 });
 
@@ -48,6 +52,7 @@ function usersTabReducer(state = initialState, action) {
       return state
         .set('loading', false)
         .set('error', '')
+        .set('deleteDialog', false)
         .update('users', (users) => users
           .remove(users.findIndex((user) => user.id === action.id)));
 
@@ -55,6 +60,14 @@ function usersTabReducer(state = initialState, action) {
       return state
         .set('loading', false)
         .set('error', action.error);
+
+    case OPEN_DIALOG:
+      return state
+        .set(action.dialog, true);
+
+    case CLOSE_DIALOG:
+      return state
+        .set(action.dialog, false);
 
     default:
       return state;

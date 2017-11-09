@@ -26,8 +26,8 @@ function UserList(props) {
       {props.users.map((user) => (
         <UserListItem
           key={user.id}
-          select={() => props.select(user.id)}
-          delete={() => props.delete(user.id)}
+          select={() => props.select(user)}
+          delete={() => props.delete(user)}
           {...user}
         />
       ))}
