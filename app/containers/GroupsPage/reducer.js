@@ -22,6 +22,8 @@ const initialState = fromJS({
   error: '',
   groups: [],
   createDialog: false,
+  editDialog: false,
+  deleteDialog: false,
 });
 
 function groupsPageReducer(state = initialState, action) {

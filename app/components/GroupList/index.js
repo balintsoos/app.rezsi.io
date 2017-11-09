@@ -26,9 +26,9 @@ function GroupList(props) {
       {props.groups.map((group) => (
         <GroupListItem
           key={group.id}
-          select={() => props.select(group.id)}
-          edit={() => props.edit(group.id)}
-          delete={() => props.delete(group.id)}
+          select={() => props.select(group)}
+          edit={() => props.edit(group)}
+          delete={() => props.delete(group)}
           {...group}
         />
       ))}
