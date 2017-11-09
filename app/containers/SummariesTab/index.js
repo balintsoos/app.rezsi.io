@@ -14,6 +14,7 @@ import { compose } from 'redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import AddIcon from 'material-ui/svg-icons/content/add';
 
+import Subheader from 'components/Subheader';
 import Notification from 'components/Notification';
 import SummaryList from 'components/SummaryList';
 import CreateSummaryDialog from 'components/CreateSummaryDialog';
@@ -57,21 +58,30 @@ export class SummariesTab extends React.Component { // eslint-disable-line react
     return <FormattedMessage {...messages[this.props.error]} />;
   }
 
+  AddButton = (primary = false) => (
+    <RaisedButton
+      primary={primary}
+      icon={<AddIcon />}
+      label={<FormattedMessage {...messages.create} />}
+      onClick={() => this.props.openDialog('createDialog')}
+    />
+  )
+
   SummaryListPlaceholder = () => (
     <div>
       <p><FormattedMessage {...messages.empty} /></p>
 
-      <RaisedButton
-        icon={<AddIcon />}
-        label={<FormattedMessage {...messages.create} />}
-        onClick={() => this.props.openDialog('createDialog')}
-      />
+      {this.AddButton()}
     </div>
   )
 
   render() {
     return (
       <div>
+        <Subheader title={''}>
+          {this.AddButton(true)}
+        </Subheader>
+
         <SummaryList
           summaries={this.props.summaries}
           placeholder={this.SummaryListPlaceholder()}

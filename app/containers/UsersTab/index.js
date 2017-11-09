@@ -15,6 +15,7 @@ import { compose } from 'redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import InviteIcon from 'material-ui/svg-icons/social/person-add';
 
+import Subheader from 'components/Subheader';
 import UserList from 'components/UserList';
 import InviteDialog from 'components/InviteDialog';
 import DeleteUserDialog from 'components/DeleteUserDialog';
@@ -82,21 +83,30 @@ export class UsersTab extends React.Component { // eslint-disable-line react/pre
     return `${origin}/signup?invite=${id}`;
   }
 
+  InviteButton = (primary = false) => (
+    <RaisedButton
+      primary={primary}
+      icon={<InviteIcon />}
+      label={<FormattedMessage {...messages.invite} />}
+      onClick={() => this.props.openDialog('inviteDialog')}
+    />
+  )
+
   UserListPlaceholder = () => (
     <div>
       <p><FormattedMessage {...messages.empty} /></p>
 
-      <RaisedButton
-        icon={<InviteIcon />}
-        label={<FormattedMessage {...messages.invite} />}
-        onClick={() => this.props.openDialog('inviteDialog')}
-      />
+      {this.InviteButton()}
     </div>
   )
 
   render() {
     return (
       <div>
+        <Subheader title={''}>
+          {this.InviteButton(true)}
+        </Subheader>
+
         <UserList
           users={this.props.users}
           select={this.onSelectUser}

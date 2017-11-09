@@ -24,6 +24,7 @@ import SettingsIcon from 'material-ui/svg-icons/action/settings';
 import HelpIcon from 'material-ui/svg-icons/action/help';
 import FeedbackIcon from 'material-ui/svg-icons/action/announcement';
 import LogoutIcon from 'material-ui/svg-icons/action/power-settings-new';
+import BackIcon from 'material-ui/svg-icons/navigation/arrow-back';
 import { cyan500 as backgroundColor } from 'material-ui/styles/colors';
 
 import { makeSelectUser } from 'containers/Auth/selectors';
@@ -31,14 +32,22 @@ import { unauthenticate } from 'containers/Auth/actions';
 import Gravatar from 'components/Gravatar';
 import messages from './messages';
 
+const color = '#ffffff';
+
 function Header(props) {
   return (
     <Paper zDepth={1}>
       <Toolbar style={{ backgroundColor }}>
-        <ToolbarGroup>
+        <ToolbarGroup firstChild={!!props.back}>
+          {props.back ? (
+            <IconButton touch onClick={props.back}>
+              <BackIcon color={color} />
+            </IconButton>
+          ) : null}
+
           <ToolbarTitle
-            text={<FormattedMessage {...messages.title} />}
-            style={{ color: '#ffffff' }}
+            text={props.title || <FormattedMessage {...messages.title} />}
+            style={{ color }}
           />
         </ToolbarGroup>
         <ToolbarGroup lastChild>
@@ -46,7 +55,7 @@ function Header(props) {
 
           <IconMenu
             iconButtonElement={
-              <IconButton touch iconStyle={{ color: '#ffffff' }}>
+              <IconButton touch iconStyle={{ color }}>
                 <ExpandMoreIcon />
               </IconButton>
             }
@@ -88,6 +97,8 @@ function Header(props) {
 }
 
 Header.propTypes = {
+  title: PropTypes.node,
+  back: PropTypes.func,
   user: PropTypes.object.isRequired,
   logout: PropTypes.func.isRequired,
   redirect: PropTypes.func.isRequired,

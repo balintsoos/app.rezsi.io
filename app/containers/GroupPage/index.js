@@ -18,7 +18,6 @@ import { Tabs, Tab } from 'material-ui/Tabs';
 import Header from 'containers/Header';
 import UsersTab from 'containers/UsersTab';
 import SummariesTab from 'containers/SummariesTab';
-import Subheader from 'components/Subheader';
 import Notification from 'components/Notification';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -57,13 +56,10 @@ export class GroupPage extends React.Component { // eslint-disable-line react/pr
           <title>{this.props.group.name}</title>
         </Helmet>
 
-        <Header />
-
-        <Subheader
+        <Header
           title={this.props.group.name}
           back={this.props.backToGroups}
-        >
-        </Subheader>
+        />
 
         <Tabs>
           <Tab label={<FormattedMessage {...messages.users} />}>
