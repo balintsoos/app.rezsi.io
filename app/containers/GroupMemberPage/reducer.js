@@ -17,7 +17,7 @@ const initialState = fromJS({
   error: '',
   user: {
     displayName: '',
-    reports: [],
+    email: '',
   },
 });
 

@@ -13,10 +13,12 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
+import { Tabs, Tab } from 'material-ui/Tabs';
+
 import Header from 'containers/Header';
-import Subheader from 'components/Subheader';
+import ReportsTab from 'containers/ReportsTab';
+import BillsTab from 'containers/BillsTab';
 import Notification from 'components/Notification';
-import ReportList from 'components/ReportList';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
@@ -60,16 +62,20 @@ export class GroupMemberPage extends React.Component { // eslint-disable-line re
           <title>{this.props.user.displayName}</title>
         </Helmet>
 
-        <Header />
-
-        <Subheader
+        <Header
           title={this.props.user.displayName}
           gravatar={this.props.user.email}
           back={this.backToGroup}
-        >
-        </Subheader>
+        />
 
-        <ReportList reports={this.props.user.reports} />
+        <Tabs>
+          <Tab label={<FormattedMessage {...messages.reports} />}>
+            <ReportsTab {...this.props} />
+          </Tab>
+          <Tab label={<FormattedMessage {...messages.bills} />}>
+            <BillsTab {...this.props} />
+          </Tab>
+        </Tabs>
 
         <Notification
           watcher={this.props.error}

@@ -6,8 +6,12 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
-    id: 'app.containers.GroupMemberPage.header',
-    defaultMessage: 'This is GroupMemberPage container !',
+  reports: {
+    id: 'app.containers.GroupMemberPage.reports',
+    defaultMessage: 'Reports',
+  },
+  bills: {
+    id: 'app.containers.GroupMemberPage.bills',
+    defaultMessage: 'Bills',
   },
 });

@@ -11,6 +11,7 @@ import { push } from 'react-router-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import styled from 'styled-components';
 
 import Paper from 'material-ui/Paper';
 import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
@@ -34,6 +35,10 @@ import messages from './messages';
 
 const color = '#ffffff';
 
+const ToolbarGravatar = styled(Gravatar)`
+  margin-right: 16px;
+`;
+
 function Header(props) {
   return (
     <Paper zDepth={1}>
@@ -43,6 +48,10 @@ function Header(props) {
             <IconButton touch onClick={props.back}>
               <BackIcon color={color} />
             </IconButton>
+          ) : null}
+
+          {props.gravatar ? (
+            <ToolbarGravatar email={props.gravatar} />
           ) : null}
 
           <ToolbarTitle
@@ -99,6 +108,7 @@ function Header(props) {
 Header.propTypes = {
   title: PropTypes.node,
   back: PropTypes.func,
+  gravatar: PropTypes.string,
   user: PropTypes.object.isRequired,
   logout: PropTypes.func.isRequired,
   redirect: PropTypes.func.isRequired,
