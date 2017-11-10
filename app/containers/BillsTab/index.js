@@ -11,6 +11,7 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
+import BillList from 'components/BillList';
 import Notification from 'components/Notification';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -53,7 +54,10 @@ export class BillsTab extends React.Component { // eslint-disable-line react/pre
   render() {
     return (
       <div>
-        {JSON.stringify(this.props.bills)}
+        <BillList
+          bills={this.props.bills}
+          placeholder={this.BillListPlaceholder()}
+        />
 
         <Notification
           watcher={this.props.error}
