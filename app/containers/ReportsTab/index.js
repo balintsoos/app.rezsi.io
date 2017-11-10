@@ -43,10 +43,19 @@ export class ReportsTab extends React.Component { // eslint-disable-line react/p
     return <FormattedMessage {...messages[this.props.error]} />;
   }
 
+  ReportListPlaceholder = () => (
+    <div>
+      <p><FormattedMessage {...messages.empty} /></p>
+    </div>
+  )
+
   render() {
     return (
       <div>
-        <ReportList reports={this.props.reports} />
+        <ReportList
+          reports={this.props.reports}
+          placeholder={this.ReportListPlaceholder()}
+        />
 
         <Notification
           watcher={this.props.error}

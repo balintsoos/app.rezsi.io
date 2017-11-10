@@ -16,6 +16,6 @@ export default defineMessages({
   },
   empty: {
     id: 'app.containers.GroupsPage.empty',
-    defaultMessage: 'You have no groups yet.',
+    defaultMessage: 'You have no groups yet',
   },
 });

@@ -12,6 +12,6 @@ export default defineMessages({
   },
   empty: {
     id: 'app.components.SummariesTab.empty',
-    defaultMessage: 'There are no bills in this group.',
+    defaultMessage: 'There are no bills in this group',
   },
 });

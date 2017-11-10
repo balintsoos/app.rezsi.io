@@ -21,6 +21,8 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 
+import ListPlaceholder from 'components/ListPlaceholder';
+
 import messages from './messages';
 
 const Unit = styled.span`
@@ -75,6 +77,14 @@ class ReportList extends React.Component { // eslint-disable-line react/prefer-s
   )
 
   render() {
+    if (!this.props.reports.length && this.props.placeholder) {
+      return (
+        <ListPlaceholder>
+          {this.props.placeholder}
+        </ListPlaceholder>
+      );
+    }
+
     return (
       <Table selectable={false}>
         {this.TableHeader()}
@@ -86,6 +96,7 @@ class ReportList extends React.Component { // eslint-disable-line react/prefer-s
 
 ReportList.propTypes = {
   reports: PropTypes.array.isRequired,
+  placeholder: PropTypes.node,
 };
 
 export default ReportList;

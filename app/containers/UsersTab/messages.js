@@ -12,6 +12,6 @@ export default defineMessages({
   },
   empty: {
     id: 'app.components.UsersTab.empty',
-    defaultMessage: 'There are no members in this group.',
+    defaultMessage: 'There are no members in this group',
   },
 });

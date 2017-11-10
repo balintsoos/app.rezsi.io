@@ -8,6 +8,6 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   empty: {
     id: 'app.containers.BillsTab.empty',
-    defaultMessage: 'There are no bills.',
+    defaultMessage: 'There are no bills',
   },
 });

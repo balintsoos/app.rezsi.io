@@ -6,8 +6,8 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
-    id: 'app.containers.ReportsTab.header',
-    defaultMessage: 'This is ReportsTab container !',
+  empty: {
+    id: 'app.containers.ReportsTab.empty',
+    defaultMessage: 'There are no reports for this user',
   },
 });
