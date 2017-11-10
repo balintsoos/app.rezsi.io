@@ -26,27 +26,27 @@ import HelpIcon from 'material-ui/svg-icons/action/help';
 import FeedbackIcon from 'material-ui/svg-icons/action/announcement';
 import LogoutIcon from 'material-ui/svg-icons/action/power-settings-new';
 import BackIcon from 'material-ui/svg-icons/navigation/arrow-back';
-import { cyan500 as backgroundColor } from 'material-ui/styles/colors';
+import muiThemeable from 'material-ui/styles/muiThemeable';
 
 import { makeSelectUser } from 'containers/Auth/selectors';
 import { unauthenticate } from 'containers/Auth/actions';
 import Gravatar from 'components/Gravatar';
 import messages from './messages';
 
-const color = '#ffffff';
-
 const ToolbarGravatar = styled.div`
   margin-right: 16px;
 `;
 
 function Header(props) {
+  const textColor = props.muiTheme.palette.alternateTextColor;
+
   return (
     <Paper zDepth={1}>
-      <Toolbar style={{ backgroundColor }}>
+      <Toolbar style={{ backgroundColor: props.muiTheme.palette.primary1Color }}>
         <ToolbarGroup firstChild={!!props.back}>
           {props.back ? (
             <IconButton touch onClick={props.back}>
-              <BackIcon color={color} />
+              <BackIcon color={textColor} />
             </IconButton>
           ) : null}
 
@@ -58,7 +58,7 @@ function Header(props) {
 
           <ToolbarTitle
             text={props.title || <FormattedMessage {...messages.title} />}
-            style={{ color }}
+            style={{ color: textColor }}
           />
         </ToolbarGroup>
         <ToolbarGroup lastChild>
@@ -66,7 +66,7 @@ function Header(props) {
 
           <IconMenu
             iconButtonElement={
-              <IconButton touch iconStyle={{ color }}>
+              <IconButton touch iconStyle={{ color: textColor }}>
                 <ExpandMoreIcon />
               </IconButton>
             }
@@ -114,6 +114,7 @@ Header.propTypes = {
   user: PropTypes.object.isRequired,
   logout: PropTypes.func.isRequired,
   redirect: PropTypes.func.isRequired,
+  muiTheme: PropTypes.object.isRequired,
 };
 
 
@@ -131,5 +132,6 @@ function mapDispatchToProps(dispatch) {
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 export default compose(
+  muiThemeable(),
   withConnect,
 )(Header);
