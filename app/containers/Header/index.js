@@ -35,7 +35,7 @@ import messages from './messages';
 
 const color = '#ffffff';
 
-const ToolbarGravatar = styled(Gravatar)`
+const ToolbarGravatar = styled.div`
   margin-right: 16px;
 `;
 
@@ -51,7 +51,9 @@ function Header(props) {
           ) : null}
 
           {props.gravatar ? (
-            <ToolbarGravatar email={props.gravatar} />
+            <ToolbarGravatar>
+              <Gravatar email={props.gravatar} />
+            </ToolbarGravatar>
           ) : null}
 
           <ToolbarTitle

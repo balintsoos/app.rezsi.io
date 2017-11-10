@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import md5 from 'md5';
+
 import Avatar from 'material-ui/Avatar';
+import Paper from 'material-ui/Paper';
 
 export const url = ({ email, size = 100, placeholder = 'retro' }) => {
   const hash = md5(email);
@@ -10,7 +12,9 @@ export const url = ({ email, size = 100, placeholder = 'retro' }) => {
 };
 
 const Gravatar = ({ email, size, placeholder, ...rest }) => (
-  <Avatar src={url({ email, size, placeholder })} {...rest} />
+  <Paper circle zDepth={1}>
+    <Avatar src={url({ email, size, placeholder })} {...rest} />
+  </Paper>
 );
 
 Gravatar.propTypes = {

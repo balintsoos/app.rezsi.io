@@ -19,7 +19,7 @@ import Gravatar from 'components/Gravatar';
 
 import messages from './messages';
 
-const ToolbarGravatar = styled(Gravatar)`
+const ToolbarGravatar = styled.div`
   margin-right: 16px;
 `;
 
@@ -40,7 +40,9 @@ function Subheader(props) {
           ) : null}
 
           {props.gravatar ? (
-            <ToolbarGravatar email={props.gravatar} />
+            <ToolbarGravatar>
+              <Gravatar email={props.gravatar} />
+            </ToolbarGravatar>
           ) : null}
 
           <ToolbarTitle text={props.title} />
