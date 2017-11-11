@@ -14,9 +14,9 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 
-import messages from './messages';
+import CubicMeter from 'components/CubicMeter';
 
-const cubicMeter = (<span>m<sup>3</sup></span>);
+import messages from './messages';
 
 class CreateSummaryDialog extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor() {
@@ -92,7 +92,7 @@ class CreateSummaryDialog extends React.Component { // eslint-disable-line react
           name="hotWaterPrice"
           type="number"
           floatingLabelText={<FormattedMessage {...messages.hotWaterPriceLabel} />}
-          hintText={<FormattedMessage {...messages.hotWaterPriceHint} values={{ cubicMeter }} />}
+          hintText={<FormattedMessage {...messages.hotWaterPriceHint} values={{ cubicMeter: <CubicMeter /> }} />}
           onChange={this.onFieldChanged}
         />
 
@@ -101,7 +101,7 @@ class CreateSummaryDialog extends React.Component { // eslint-disable-line react
           name="coldWaterPrice"
           type="number"
           floatingLabelText={<FormattedMessage {...messages.coldWaterPriceLabel} />}
-          hintText={<FormattedMessage {...messages.coldWaterPriceHint} values={{ cubicMeter }} />}
+          hintText={<FormattedMessage {...messages.coldWaterPriceHint} values={{ cubicMeter: <CubicMeter /> }} />}
           onChange={this.onFieldChanged}
         />
 

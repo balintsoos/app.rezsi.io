@@ -13,6 +13,8 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
+import CubicMeter from 'components/CubicMeter';
+
 import messages from './messages';
 
 class CreateReportDialog extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -63,14 +65,14 @@ class CreateReportDialog extends React.Component { // eslint-disable-line react/
           fullWidth
           name="hotWater"
           type="number"
-          floatingLabelText={<FormattedMessage {...messages.hotWater} />}
+          floatingLabelText={<FormattedMessage {...messages.hotWater} values={{ cubicMeter: <CubicMeter /> }} />}
           onChange={this.onFieldChanged}
         />
         <TextField
           fullWidth
           name="coldWater"
           type="number"
-          floatingLabelText={<FormattedMessage {...messages.coldWater} />}
+          floatingLabelText={<FormattedMessage {...messages.coldWater} values={{ cubicMeter: <CubicMeter /> }} />}
           onChange={this.onFieldChanged}
         />
       </Dialog>

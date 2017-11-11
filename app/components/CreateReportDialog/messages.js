@@ -24,10 +24,10 @@ export default defineMessages({
   },
   hotWater: {
     id: 'app.components.CreateReportDialog.hotWater',
-    defaultMessage: 'Hot water (cubic meter)',
+    defaultMessage: 'Hot water ({cubicMeter})',
   },
   coldWater: {
     id: 'app.components.CreateReportDialog.coldWater',
-    defaultMessage: 'Cold water (cubic meter)',
+    defaultMessage: 'Cold water ({cubicMeter})',
   },
 });
