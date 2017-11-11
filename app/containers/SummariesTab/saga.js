@@ -13,7 +13,7 @@ import {
   createError,
 } from './actions';
 
-export function* fetchGroups({ id }) {
+export function* fetchSummaries({ id }) {
   try {
     const summaries = yield call(API.group.summaries.get, id);
     yield put(fetchSuccess(summaries));
@@ -22,7 +22,7 @@ export function* fetchGroups({ id }) {
   }
 }
 
-export function* createGroup({ id, summary: payload }) {
+export function* createSummary({ id, summary: payload }) {
   try {
     const group = yield call(API.group.summaries.post, { id, payload });
     yield put(createSuccess(group));
@@ -33,6 +33,6 @@ export function* createGroup({ id, summary: payload }) {
 
 // Root saga
 export default function* rootSaga() {
-  yield takeLatest(FETCH, fetchGroups);
-  yield takeLatest(CREATE, createGroup);
+  yield takeLatest(FETCH, fetchSummaries);
+  yield takeLatest(CREATE, createSummary);
 }

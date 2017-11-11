@@ -8,7 +8,7 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   invite: {
     id: 'app.containers.UsersTab.invite',
-    defaultMessage: 'Invite new members',
+    defaultMessage: 'Invite',
   },
   empty: {
     id: 'app.components.UsersTab.empty',

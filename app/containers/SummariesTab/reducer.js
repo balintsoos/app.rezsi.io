@@ -35,7 +35,7 @@ function summariesTabReducer(state = initialState, action) {
       return state
         .set('loading', false)
         .set('error', '')
-        .set('groups', List(action.groups));
+        .set('summaries', List(action.summaries));
 
     case FETCH_ERROR:
       return state

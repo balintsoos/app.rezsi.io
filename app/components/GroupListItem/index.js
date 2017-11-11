@@ -15,7 +15,7 @@ import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import Avatar from 'material-ui/Avatar';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
+import EditIcon from 'material-ui/svg-icons/content/create';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
 import { grey600 as IconColor } from 'material-ui/styles/colors';
 
