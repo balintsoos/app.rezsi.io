@@ -22,6 +22,7 @@ import {
 } from 'material-ui/Table';
 
 import ListPlaceholder from 'components/ListPlaceholder';
+import CubicMeter from 'components/CubicMeter';
 
 import messages from './messages';
 
@@ -62,8 +63,8 @@ class ReportList extends React.Component { // eslint-disable-line react/prefer-s
       {reports.map((report) => (
         <TableRow key={report.id}>
           {this.TableRowColumn(format(report.createdAt, 'YYYY MMM D'))}
-          {this.TableRowColumn(report.hotWater, (<span>m<sup>3</sup></span>))}
-          {this.TableRowColumn(report.coldWater, (<span>m<sup>3</sup></span>))}
+          {this.TableRowColumn(report.hotWater, <CubicMeter />)}
+          {this.TableRowColumn(report.coldWater, <CubicMeter />)}
           {this.TableRowColumn(report.heat, 'kWh')}
         </TableRow>
       ))}
