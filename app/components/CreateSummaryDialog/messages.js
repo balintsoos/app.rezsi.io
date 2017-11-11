@@ -14,6 +14,10 @@ export default defineMessages({
     id: 'app.components.CreateSummaryDialog.submit',
     defaultMessage: 'Create',
   },
+  ok: {
+    id: 'app.components.CreateSummaryDialog.ok',
+    defaultMessage: 'Ok',
+  },
   cancel: {
     id: 'app.components.CreateSummaryDialog.cancel',
     defaultMessage: 'Cancel',

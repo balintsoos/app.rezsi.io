@@ -37,14 +37,18 @@ class CreateSummaryDialog extends React.Component { // eslint-disable-line react
     this.setState({ [event.target.name]: event.target.value });
   }
 
+  onDateChanged = (key, date) => {
+    this.setState({ [key]: date });
+  }
+
   actions = () => [
     <FlatButton
       label={<FormattedMessage {...messages.cancel} />}
       onClick={this.props.cancel}
     />,
     <RaisedButton
-      label={<FormattedMessage {...messages.submit} />}
       primary
+      label={<FormattedMessage {...messages.submit} />}
       onClick={() => this.props.submit(this.state)}
     />,
   ]
@@ -59,11 +63,19 @@ class CreateSummaryDialog extends React.Component { // eslint-disable-line react
         onRequestClose={this.props.cancel}
       >
         <DatePicker
+          autoOk
+          okLabel={<FormattedMessage {...messages.ok} />}
+          cancelLabel={<FormattedMessage {...messages.cancel} />}
           hintText={<FormattedMessage {...messages.fromHint} />}
+          onChange={(event, date) => this.onDateChanged('from', date)}
         />
 
         <DatePicker
+          autoOk
+          okLabel={<FormattedMessage {...messages.ok} />}
+          cancelLabel={<FormattedMessage {...messages.cancel} />}
           hintText={<FormattedMessage {...messages.toHint} />}
+          onChange={(event, date) => this.onDateChanged('to', date)}
         />
 
         <TextField
