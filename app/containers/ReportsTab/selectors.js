@@ -23,6 +23,11 @@ const makeSelectReports = () => createSelector(
   (pageState) => pageState.get('reports').toJS()
 );
 
+const makeSelectDialog = (dialog) => createSelector(
+  selectReportsTabDomain,
+  (pageState) => pageState.get(dialog)
+);
+
 /**
  * Default selector used by ReportsTab
  */
@@ -38,4 +43,5 @@ export {
   makeSelectLoading,
   makeSelectError,
   makeSelectReports,
+  makeSelectDialog,
 };
