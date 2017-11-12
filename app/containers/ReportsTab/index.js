@@ -84,9 +84,11 @@ export class ReportsTab extends React.Component { // eslint-disable-line react/p
   render() {
     return (
       <div>
-        <Subheader title={''}>
-          {this.CreateButton(true)}
-        </Subheader>
+        {this.isMember() ? (
+          <Subheader title={''}>
+            {this.CreateButton(true)}
+          </Subheader>
+        ) : null}
 
         <ReportList
           reports={this.props.reports}
