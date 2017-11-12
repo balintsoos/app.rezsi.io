@@ -59,23 +59,30 @@ export class UserPage extends React.Component { // eslint-disable-line react/pre
     return <FormattedMessage {...messages[this.props.error]} />;
   }
 
+  match = () => ({
+    params: {
+      groupId: this.props.user.group.id,
+      userId: this.props.user.id,
+    },
+  })
+
   render() {
     return (
       <div>
         <Helmet>
-          <title>{this.props.user.group}</title>
+          <title>{this.props.user.group.name}</title>
         </Helmet>
 
         <Header
-          title={this.props.user.group}
+          title={this.props.user.group.name}
         />
 
         <Tabs>
           <Tab label={<FormattedMessage {...messages.reports} />}>
-            <ReportsTab {...this.props} />
+            <ReportsTab match={this.match()} />
           </Tab>
           <Tab label={<FormattedMessage {...messages.bills} />}>
-            <BillsTab {...this.props} />
+            <BillsTab match={this.match()} />
           </Tab>
         </Tabs>
 
