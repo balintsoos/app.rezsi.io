@@ -23,7 +23,6 @@ import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
 import SettingsIcon from 'material-ui/svg-icons/action/settings';
 import HelpIcon from 'material-ui/svg-icons/action/help';
-import FeedbackIcon from 'material-ui/svg-icons/action/announcement';
 import LogoutIcon from 'material-ui/svg-icons/action/power-settings-new';
 import BackIcon from 'material-ui/svg-icons/navigation/arrow-back';
 import muiThemeable from 'material-ui/styles/muiThemeable';
@@ -89,11 +88,6 @@ function Header(props) {
               primaryText={<FormattedMessage {...messages.help} />}
               leftIcon={<HelpIcon />}
               onClick={() => props.redirect('/help')}
-            />
-            <MenuItem
-              primaryText={<FormattedMessage {...messages.feedback} />}
-              leftIcon={<FeedbackIcon />}
-              onClick={() => props.redirect('/feedback')}
             />
             <MenuItem
               primaryText={<FormattedMessage {...messages.logout} />}
