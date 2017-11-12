@@ -10,10 +10,6 @@ export default defineMessages({
     id: 'app.components.SummaryListItem.from',
     defaultMessage: 'from {date}',
   },
-  to: {
-    id: 'app.components.SummaryListItem.to',
-    defaultMessage: 'To',
-  },
   download: {
     id: 'app.components.SummaryListItem.download',
     defaultMessage: 'Download as .xlsx',
