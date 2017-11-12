@@ -10,6 +10,10 @@ export default defineMessages({
     id: 'app.components.BillListItem.header',
     defaultMessage: 'Counted between {from} and {to}',
   },
+  issued: {
+    id: 'app.components.BillListItem.issued',
+    defaultMessage: 'Issued at {date}',
+  },
   download: {
     id: 'app.components.BillListItem.download',
     defaultMessage: 'Download as .pdf',
@@ -41,5 +45,9 @@ export default defineMessages({
   amount: {
     id: 'app.components.BillListItem.amount',
     defaultMessage: 'Amount',
+  },
+  total: {
+    id: 'app.components.BillListItem.total',
+    defaultMessage: 'Total: {total} {currency}',
   },
 });

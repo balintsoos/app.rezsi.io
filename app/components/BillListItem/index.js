@@ -53,17 +53,30 @@ function BillListItem(props) {
       <CardTitle
         actAsExpander
         showExpandableButton
-        title={date(props.createdAt)}
+        title={`${props.total} ${props.summary.currency}`}
         subtitle={<FormattedMessage
-          {...messages.header}
-          values={{
-            from: <b>{date(props.summary.from)}</b>,
-            to: <b>{date(props.summary.to)}</b>,
-          }}
+          {...messages.issued}
+          values={{ date: date(props.createdAt) }}
         />}
       />
       <CardText expandable>
-        <Table data={data} />
+        <Table
+          data={data}
+          header={<FormattedMessage
+            {...messages.header}
+            values={{
+              from: <b>{date(props.summary.from)}</b>,
+              to: <b>{date(props.summary.to)}</b>,
+            }}
+          />}
+          footer={<FormattedMessage
+            {...messages.total}
+            values={{
+              total: `${props.total}`,
+              currency: props.summary.currency,
+            }}
+          />}
+        />
       </CardText>
 
       <Divider />
@@ -84,6 +97,7 @@ BillListItem.propTypes = {
   hotWaterConsumption: PropTypes.number.isRequired,
   coldWaterConsumption: PropTypes.number.isRequired,
   heatConsumption: PropTypes.number.isRequired,
+  total: PropTypes.number.isRequired,
   summary: PropTypes.shape({
     from: PropTypes.string.isRequired,
     to: PropTypes.string.isRequired,
