@@ -29,8 +29,6 @@ import {
   makePostSummary,
   makeGetUser,
   makeDeleteUser,
-  makeGetUserReports,
-  makeGetUserBills,
 } from './endpoints';
 
 const baseUrl = process.env.NODE_ENV !== 'production'
@@ -56,13 +54,6 @@ const ApiConnector = {
   auth: makeGetAuth(get),
   login: makePostAuth(post),
   signUp: makePostUser(post),
-  reports: {
-    get: makeGetReports(get),
-    post: makePostReport(post),
-  },
-  bills: {
-    get: makeGetBills(get),
-  },
   groups: {
     get: makeGetGroups(get),
     post: makePostGroup(post),
@@ -82,10 +73,11 @@ const ApiConnector = {
       get: makeGetUser(get),
       delete: makeDeleteUser(deleteMethod),
       reports: {
-        get: makeGetUserReports(get),
+        get: makeGetReports(get),
+        post: makePostReport(post),
       },
       bills: {
-        get: makeGetUserBills(get),
+        get: makeGetBills(get),
       },
     },
   },

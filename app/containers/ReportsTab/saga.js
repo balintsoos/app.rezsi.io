@@ -2,10 +2,16 @@ import { takeLatest, call, put } from 'redux-saga/effects';
 
 import API from 'utils/API';
 
-import { FETCH } from './constants';
+import {
+  FETCH,
+  CREATE,
+} from './constants';
+
 import {
   fetchSuccess,
   fetchError,
+  createSuccess,
+  createError,
 } from './actions';
 
 export function* fetchReports({ groupId, userId }) {
@@ -17,7 +23,17 @@ export function* fetchReports({ groupId, userId }) {
   }
 }
 
+export function* createReport({ groupId, userId, report: payload }) {
+  try {
+    const report = yield call(API.group.user.reports.post, { groupId, userId, payload });
+    yield put(createSuccess(report));
+  } catch (err) {
+    yield put(createError(err.message));
+  }
+}
+
 // Root saga
 export default function* rootSaga() {
   yield takeLatest(FETCH, fetchReports);
+  yield takeLatest(CREATE, createReport);
 }

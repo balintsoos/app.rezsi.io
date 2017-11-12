@@ -10,4 +10,8 @@ export default defineMessages({
     id: 'app.containers.ReportsTab.empty',
     defaultMessage: 'There are no reports for this user',
   },
+  create: {
+    id: 'app.containers.ReportsTab.create',
+    defaultMessage: 'Create report',
+  },
 });
