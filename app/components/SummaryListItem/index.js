@@ -40,6 +40,8 @@ function SummaryListItem(props) {
   return (
     <Card>
       <CardTitle
+        actAsExpander
+        showExpandableButton
         title={date(props.to)}
         subtitle={<FormattedMessage
           {...messages.from}
@@ -47,7 +49,7 @@ function SummaryListItem(props) {
         />}
       />
 
-      <CardText>
+      <CardText expandable>
         <Chip style={styles.firstChip} backgroundColor={ChipColor}>
           <Avatar icon={<HeatIcon />} />
           <FormattedMessage
