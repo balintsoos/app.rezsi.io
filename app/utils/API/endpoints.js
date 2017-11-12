@@ -7,15 +7,6 @@ export const makePostAuth = (post) =>
 export const makePostUser = (post) =>
   (payload) => post('/users', payload);
 
-export const makeGetReports = (get) =>
-  () => get('/reports');
-
-export const makePostReport = (post) =>
-  (payload) => post('/reports', payload);
-
-export const makeGetBills = (get) =>
-  () => get('/bills');
-
 export const makeGetGroups = (get) =>
   () => get('/groups');
 
@@ -46,8 +37,11 @@ export const makeGetUser = (get) =>
 export const makeDeleteUser = (deleteMethod) =>
   ({ groupId, userId }) => deleteMethod(`/groups/${groupId}/users/${userId}`);
 
-export const makeGetUserReports = (get) =>
+export const makeGetReports = (get) =>
   ({ groupId, userId }) => get(`/groups/${groupId}/users/${userId}/reports`);
 
-export const makeGetUserBills = (get) =>
+export const makePostReport = (post) =>
+  ({ groupId, userId, payload }) => post(`/groups/${groupId}/users/${userId}/reports`, payload);
+
+export const makeGetBills = (get) =>
   ({ groupId, userId }) => get(`/groups/${groupId}/users/${userId}/bills`);
