@@ -10,4 +10,12 @@ export default defineMessages({
     id: 'app.containers.UserPage.createReport',
     defaultMessage: 'Create report',
   },
+  reports: {
+    id: 'app.containers.UserPage.reports',
+    defaultMessage: 'Reports',
+  },
+  bills: {
+    id: 'app.containers.UserPage.bills',
+    defaultMessage: 'Bills',
+  },
 });

@@ -12,10 +12,13 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
+import { Tabs, Tab } from 'material-ui/Tabs';
 import RaisedButton from 'material-ui/RaisedButton';
 import AddIcon from 'material-ui/svg-icons/content/add';
 
 import Header from 'containers/Header';
+import ReportsTab from 'containers/ReportsTab';
+import BillsTab from 'containers/BillsTab';
 import Subheader from 'components/Subheader';
 import Notification from 'components/Notification';
 import CreateReportDialog from 'components/CreateReportDialog';
@@ -63,9 +66,20 @@ export class UserPage extends React.Component { // eslint-disable-line react/pre
           <title>{this.props.user.group}</title>
         </Helmet>
 
-        <Header />
+        <Header
+          title={this.props.user.group}
+        />
 
-        <Subheader title={this.props.user.group}>
+        <Tabs>
+          <Tab label={<FormattedMessage {...messages.reports} />}>
+            <ReportsTab {...this.props} />
+          </Tab>
+          <Tab label={<FormattedMessage {...messages.bills} />}>
+            <BillsTab {...this.props} />
+          </Tab>
+        </Tabs>
+
+        <Subheader title={''}>
           <RaisedButton
             primary
             icon={<AddIcon />}
