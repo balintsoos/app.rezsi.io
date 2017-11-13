@@ -4,7 +4,7 @@
  *
  */
 
-import { fromJS, List } from 'immutable';
+import { fromJS, List, Map } from 'immutable';
 
 import {
   FETCH,

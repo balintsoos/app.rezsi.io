@@ -6,10 +6,6 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
-    id: 'app.components.ReportList.header',
-    defaultMessage: 'Consumption reports',
-  },
   createdAt: {
     id: 'app.components.ReportList.date',
     defaultMessage: 'Date',

@@ -37,11 +37,6 @@ class ReportList extends React.Component { // eslint-disable-line react/prefer-s
       adjustForCheckbox={false}
     >
       <TableRow>
-        <TableHeaderColumn colSpan="4">
-          <FormattedMessage {...messages.header} />
-        </TableHeaderColumn>
-      </TableRow>
-      <TableRow>
         <TableHeaderColumn>
           <FormattedMessage {...messages.createdAt} />
         </TableHeaderColumn>
