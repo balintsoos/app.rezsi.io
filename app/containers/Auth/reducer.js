@@ -15,6 +15,7 @@ import {
 const initialState = fromJS({
   authenticated: null,
   user: {
+    id: '',
     displayName: '',
     email: '',
     role: '',

@@ -25,8 +25,10 @@ import SettingsIcon from 'material-ui/svg-icons/action/settings';
 import HelpIcon from 'material-ui/svg-icons/action/help';
 import LogoutIcon from 'material-ui/svg-icons/action/power-settings-new';
 import BackIcon from 'material-ui/svg-icons/navigation/arrow-back';
+import BellIcon from 'material-ui/svg-icons/social/notifications';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
+import Notifications from 'components/Notifications';
 import { makeSelectUser } from 'containers/Auth/selectors';
 import { unauthenticate } from 'containers/Auth/actions';
 import Gravatar from 'components/Gravatar';
@@ -61,6 +63,15 @@ function Header(props) {
           />
         </ToolbarGroup>
         <ToolbarGroup lastChild>
+          <Notifications
+            id={props.user.id}
+            iconButton={(
+              <IconButton touch iconStyle={{ color: textColor }}>
+                <BellIcon />
+              </IconButton>
+            )}
+          />
+
           <Gravatar email={props.user.email} />
 
           <IconMenu
