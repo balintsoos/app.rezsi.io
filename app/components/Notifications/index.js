@@ -8,13 +8,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
+import Badge from 'material-ui/Badge';
 import IconMenu from 'material-ui/IconMenu';
 import Subheader from 'material-ui/Subheader';
 import { ListItem } from 'material-ui/List';
+import { red500 as badgeColor } from 'material-ui/styles/colors';
 
 import API from 'utils/API';
 
 import messages from './messages';
+
+const styles = {
+  badge: {
+    top: 20,
+    right: 20,
+    backgroundColor: badgeColor,
+    color: 'white',
+  },
+};
 
 class Notifications extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor() {
@@ -37,16 +48,33 @@ class Notifications extends React.Component { // eslint-disable-line react/prefe
     };
   }
 
+  isEmpty = () => !this.state.notifications.length
+
+  badge = () => {
+    if (this.isEmpty()) {
+      return this.props.iconButton;
+    }
+
+    return (
+      <Badge
+        badgeContent={this.state.notifications.length}
+        badgeStyle={styles.badge}
+      >
+        {this.props.iconButton}
+      </Badge>
+    );
+  }
+
   render() {
     return (
       <IconMenu
-        iconButtonElement={this.props.iconButton}
+        iconButtonElement={this.badge()}
         anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
         targetOrigin={{ horizontal: 'right', vertical: 'top' }}
       >
         <Subheader><FormattedMessage {...messages.title} /></Subheader>
 
-        {!this.state.notifications.length ? (
+        {this.isEmpty() ? (
           <ListItem
             disabled
             primaryText={<FormattedMessage {...messages.empty} />}
