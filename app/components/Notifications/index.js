@@ -43,21 +43,39 @@ class Notifications extends React.Component { // eslint-disable-line react/prefe
       const payload = Array.isArray(data) ? data : [data];
 
       this.setState({
-        notifications: this.state.notifications.concat(payload),
+        notifications: [...payload, ...this.state.notifications],
       });
     };
   }
 
-  isEmpty = () => !this.state.notifications.length
+  onChange = (open, reason) => {
+    console.log(open, reason);
 
-  badge = () => {
+    if (!open) {
+      // this.onClose();
+    }
+  }
+
+  onClose = () => {
+    this.setState({
+      notifications: [],
+    });
+
+    this.socket.send();
+  }
+
+  isEmpty = () => !this.count()
+
+  count = () => this.state.notifications.length
+
+  Badge = () => {
     if (this.isEmpty()) {
       return this.props.iconButton;
     }
 
     return (
       <Badge
-        badgeContent={this.state.notifications.length}
+        badgeContent={this.count()}
         badgeStyle={styles.badge}
       >
         {this.props.iconButton}
@@ -68,11 +86,14 @@ class Notifications extends React.Component { // eslint-disable-line react/prefe
   render() {
     return (
       <IconMenu
-        iconButtonElement={this.badge()}
+        iconButtonElement={this.Badge()}
         anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
         targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+        onRequestChange={this.onChange}
       >
-        <Subheader><FormattedMessage {...messages.title} /></Subheader>
+        <Subheader>
+          <FormattedMessage {...messages.title} />
+        </Subheader>
 
         {this.isEmpty() ? (
           <ListItem
@@ -84,7 +105,8 @@ class Notifications extends React.Component { // eslint-disable-line react/prefe
         {this.state.notifications.map((msg) => (
           <ListItem
             key={msg.id}
-            primaryText={msg.id}
+            primaryText={msg.type}
+            secondaryText={msg.createdAt}
           />
         ))}
       </IconMenu>
