@@ -12,6 +12,8 @@ import IconMenu from 'material-ui/IconMenu';
 import Subheader from 'material-ui/Subheader';
 import { ListItem } from 'material-ui/List';
 
+import API from 'utils/API';
+
 import messages from './messages';
 
 class Notifications extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -23,7 +25,7 @@ class Notifications extends React.Component { // eslint-disable-line react/prefe
   }
 
   componentDidMount() {
-    this.socket = new WebSocket(`ws://localhost:4040/?id=${this.props.id}`);
+    this.socket = new WebSocket(`${API.utils.wssUrl}/?id=${this.props.id}`);
 
     this.socket.onmessage = (event) => {
       const data = JSON.parse(event.data);

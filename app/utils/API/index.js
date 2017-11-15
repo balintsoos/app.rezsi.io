@@ -35,6 +35,10 @@ const baseUrl = process.env.NODE_ENV !== 'production'
   ? 'http://localhost:4040/api/v1'
   : 'https://api-rezsi.herokuapp.com/api/v1';
 
+const wssUrl = process.env.NODE_ENV !== 'production'
+  ? 'ws://localhost:4040'
+  : 'ws://api-rezsi.herokuapp.com';
+
 const defaults = {
   credentials: 'include',
   headers: {
@@ -51,6 +55,10 @@ const patch = makePatch({ merge, call });
 const deleteMethod = makeDelete({ merge, call });
 
 const ApiConnector = {
+  utils: {
+    baseUrl,
+    wssUrl,
+  },
   auth: makeGetAuth(get),
   login: makePostAuth(post),
   signUp: makePostUser(post),
