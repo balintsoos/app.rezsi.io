@@ -31,6 +31,7 @@ class Notifications extends React.Component { // eslint-disable-line react/prefe
   constructor() {
     super();
     this.state = {
+      open: false,
       notifications: [],
     };
   }
@@ -48,11 +49,11 @@ class Notifications extends React.Component { // eslint-disable-line react/prefe
     };
   }
 
-  onChange = (open, reason) => {
-    console.log(open, reason);
+  onChange = (open) => {
+    this.setState({ open });
 
     if (!open) {
-      // this.onClose();
+      this.onClose();
     }
   }
 
@@ -61,7 +62,7 @@ class Notifications extends React.Component { // eslint-disable-line react/prefe
       notifications: [],
     });
 
-    this.socket.send();
+    this.socket.send('');
   }
 
   isEmpty = () => !this.count()
@@ -86,6 +87,7 @@ class Notifications extends React.Component { // eslint-disable-line react/prefe
   render() {
     return (
       <IconMenu
+        open={this.state.open}
         iconButtonElement={this.Badge()}
         anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
         targetOrigin={{ horizontal: 'right', vertical: 'top' }}
