@@ -86,6 +86,7 @@ function BillListItem(props) {
           primary
           label={<FormattedMessage {...messages.download} />}
           icon={<DownloadIcon />}
+          onClick={props.download}
         />
       </CardActions>
     </Card>
@@ -93,6 +94,7 @@ function BillListItem(props) {
 }
 
 BillListItem.propTypes = {
+  download: PropTypes.func.isRequired,
   createdAt: PropTypes.string.isRequired,
   hotWaterConsumption: PropTypes.number.isRequired,
   coldWaterConsumption: PropTypes.number.isRequired,

@@ -19,6 +19,7 @@ import {
   makeGetReports,
   makePostReport,
   makeGetBills,
+  makeDownloadBill,
   makeGetGroups,
   makePostGroup,
   makeGetGroup,
@@ -86,6 +87,9 @@ const ApiConnector = {
       },
       bills: {
         get: makeGetBills(get),
+      },
+      bill: {
+        download: makeDownloadBill(get),
       },
     },
   },

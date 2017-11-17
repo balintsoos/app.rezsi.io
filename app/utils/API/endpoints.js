@@ -45,3 +45,8 @@ export const makePostReport = (post) =>
 
 export const makeGetBills = (get) =>
   ({ groupId, userId }) => get(`/groups/${groupId}/users/${userId}/bills`);
+
+export const makeDownloadBill = (get) =>
+  ({ groupId, userId, billId }) => get(`/groups/${groupId}/users/${userId}/bills/${billId}/pdf`, {
+    headers: { Accept: 'application/pdf' },
+  });

@@ -24,6 +24,7 @@ function BillList(props) {
       {props.bills.map((bill) => (
         <BillListItem
           key={bill.id}
+          download={() => props.download(bill)}
           {...bill}
         />
       ))}

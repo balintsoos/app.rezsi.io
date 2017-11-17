@@ -21,6 +21,7 @@ import saga from './saga';
 import messages from './messages';
 import {
   fetchRequest,
+  download,
 } from './actions';
 import {
   makeSelectLoading,
@@ -31,10 +32,16 @@ import {
 export class BillsTab extends React.Component { // eslint-disable-line react/prefer-stateless-function
   componentDidMount() {
     if (!this.props.loading) {
-      const { groupId = '', userId = '' } = this.props.match.params;
+      const { groupId, userId } = this.props.match.params;
 
       this.props.fetch(groupId, userId);
     }
+  }
+
+  onDownload = (bill) => {
+    const { groupId, userId } = this.props.match.params;
+
+    this.props.download(groupId, userId, bill.id);
   }
 
   errorMessage = () => {
@@ -57,6 +64,7 @@ export class BillsTab extends React.Component { // eslint-disable-line react/pre
         <BillList
           bills={this.props.bills}
           placeholder={this.BillListPlaceholder()}
+          download={this.onDownload}
         />
 
         <Notification
@@ -70,6 +78,7 @@ export class BillsTab extends React.Component { // eslint-disable-line react/pre
 
 BillsTab.propTypes = {
   fetch: PropTypes.func.isRequired,
+  download: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.string.isRequired,
   bills: PropTypes.array.isRequired,
@@ -90,6 +99,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     fetch: (groupId, userId) => dispatch(fetchRequest(groupId, userId)),
+    download: (groupId, userId, billId) => dispatch(download(groupId, userId, billId)),
   };
 }
 
