@@ -21,8 +21,6 @@ import ExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
 import { ListItem } from 'material-ui/List';
 import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
-import SettingsIcon from 'material-ui/svg-icons/action/settings';
-import HelpIcon from 'material-ui/svg-icons/action/help';
 import LogoutIcon from 'material-ui/svg-icons/action/power-settings-new';
 import BackIcon from 'material-ui/svg-icons/navigation/arrow-back';
 import BellIcon from 'material-ui/svg-icons/social/notifications';
@@ -91,16 +89,6 @@ function Header(props) {
             />
             <Divider />
             <MenuItem
-              primaryText={<FormattedMessage {...messages.settings} />}
-              leftIcon={<SettingsIcon />}
-              onClick={() => props.redirect('/settings')}
-            />
-            <MenuItem
-              primaryText={<FormattedMessage {...messages.help} />}
-              leftIcon={<HelpIcon />}
-              onClick={() => props.redirect('/help')}
-            />
-            <MenuItem
               primaryText={<FormattedMessage {...messages.logout} />}
               leftIcon={<LogoutIcon />}
               onClick={props.logout}
@@ -118,7 +106,6 @@ Header.propTypes = {
   gravatar: PropTypes.string,
   user: PropTypes.object.isRequired,
   logout: PropTypes.func.isRequired,
-  redirect: PropTypes.func.isRequired,
   muiTheme: PropTypes.object.isRequired,
 };
 
