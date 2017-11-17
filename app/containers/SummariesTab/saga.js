@@ -5,12 +5,15 @@ import API from 'utils/API';
 import {
   FETCH,
   CREATE,
+  DOWNLOAD,
 } from './constants';
 import {
   fetchSuccess,
   fetchError,
   createSuccess,
   createError,
+  downloadSuccess,
+  downloadError,
 } from './actions';
 
 export function* fetchSummaries({ id }) {
@@ -31,8 +34,18 @@ export function* createSummary({ id, summary: payload }) {
   }
 }
 
+export function* downloadSummary({ id, summaryId }) {
+  try {
+    yield call(API.group.summary.download, { id, summaryId });
+    yield put(downloadSuccess());
+  } catch (err) {
+    yield put(downloadError(err.message));
+  }
+}
+
 // Root saga
 export default function* rootSaga() {
   yield takeLatest(FETCH, fetchSummaries);
   yield takeLatest(CREATE, createSummary);
+  yield takeLatest(DOWNLOAD, downloadSummary);
 }

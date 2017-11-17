@@ -11,6 +11,9 @@ import {
   CREATE,
   CREATE_SUCCESS,
   CREATE_ERROR,
+  DOWNLOAD,
+  DOWNLOAD_SUCCESS,
+  DOWNLOAD_ERROR,
   OPEN_DIALOG,
   CLOSE_DIALOG,
 } from './constants';
@@ -54,6 +57,27 @@ export function createSuccess(summary) {
 export function createError(error) {
   return {
     type: CREATE_ERROR,
+    error,
+  };
+}
+
+export function download(id, summaryId) {
+  return {
+    type: DOWNLOAD,
+    id,
+    summaryId,
+  };
+}
+
+export function downloadSuccess() {
+  return {
+    type: DOWNLOAD_SUCCESS,
+  };
+}
+
+export function downloadError(error) {
+  return {
+    type: DOWNLOAD_ERROR,
     error,
   };
 }

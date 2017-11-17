@@ -12,7 +12,7 @@ export default defineMessages({
   },
   download: {
     id: 'app.components.SummaryListItem.download',
-    defaultMessage: 'Download as .xlsx',
+    defaultMessage: 'Download as .csv',
   },
   heat: {
     id: 'app.components.SummaryListItem.heat',

@@ -28,6 +28,7 @@ import {
   makeGetUsers,
   makeGetSummaries,
   makePostSummary,
+  makeDownloadSummary,
   makeGetUser,
   makeDeleteUser,
 } from './endpoints';
@@ -77,6 +78,9 @@ const ApiConnector = {
     summaries: {
       get: makeGetSummaries(get),
       post: makePostSummary(post),
+    },
+    summary: {
+      download: makeDownloadSummary(get),
     },
     user: {
       get: makeGetUser(get),

@@ -29,6 +29,7 @@ import {
   createRequest,
   openDialog,
   closeDialog,
+  download,
 } from './actions';
 import {
   makeSelectLoading,
@@ -48,6 +49,12 @@ export class SummariesTab extends React.Component { // eslint-disable-line react
     const id = this.props.match.params.id;
 
     this.props.create(id, summary);
+  }
+
+  onDownload = (summary) => {
+    const { id } = this.props.match.params;
+
+    this.props.download(id, summary.id);
   }
 
   errorMessage = () => {
@@ -85,6 +92,7 @@ export class SummariesTab extends React.Component { // eslint-disable-line react
         <SummaryList
           summaries={this.props.summaries}
           placeholder={this.SummaryListPlaceholder()}
+          download={this.onDownload}
         />
 
         <CreateSummaryDialog
@@ -105,6 +113,7 @@ export class SummariesTab extends React.Component { // eslint-disable-line react
 SummariesTab.propTypes = {
   fetch: PropTypes.func.isRequired,
   create: PropTypes.func.isRequired,
+  download: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.string.isRequired,
   createDialog: PropTypes.bool.isRequired,
@@ -129,6 +138,7 @@ function mapDispatchToProps(dispatch) {
   return {
     fetch: (id) => dispatch(fetchRequest(id)),
     create: (id, summary) => dispatch(createRequest(id, summary)),
+    download: (id, summaryId) => dispatch(download(id, summaryId)),
     openDialog: (dialog) => dispatch(openDialog(dialog)),
     closeDialog: (dialog) => dispatch(closeDialog(dialog)),
   };

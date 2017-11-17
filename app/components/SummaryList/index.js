@@ -24,6 +24,7 @@ function SummaryList(props) {
       {props.summaries.map((summary) => (
         <SummaryListItem
           key={summary.id}
+          download={() => props.download(summary)}
           {...summary}
         />
       ))}

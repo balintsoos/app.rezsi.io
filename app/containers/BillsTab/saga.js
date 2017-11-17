@@ -23,7 +23,7 @@ export function* fetchBills({ groupId, userId }) {
   }
 }
 
-export function* downloadBills({ groupId, userId, billId }) {
+export function* downloadBill({ groupId, userId, billId }) {
   try {
     yield call(API.group.user.bill.download, { groupId, userId, billId });
     yield put(downloadSuccess());
@@ -35,5 +35,5 @@ export function* downloadBills({ groupId, userId, billId }) {
 // Root saga
 export default function* rootSaga() {
   yield takeLatest(FETCH, fetchBills);
-  yield takeLatest(DOWNLOAD, downloadBills);
+  yield takeLatest(DOWNLOAD, downloadBill);
 }

@@ -93,6 +93,7 @@ function SummaryListItem(props) {
           primary
           label={<FormattedMessage {...messages.download} />}
           icon={<DownloadIcon />}
+          onClick={props.download}
         />
       </CardActions>
     </Card>
@@ -100,6 +101,7 @@ function SummaryListItem(props) {
 }
 
 SummaryListItem.propTypes = {
+  download: PropTypes.func.isRequired,
   from: PropTypes.string.isRequired,
   to: PropTypes.string.isRequired,
   heatPrice: PropTypes.number.isRequired,

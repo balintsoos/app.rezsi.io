@@ -13,6 +13,9 @@ import {
   CREATE,
   CREATE_SUCCESS,
   CREATE_ERROR,
+  DOWNLOAD,
+  DOWNLOAD_SUCCESS,
+  DOWNLOAD_ERROR,
   OPEN_DIALOG,
   CLOSE_DIALOG,
 } from './constants';
@@ -55,6 +58,21 @@ function summariesTabReducer(state = initialState, action) {
         .update('summaries', (summaries) => summaries.unshift(Map(action.summary)));
 
     case CREATE_ERROR:
+      return state
+        .set('loading', false)
+        .set('error', action.error);
+
+    case DOWNLOAD:
+      return state
+        .set('loading', true)
+        .set('error', '');
+
+    case DOWNLOAD_SUCCESS:
+      return state
+        .set('loading', false)
+        .set('error', '');
+
+    case DOWNLOAD_ERROR:
       return state
         .set('loading', false)
         .set('error', action.error);

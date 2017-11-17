@@ -31,6 +31,11 @@ export const makeGetSummaries = (get) =>
 export const makePostSummary = (post) =>
   ({ id, payload }) => post(`/groups/${id}/summaries`, payload);
 
+export const makeDownloadSummary = (get) =>
+  ({ id, summaryId }) => get(`/groups/${id}/summaries/${summaryId}/csv`, {
+    headers: { Accept: 'application/csv' },
+  });
+
 export const makeGetUser = (get) =>
   ({ groupId, userId }) => get(`/groups/${groupId}/users/${userId}`);
 
