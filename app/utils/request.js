@@ -19,15 +19,15 @@ function checkStatus(response) {
 }
 
 
-function getBlob(response) {
-  response.blob().then((blob) => showFile(response, blob));
-}
+const getBlob = (type) => (response) => {
+  response.blob().then((blob) => showFile(response, blob, type));
+};
 
-function showFile(response, blob) {
+function showFile(response, blob, type) {
   // https://blog.jayway.com/2017/07/13/open-pdf-downloaded-api-javascript/
   // It is necessary to create a new blob object with mime-type explicitly set
   // otherwise only Chrome works like it should
-  const newBlob = new Blob([blob], { type: 'application/pdf' });
+  const newBlob = new Blob([blob], { type });
 
   // IE doesn't allow using a blob object directly as link href
   // instead it is necessary to use msSaveOrOpenBlob
@@ -53,18 +53,13 @@ function showFile(response, blob) {
 }
 
 export default function request(url, options) {
-  if (options.headers.Accept === 'application/json') {
+  if (options.headers.Accept !== 'application/json') {
     return fetch(url, options)
       .then(checkStatus)
-      .then(parseJSON);
-  }
-
-  if (options.headers.Accept === 'application/pdf') {
-    return fetch(url, options)
-      .then(checkStatus)
-      .then(getBlob);
+      .then(getBlob(options.headers.Accept));
   }
 
   return fetch(url, options)
-    .then(checkStatus);
+    .then(checkStatus)
+    .then(parseJSON);
 }
