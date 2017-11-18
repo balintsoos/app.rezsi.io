@@ -39,7 +39,7 @@ const baseUrl = process.env.NODE_ENV !== 'production'
 
 const wssUrl = process.env.NODE_ENV !== 'production'
   ? 'ws://localhost:4040'
-  : 'ws://api-rezsi.herokuapp.com';
+  : 'wss://api-rezsi.herokuapp.com';
 
 const defaults = {
   credentials: 'include',
