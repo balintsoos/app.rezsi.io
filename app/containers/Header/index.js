@@ -63,6 +63,7 @@ function Header(props) {
         <ToolbarGroup lastChild>
           <Notifications
             id={props.user.id}
+            redirect={props.redirect}
             iconButton={(
               <IconButton touch iconStyle={{ color: textColor }}>
                 <BellIcon />
@@ -104,6 +105,7 @@ Header.propTypes = {
   title: PropTypes.node,
   back: PropTypes.func,
   gravatar: PropTypes.string,
+  redirect: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
   logout: PropTypes.func.isRequired,
   muiTheme: PropTypes.object.isRequired,

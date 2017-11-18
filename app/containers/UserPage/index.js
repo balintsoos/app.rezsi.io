@@ -30,6 +30,25 @@ export class UserPage extends React.Component { // eslint-disable-line react/pre
     },
   })
 
+  URLSearchParam = (param) => {
+    const query = new URLSearchParams(this.props.location.search);
+    return query.get(param);
+  }
+
+  initialIndex = () => {
+    const tab = this.URLSearchParam('tab');
+
+    if (tab === 'reports') {
+      return 0;
+    }
+
+    if (tab === 'bills') {
+      return 1;
+    }
+
+    return 0;
+  }
+
   render() {
     return (
       <div>
@@ -41,7 +60,7 @@ export class UserPage extends React.Component { // eslint-disable-line react/pre
           title={this.props.user.group.name}
         />
 
-        <Tabs>
+        <Tabs initialSelectedIndex={this.initialIndex()}>
           <Tab label={<FormattedMessage {...messages.reports} />}>
             <ReportsTab match={this.match()} />
           </Tab>
@@ -56,6 +75,9 @@ export class UserPage extends React.Component { // eslint-disable-line react/pre
 
 UserPage.propTypes = {
   user: PropTypes.object.isRequired,
+  location: PropTypes.shape({
+    search: PropTypes.string.isRequired,
+  }),
 };
 
 const mapStateToProps = createStructuredSelector({

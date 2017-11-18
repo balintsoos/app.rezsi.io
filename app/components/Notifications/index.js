@@ -7,6 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import format from 'date-fns/format';
 
 import Badge from 'material-ui/Badge';
 import IconMenu from 'material-ui/IconMenu';
@@ -84,6 +85,22 @@ class Notifications extends React.Component { // eslint-disable-line react/prefe
     );
   }
 
+  label = ({ type }) => {
+    if (!messages[type]) {
+      return type;
+    }
+
+    return <FormattedMessage {...messages[type]} />;
+  }
+
+  date = ({ createdAt }) => format(createdAt, 'MMM D - h:mm A')
+
+  action = ({ type }) => {
+    if (type === 'NEW_BILL') {
+      this.props.redirect('/user?tab=bills');
+    }
+  }
+
   render() {
     return (
       <IconMenu
@@ -107,8 +124,9 @@ class Notifications extends React.Component { // eslint-disable-line react/prefe
         {this.state.notifications.map((msg) => (
           <ListItem
             key={msg.id}
-            primaryText={msg.type}
-            secondaryText={msg.createdAt}
+            primaryText={this.label(msg)}
+            secondaryText={this.date(msg)}
+            onClick={() => this.action(msg)}
           />
         ))}
       </IconMenu>
@@ -119,6 +137,7 @@ class Notifications extends React.Component { // eslint-disable-line react/prefe
 Notifications.propTypes = {
   id: PropTypes.string.isRequired,
   iconButton: PropTypes.node.isRequired,
+  redirect: PropTypes.func.isRequired,
 };
 
 export default Notifications;

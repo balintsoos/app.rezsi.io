@@ -14,4 +14,8 @@ export default defineMessages({
     id: 'app.containers.Notifications.empty',
     defaultMessage: 'Caught up with everything!',
   },
+  NEW_BILL: {
+    id: 'app.containers.Notifications.newBill',
+    defaultMessage: 'New bill created',
+  },
 });
