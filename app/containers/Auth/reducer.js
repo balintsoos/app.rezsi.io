@@ -10,6 +10,7 @@ import {
   AUTH_SUCCESS,
   AUTH_FAIL,
   UNAUTHENTICATE,
+  LOGOUT,
 } from './constants';
 
 const initialState = fromJS({
@@ -36,6 +37,7 @@ function authReducer(state = initialState, action) {
         .set('user', initialState.get('user'));
 
     case UNAUTHENTICATE:
+    case LOGOUT:
       return state
         .set('authenticated', false)
         .set('user', initialState.get('user'));

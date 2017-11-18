@@ -28,7 +28,7 @@ import muiThemeable from 'material-ui/styles/muiThemeable';
 
 import Notifications from 'components/Notifications';
 import { makeSelectUser } from 'containers/Auth/selectors';
-import { unauthenticate } from 'containers/Auth/actions';
+import { logout } from 'containers/Auth/actions';
 import Gravatar from 'components/Gravatar';
 import messages from './messages';
 
@@ -116,7 +116,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    logout: () => dispatch(unauthenticate()),
+    logout: () => dispatch(logout()),
     redirect: (to) => dispatch(push(to)),
   };
 }

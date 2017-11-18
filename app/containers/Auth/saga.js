@@ -1,9 +1,10 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
+import { push } from 'react-router-redux';
 
 import API from 'utils/API';
 import TokenStorage from 'utils/TokenStorage';
 
-import { AUTHENTICATE, UNAUTHENTICATE } from './constants';
+import { AUTHENTICATE, UNAUTHENTICATE, LOGOUT } from './constants';
 import { authSuccess, authFail } from './actions';
 
 export function* authenticate() {
@@ -20,8 +21,14 @@ export function* unauthenticate() {
   TokenStorage.remove();
 }
 
+export function* logout() {
+  TokenStorage.remove();
+  yield put(push('/login'));
+}
+
 // Root saga
 export default function* rootSaga() {
   yield takeLatest(AUTHENTICATE, authenticate);
   yield takeLatest(UNAUTHENTICATE, unauthenticate);
+  yield takeLatest(LOGOUT, logout);
 }

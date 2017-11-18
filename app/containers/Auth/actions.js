@@ -9,6 +9,7 @@ import {
   AUTH_SUCCESS,
   AUTH_FAIL,
   UNAUTHENTICATE,
+  LOGOUT,
 } from './constants';
 
 export function authenticate() {
@@ -33,5 +34,11 @@ export function authFail() {
 export function unauthenticate() {
   return {
     type: UNAUTHENTICATE,
+  };
+}
+
+export function logout() {
+  return {
+    type: LOGOUT,
   };
 }
