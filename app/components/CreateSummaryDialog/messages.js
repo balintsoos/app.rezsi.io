@@ -40,7 +40,7 @@ export default defineMessages({
   },
   hotWaterPriceLabel: {
     id: 'app.components.CreateSummaryDialog.hotWaterPriceLabel',
-    defaultMessage: 'Hot water price',
+    defaultMessage: 'Hot water unit price',
   },
   hotWaterPriceHint: {
     id: 'app.components.CreateSummaryDialog.hotWaterPriceHint',
@@ -48,7 +48,7 @@ export default defineMessages({
   },
   coldWaterPriceLabel: {
     id: 'app.components.CreateSummaryDialog.coldWaterPriceLabel',
-    defaultMessage: 'Cold water price',
+    defaultMessage: 'Cold water unit price',
   },
   coldWaterPriceHint: {
     id: 'app.components.CreateSummaryDialog.coldWaterPriceHint',
@@ -56,7 +56,7 @@ export default defineMessages({
   },
   heatPriceLabel: {
     id: 'app.components.CreateSummaryDialog.heatPriceLabel',
-    defaultMessage: 'Heat price',
+    defaultMessage: 'Heat unit price',
   },
   heatPriceHint: {
     id: 'app.components.CreateSummaryDialog.heatPriceHint',
