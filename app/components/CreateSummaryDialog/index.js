@@ -64,17 +64,19 @@ class CreateSummaryDialog extends React.Component { // eslint-disable-line react
       >
         <DatePicker
           autoOk
+          fullWidth
           okLabel={<FormattedMessage {...messages.ok} />}
           cancelLabel={<FormattedMessage {...messages.cancel} />}
-          hintText={<FormattedMessage {...messages.fromHint} />}
+          floatingLabelText={<FormattedMessage {...messages.fromHint} />}
           onChange={(event, date) => this.onDateChanged('from', date)}
         />
 
         <DatePicker
           autoOk
+          fullWidth
           okLabel={<FormattedMessage {...messages.ok} />}
           cancelLabel={<FormattedMessage {...messages.cancel} />}
-          hintText={<FormattedMessage {...messages.toHint} />}
+          floatingLabelText={<FormattedMessage {...messages.toHint} />}
           onChange={(event, date) => this.onDateChanged('to', date)}
         />
 
