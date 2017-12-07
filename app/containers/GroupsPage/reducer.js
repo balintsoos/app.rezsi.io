@@ -4,7 +4,7 @@
  *
  */
 
-import { fromJS, List, Map } from 'immutable';
+import { fromJS, List } from 'immutable';
 
 import {
   FETCH,
@@ -60,7 +60,7 @@ function groupsPageReducer(state = initialState, action) {
         .set('loading', false)
         .set('error', '')
         .set('createDialog', false)
-        .update('groups', (groups) => groups.unshift(Map(action.group)));
+        .update('groups', (groups) => groups.unshift(action.group));
 
     case CREATE_ERROR:
       return state
@@ -78,7 +78,7 @@ function groupsPageReducer(state = initialState, action) {
         .set('error', '')
         .set('editDialog', false)
         .update('groups', (groups) => groups
-          .set(groups.findIndex((group) => group.id === action.group.id), Map(action.group)));
+          .set(groups.findIndex((group) => group.id === action.group.id), action.group));
 
     case EDIT_ERROR:
       return state
