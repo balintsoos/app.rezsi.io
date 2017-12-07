@@ -10,9 +10,21 @@ export default defineMessages({
     id: 'app.containers.SignUpPage.title',
     defaultMessage: 'Sign Up',
   },
-  subtitle: {
-    id: 'app.containers.SignUpPage.subtitle',
-    defaultMessage: 'Create a new account',
+  leaderTitle: {
+    id: 'app.containers.SignUpPage.leaderTitle',
+    defaultMessage: 'Sign up as an estate manager',
+  },
+  leaderSubtitle: {
+    id: 'app.containers.SignUpPage.leaderSubtitle',
+    defaultMessage: 'Create an account as manager of an apartment complex',
+  },
+  memberTitle: {
+    id: 'app.containers.SignUpPage.memberTitle',
+    defaultMessage: 'Join your apartment community',
+  },
+  memberSubtitle: {
+    id: 'app.containers.SignUpPage.memberSubtitle',
+    defaultMessage: 'Create an account as a resident',
   },
   email: {
     id: 'app.containers.SignUpPage.email',

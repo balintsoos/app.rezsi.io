@@ -82,10 +82,17 @@ export class SignUpPage extends React.Component { // eslint-disable-line react/p
         <UserFlowTemplate>
           {!this.URLSearchParam('success') ? (
             <Card>
-              <CardTitle
-                title={<FormattedMessage {...messages.title} />}
-                subtitle={<FormattedMessage {...messages.subtitle} />}
-              />
+              {!this.URLSearchParam('invite') ? (
+                <CardTitle
+                  title={<FormattedMessage {...messages.leaderTitle} />}
+                  subtitle={<FormattedMessage {...messages.leaderSubtitle} />}
+                />
+              ) : (
+                <CardTitle
+                  title={<FormattedMessage {...messages.memberTitle} />}
+                  subtitle={<FormattedMessage {...messages.memberSubtitle} />}
+                />
+              )}
 
               <Divider />
 
