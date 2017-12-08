@@ -18,17 +18,25 @@ import CubicMeter from 'components/CubicMeter';
 
 import messages from './messages';
 
+const initialState = () => ({
+  from: '',
+  to: '',
+  currency: '',
+  hotWaterPrice: null,
+  coldWaterPrice: null,
+  heatPrice: null,
+});
+
 class CreateSummaryDialog extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor() {
     super();
-    this.state = {
-      from: '',
-      to: '',
-      currency: '',
-      hotWaterPrice: '',
-      coldWaterPrice: '',
-      heatPrice: '',
-    };
+    this.state = initialState();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.open === false && nextProps.open === true) {
+      this.setState(initialState());
+    }
   }
 
   onFieldChanged = (event) => {

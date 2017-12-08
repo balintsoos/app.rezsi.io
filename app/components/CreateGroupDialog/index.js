@@ -15,10 +15,18 @@ import TextField from 'material-ui/TextField';
 
 import messages from './messages';
 
+const initialState = () => ({ name: '' });
+
 class CreateGroupDialog extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor() {
     super();
-    this.state = { name: '' };
+    this.state = initialState();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.open === false && nextProps.open === true) {
+      this.setState(initialState());
+    }
   }
 
   onFieldChanged = (event) => {

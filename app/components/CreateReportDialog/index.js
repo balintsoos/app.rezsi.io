@@ -17,14 +17,22 @@ import CubicMeter from 'components/CubicMeter';
 
 import messages from './messages';
 
+const initialState = () => ({
+  heat: null,
+  hotWater: null,
+  coldWater: null,
+});
+
 class CreateReportDialog extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor() {
     super();
-    this.state = {
-      heat: null,
-      hotWater: null,
-      coldWater: null,
-    };
+    this.state = initialState();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.open === false && nextProps.open === true) {
+      this.setState(initialState());
+    }
   }
 
   onFieldChanged = (event) => {
