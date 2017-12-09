@@ -66,4 +66,8 @@ export default defineMessages({
     id: 'app.components.SignUpPage.goToEmail',
     defaultMessage: 'Go to {email}',
   },
+  EXIST: {
+    id: 'app.components.SignUpPage.EXIST',
+    defaultMessage: 'ALREADY EXISTS',
+  },
 });
