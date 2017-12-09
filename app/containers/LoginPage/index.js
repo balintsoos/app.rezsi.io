@@ -45,14 +45,6 @@ export class LoginPage extends React.Component { // eslint-disable-line react/pr
     }
   }
 
-  errorMessage = () => {
-    if (!messages[this.props.error]) {
-      return this.props.error;
-    }
-
-    return <FormattedMessage {...messages[this.props.error]} />;
-  }
-
   render() {
     return (
       <div>
@@ -97,7 +89,7 @@ export class LoginPage extends React.Component { // eslint-disable-line react/pr
 
         <Notification
           watcher={this.props.error}
-          message={this.errorMessage()}
+          message={<FormattedMessage {...messages.error} />}
         />
       </div>
     );

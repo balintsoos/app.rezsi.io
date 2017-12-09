@@ -24,6 +24,6 @@ export default defineMessages({
   },
   error: {
     id: 'app.containers.LoginPage.error',
-    defaultMessage: 'Invalid email address or password',
+    defaultMessage: 'Incorrect email address or password',
   },
 });
