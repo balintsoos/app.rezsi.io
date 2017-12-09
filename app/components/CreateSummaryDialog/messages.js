@@ -62,4 +62,8 @@ export default defineMessages({
     id: 'app.components.CreateSummaryDialog.heatPriceHint',
     defaultMessage: 'price / kWh',
   },
+  EARLIER: {
+    id: 'app.components.CreateSummaryDialog.EARLIER',
+    defaultMessage: 'EARLIER THAN FROM DATE',
+  },
 });

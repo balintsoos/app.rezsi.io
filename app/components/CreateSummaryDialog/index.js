@@ -61,6 +61,20 @@ class CreateSummaryDialog extends React.Component { // eslint-disable-line react
     />,
   ]
 
+  errorMessage = (field) => {
+    if (!this.props.errors || !this.props.errors[field]) {
+      return null;
+    }
+
+    const error = this.props.errors[field];
+
+    if (!messages[error.message]) {
+      return error.message;
+    }
+
+    return <FormattedMessage {...messages[error.message]} />;
+  }
+
   render() {
     return (
       <Dialog
@@ -69,6 +83,7 @@ class CreateSummaryDialog extends React.Component { // eslint-disable-line react
         modal={false}
         open={this.props.open}
         onRequestClose={this.props.cancel}
+        autoScrollBodyContent
       >
         <DatePicker
           autoOk
@@ -76,6 +91,7 @@ class CreateSummaryDialog extends React.Component { // eslint-disable-line react
           okLabel={<FormattedMessage {...messages.ok} />}
           cancelLabel={<FormattedMessage {...messages.cancel} />}
           floatingLabelText={<FormattedMessage {...messages.fromHint} />}
+          errorText={this.errorMessage('from')}
           onChange={(event, date) => this.onDateChanged('from', date)}
         />
 
@@ -85,6 +101,7 @@ class CreateSummaryDialog extends React.Component { // eslint-disable-line react
           okLabel={<FormattedMessage {...messages.ok} />}
           cancelLabel={<FormattedMessage {...messages.cancel} />}
           floatingLabelText={<FormattedMessage {...messages.toHint} />}
+          errorText={this.errorMessage('to')}
           onChange={(event, date) => this.onDateChanged('to', date)}
         />
 
@@ -94,6 +111,7 @@ class CreateSummaryDialog extends React.Component { // eslint-disable-line react
           type="text"
           floatingLabelText={<FormattedMessage {...messages.currencyLabel} />}
           hintText={<FormattedMessage {...messages.currencyHint} />}
+          errorText={this.errorMessage('currency')}
           onChange={this.onFieldChanged}
         />
 
@@ -103,6 +121,7 @@ class CreateSummaryDialog extends React.Component { // eslint-disable-line react
           type="number"
           floatingLabelText={<FormattedMessage {...messages.hotWaterPriceLabel} />}
           hintText={<FormattedMessage {...messages.hotWaterPriceHint} values={{ cubicMeter: <CubicMeter /> }} />}
+          errorText={this.errorMessage('hotWaterPrice')}
           onChange={this.onFieldChanged}
         />
 
@@ -112,6 +131,7 @@ class CreateSummaryDialog extends React.Component { // eslint-disable-line react
           type="number"
           floatingLabelText={<FormattedMessage {...messages.coldWaterPriceLabel} />}
           hintText={<FormattedMessage {...messages.coldWaterPriceHint} values={{ cubicMeter: <CubicMeter /> }} />}
+          errorText={this.errorMessage('coldWaterPrice')}
           onChange={this.onFieldChanged}
         />
 
@@ -121,6 +141,7 @@ class CreateSummaryDialog extends React.Component { // eslint-disable-line react
           type="number"
           floatingLabelText={<FormattedMessage {...messages.heatPriceLabel} />}
           hintText={<FormattedMessage {...messages.heatPriceHint} />}
+          errorText={this.errorMessage('heatPrice')}
           onChange={this.onFieldChanged}
         />
       </Dialog>
@@ -132,6 +153,7 @@ CreateSummaryDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   submit: PropTypes.func.isRequired,
   cancel: PropTypes.func.isRequired,
+  errors: PropTypes.object,
 };
 
 export default CreateSummaryDialog;

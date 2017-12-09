@@ -57,12 +57,24 @@ export class SummariesTab extends React.Component { // eslint-disable-line react
     this.props.download(id, summary.id);
   }
 
-  errorMessage = () => {
-    if (!messages[this.props.error]) {
-      return this.props.error;
+  errors = () => {
+    if (!this.props.error.response || !this.props.error.response.errors) {
+      return null;
     }
 
-    return <FormattedMessage {...messages[this.props.error]} />;
+    return this.props.error.response.errors;
+  }
+
+  errorMessage = () => {
+    if (this.errors()) {
+      return false;
+    }
+
+    if (!messages[this.props.error.message]) {
+      return this.props.error.message;
+    }
+
+    return <FormattedMessage {...messages[this.props.error.message]} />;
   }
 
   AddButton = (primary = false) => (
@@ -101,10 +113,11 @@ export class SummariesTab extends React.Component { // eslint-disable-line react
           open={this.props.createDialog}
           cancel={() => this.props.closeDialog('createDialog')}
           submit={this.onCreateSummary}
+          errors={this.errors()}
         />
 
         <Notification
-          watcher={this.props.error}
+          watcher={this.errorMessage()}
           message={this.errorMessage()}
         />
       </div>
@@ -117,7 +130,7 @@ SummariesTab.propTypes = {
   create: PropTypes.func.isRequired,
   download: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
-  error: PropTypes.string.isRequired,
+  error: PropTypes.object.isRequired,
   createDialog: PropTypes.bool.isRequired,
   openDialog: PropTypes.func.isRequired,
   closeDialog: PropTypes.func.isRequired,

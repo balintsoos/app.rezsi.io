@@ -22,7 +22,7 @@ import {
 
 const initialState = fromJS({
   loading: false,
-  error: '',
+  error: {},
   summaries: [],
   createDialog: false,
 });
@@ -32,12 +32,12 @@ function summariesTabReducer(state = initialState, action) {
     case FETCH:
       return state
         .set('loading', true)
-        .set('error', '');
+        .set('error', {});
 
     case FETCH_SUCCESS:
       return state
         .set('loading', false)
-        .set('error', '')
+        .set('error', {})
         .set('summaries', List(action.summaries));
 
     case FETCH_ERROR:
@@ -46,12 +46,11 @@ function summariesTabReducer(state = initialState, action) {
         .set('error', action.error);
 
     case CREATE:
-      return state
-        .set('error', '');
+      return state;
 
     case CREATE_SUCCESS:
       return state
-        .set('error', '')
+        .set('error', {})
         .set('createDialog', false)
         .update('summaries', (summaries) => summaries.unshift(Map(action.summary)));
 
@@ -60,12 +59,10 @@ function summariesTabReducer(state = initialState, action) {
         .set('error', action.error);
 
     case DOWNLOAD:
-      return state
-        .set('error', '');
+      return state;
 
     case DOWNLOAD_SUCCESS:
-      return state
-        .set('error', '');
+      return state;
 
     case DOWNLOAD_ERROR:
       return state
@@ -77,7 +74,8 @@ function summariesTabReducer(state = initialState, action) {
 
     case CLOSE_DIALOG:
       return state
-        .set(action.dialog, false);
+        .set(action.dialog, false)
+        .set('error', {});
 
     default:
       return state;

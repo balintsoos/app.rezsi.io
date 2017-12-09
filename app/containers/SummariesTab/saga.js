@@ -21,7 +21,7 @@ export function* fetchSummaries({ id }) {
     const summaries = yield call(API.group.summaries.get, id);
     yield put(fetchSuccess(summaries));
   } catch (err) {
-    yield put(fetchError(err.message));
+    yield put(fetchError(err));
   }
 }
 
@@ -30,7 +30,7 @@ export function* createSummary({ id, summary: payload }) {
     const group = yield call(API.group.summaries.post, { id, payload });
     yield put(createSuccess(group));
   } catch (err) {
-    yield put(createError(err.message));
+    yield put(createError(err));
   }
 }
 
@@ -39,7 +39,7 @@ export function* downloadSummary({ id, summaryId }) {
     yield call(API.group.summary.download, { id, summaryId });
     yield put(downloadSuccess());
   } catch (err) {
-    yield put(downloadError(err.message));
+    yield put(downloadError(err));
   }
 }
 
