@@ -45,12 +45,10 @@ function usersTabReducer(state = initialState, action) {
 
     case DELETE_USER:
       return state
-        .set('loading', true)
         .set('error', '');
 
     case DELETE_USER_SUCCESS:
       return state
-        .set('loading', false)
         .set('error', '')
         .set('deleteDialog', false)
         .update('users', (users) => users
@@ -58,7 +56,6 @@ function usersTabReducer(state = initialState, action) {
 
     case DELETE_USER_ERROR:
       return state
-        .set('loading', false)
         .set('error', action.error);
 
     case OPEN_DIALOG:

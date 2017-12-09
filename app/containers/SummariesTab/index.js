@@ -89,11 +89,13 @@ export class SummariesTab extends React.Component { // eslint-disable-line react
           {this.AddButton(true)}
         </Subheader>
 
-        <SummaryList
-          summaries={this.props.summaries}
-          placeholder={this.SummaryListPlaceholder()}
-          download={this.onDownload}
-        />
+        {!this.props.loading ? (
+          <SummaryList
+            summaries={this.props.summaries}
+            placeholder={this.SummaryListPlaceholder()}
+            download={this.onDownload}
+          />
+        ) : null}
 
         <CreateSummaryDialog
           open={this.props.createDialog}

@@ -90,10 +90,12 @@ export class ReportsTab extends React.Component { // eslint-disable-line react/p
           </Subheader>
         ) : null}
 
-        <ReportList
-          reports={this.props.reports}
-          placeholder={this.ReportListPlaceholder()}
-        />
+        {!this.props.loading ? (
+          <ReportList
+            reports={this.props.reports}
+            placeholder={this.ReportListPlaceholder()}
+          />
+        ) : null}
 
         <CreateReportDialog
           open={this.props.createDialog}

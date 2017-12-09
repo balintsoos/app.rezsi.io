@@ -44,19 +44,16 @@ function reportsTabReducer(state = initialState, action) {
 
     case CREATE:
       return state
-        .set('loading', true)
         .set('error', '');
 
     case CREATE_SUCCESS:
       return state
-        .set('loading', false)
         .set('error', '')
         .set('createDialog', false)
         .update('reports', (reports) => reports.unshift(Map(action.report)));
 
     case CREATE_ERROR:
       return state
-        .set('loading', false)
         .set('error', action.error);
 
     case OPEN_DIALOG:

@@ -107,12 +107,14 @@ export class UsersTab extends React.Component { // eslint-disable-line react/pre
           {this.InviteButton(true)}
         </Subheader>
 
-        <UserList
-          users={this.props.users}
-          select={this.onSelectUser}
-          delete={this.onDeleteUser}
-          placeholder={this.UserListPlaceholder()}
-        />
+        {!this.props.loading ? (
+          <UserList
+            users={this.props.users}
+            select={this.onSelectUser}
+            delete={this.onDeleteUser}
+            placeholder={this.UserListPlaceholder()}
+          />
+        ) : null}
 
         <InviteDialog
           open={this.props.inviteDialog}
