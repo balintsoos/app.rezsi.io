@@ -25,7 +25,7 @@ import {
 
 const initialState = fromJS({
   loading: false,
-  error: '',
+  error: {},
   groups: [],
   createDialog: false,
   editDialog: false,
@@ -37,12 +37,12 @@ function groupsPageReducer(state = initialState, action) {
     case FETCH:
       return state
         .set('loading', true)
-        .set('error', '');
+        .set('error', {});
 
     case FETCH_SUCCESS:
       return state
         .set('loading', false)
-        .set('error', '')
+        .set('error', {})
         .set('groups', List(action.groups));
 
     case FETCH_ERROR:
@@ -52,13 +52,12 @@ function groupsPageReducer(state = initialState, action) {
 
     case CREATE:
       return state
-        .set('loading', true)
-        .set('error', '');
+        .set('loading', true);
 
     case CREATE_SUCCESS:
       return state
         .set('loading', false)
-        .set('error', '')
+        .set('error', {})
         .set('createDialog', false)
         .update('groups', (groups) => groups.unshift(action.group));
 
@@ -69,13 +68,12 @@ function groupsPageReducer(state = initialState, action) {
 
     case EDIT:
       return state
-        .set('loading', true)
-        .set('error', '');
+        .set('loading', true);
 
     case EDIT_SUCCESS:
       return state
         .set('loading', false)
-        .set('error', '')
+        .set('error', {})
         .set('editDialog', false)
         .update('groups', (groups) => groups
           .set(groups.findIndex((group) => group.id === action.group.id), action.group));
@@ -88,12 +86,12 @@ function groupsPageReducer(state = initialState, action) {
     case DELETE:
       return state
         .set('loading', true)
-        .set('error', '');
+        .set('error', {});
 
     case DELETE_SUCCESS:
       return state
         .set('loading', false)
-        .set('error', '')
+        .set('error', {})
         .set('deleteDialog', false)
         .update('groups', (groups) => groups
           .remove(groups.findIndex((group) => group.id === action.id)));
@@ -109,7 +107,8 @@ function groupsPageReducer(state = initialState, action) {
 
     case CLOSE_DIALOG:
       return state
-        .set(action.dialog, false);
+        .set(action.dialog, false)
+        .set('error', {});
 
     default:
       return state;

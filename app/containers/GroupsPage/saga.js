@@ -24,7 +24,7 @@ export function* fetchGroups() {
     const groups = yield call(API.groups.get);
     yield put(fetchSuccess(groups));
   } catch (err) {
-    yield put(fetchError(err.message));
+    yield put(fetchError(err));
   }
 }
 
@@ -33,7 +33,7 @@ export function* createGroup(action) {
     const group = yield call(API.groups.post, action.group);
     yield put(createSuccess(group));
   } catch (err) {
-    yield put(createError(err.message));
+    yield put(createError(err));
   }
 }
 
@@ -45,7 +45,7 @@ export function* editGroup({ group }) {
     const editedGroup = yield call(API.group.patch, { id, payload });
     yield put(editSuccess(editedGroup));
   } catch (err) {
-    yield put(editError(err.message));
+    yield put(editError(err));
   }
 }
 
@@ -54,7 +54,7 @@ export function* deleteGroup({ group }) {
     const deletedGroup = yield call(API.group.delete, group.id);
     yield put(deleteSuccess(deletedGroup.id));
   } catch (err) {
-    yield put(deleteError(err.message));
+    yield put(deleteError(err));
   }
 }
 

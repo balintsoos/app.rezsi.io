@@ -47,6 +47,20 @@ class CreateGroupDialog extends React.PureComponent { // eslint-disable-line rea
     />,
   ]
 
+  errorMessage = (field) => {
+    if (!this.props.errors || !this.props.errors[field]) {
+      return null;
+    }
+
+    const error = this.props.errors[field];
+
+    if (!messages[error.message]) {
+      return error.message;
+    }
+
+    return <FormattedMessage {...messages[error.message]} />;
+  }
+
   render() {
     return (
       <Dialog
@@ -62,6 +76,7 @@ class CreateGroupDialog extends React.PureComponent { // eslint-disable-line rea
           type="text"
           floatingLabelText={<FormattedMessage {...messages.label} />}
           hintText={<FormattedMessage {...messages.placeholder} />}
+          errorText={this.errorMessage('name')}
           onChange={this.onFieldChanged}
         />
       </Dialog>
@@ -73,6 +88,7 @@ CreateGroupDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   submit: PropTypes.func.isRequired,
   cancel: PropTypes.func.isRequired,
+  errors: PropTypes.object,
 };
 
 export default CreateGroupDialog;

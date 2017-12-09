@@ -70,12 +70,24 @@ export class GroupsPage extends React.Component { // eslint-disable-line react/p
     this.props.openDialog('deleteDialog');
   }
 
-  errorMessage = () => {
-    if (!messages[this.props.error]) {
-      return this.props.error;
+  errors = () => {
+    if (!this.props.error.response || !this.props.error.response.errors) {
+      return null;
     }
 
-    return <FormattedMessage {...messages[this.props.error]} />;
+    return this.props.error.response.errors;
+  }
+
+  errorMessage = () => {
+    if (this.errors()) {
+      return false;
+    }
+
+    if (!messages[this.props.error.message]) {
+      return this.props.error.message;
+    }
+
+    return <FormattedMessage {...messages[this.props.error.message]} />;
   }
 
   GroupListPlaceholder = () => (
@@ -118,6 +130,7 @@ export class GroupsPage extends React.Component { // eslint-disable-line react/p
           open={this.props.createDialog}
           cancel={() => this.props.closeDialog('createDialog')}
           submit={this.props.create}
+          errors={this.errors()}
         />
 
         <EditGroupDialog
@@ -125,6 +138,7 @@ export class GroupsPage extends React.Component { // eslint-disable-line react/p
           open={this.props.editDialog}
           cancel={() => this.props.closeDialog('editDialog')}
           submit={this.props.edit}
+          errors={this.errors()}
         />
 
         <DeleteGroupDialog
@@ -135,7 +149,7 @@ export class GroupsPage extends React.Component { // eslint-disable-line react/p
         />
 
         <Notification
-          watcher={this.props.error}
+          watcher={this.errorMessage()}
           message={this.errorMessage()}
         />
       </div>
@@ -155,7 +169,7 @@ GroupsPage.propTypes = {
   openDialog: PropTypes.func.isRequired,
   closeDialog: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
-  error: PropTypes.string.isRequired,
+  error: PropTypes.object.isRequired,
   groups: PropTypes.array.isRequired,
 };
 
