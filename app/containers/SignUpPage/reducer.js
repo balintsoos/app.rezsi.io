@@ -13,20 +13,19 @@ import {
 
 const initialState = fromJS({
   loading: false,
-  error: '',
+  error: {},
 });
 
 function signUpPageReducer(state = initialState, action) {
   switch (action.type) {
     case SIGNUP_REQUEST:
       return state
-        .set('loading', true)
-        .set('error', '');
+        .set('loading', true);
 
     case SIGNUP_SUCCESS:
       return state
         .set('loading', false)
-        .set('error', '');
+        .set('error', {});
 
     case SIGNUP_ERROR:
       return state

@@ -11,7 +11,7 @@ export function* signUp({ userData }) {
     yield put(signUpSuccess());
     yield put(push(`/signup?success=${domain}`));
   } catch (err) {
-    yield put(signUpError(err.message));
+    yield put(signUpError(err));
   }
 }
 

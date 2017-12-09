@@ -20,7 +20,6 @@ import Divider from 'material-ui/Divider';
 import Head from 'components/Head';
 import UserFlowTemplate from 'components/UserFlowTemplate';
 import UserFlowNavigation from 'components/UserFlowNavigation';
-import Notification from 'components/Notification';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
@@ -66,12 +65,20 @@ export class SignUpPage extends React.Component { // eslint-disable-line react/p
     return query.get(param);
   }
 
-  errorMessage = () => {
-    if (!messages[this.props.error]) {
-      return this.props.error;
+  errorMessage = (type) => {
+    const response = this.props.error.response;
+
+    if (!response || !response.errors || !response.errors[type]) {
+      return null;
     }
 
-    return <FormattedMessage {...messages[this.props.error]} />;
+    const error = response.errors[type];
+
+    if (!messages[error.message]) {
+      return error.message;
+    }
+
+    return <FormattedMessage {...messages[error.message]} />;
   }
 
   render() {
@@ -102,6 +109,7 @@ export class SignUpPage extends React.Component { // eslint-disable-line react/p
                   name="email"
                   type="email"
                   floatingLabelText={<FormattedMessage {...messages.email} />}
+                  errorText={this.errorMessage('email')}
                   onChange={this.onFieldChanged}
                 />
                 <TextField
@@ -109,6 +117,7 @@ export class SignUpPage extends React.Component { // eslint-disable-line react/p
                   name="displayName"
                   type="text"
                   floatingLabelText={<FormattedMessage {...messages.displayName} />}
+                  errorText={this.errorMessage('displayName')}
                   onChange={this.onFieldChanged}
                 />
                 <TextField
@@ -116,6 +125,7 @@ export class SignUpPage extends React.Component { // eslint-disable-line react/p
                   name="password"
                   type="password"
                   floatingLabelText={<FormattedMessage {...messages.password} />}
+                  errorText={this.errorMessage('password')}
                   onChange={this.onFieldChanged}
                 />
               </CardText>
@@ -183,11 +193,6 @@ export class SignUpPage extends React.Component { // eslint-disable-line react/p
             </Card>
           )}
         </UserFlowTemplate>
-
-        <Notification
-          watcher={this.props.error}
-          message={this.errorMessage()}
-        />
       </div>
     );
   }
@@ -196,7 +201,7 @@ export class SignUpPage extends React.Component { // eslint-disable-line react/p
 SignUpPage.propTypes = {
   signUp: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
-  error: PropTypes.string.isRequired,
+  error: PropTypes.object.isRequired,
   location: PropTypes.shape({
     search: PropTypes.string.isRequired,
   }),
