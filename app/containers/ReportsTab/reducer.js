@@ -19,7 +19,7 @@ import {
 
 const initialState = fromJS({
   loading: false,
-  error: '',
+  error: {},
   reports: [],
   createDialog: false,
 });
@@ -29,12 +29,12 @@ function reportsTabReducer(state = initialState, action) {
     case FETCH:
       return state
         .set('loading', true)
-        .set('error', '');
+        .set('error', {});
 
     case FETCH_SUCCESS:
       return state
         .set('loading', false)
-        .set('error', '')
+        .set('error', {})
         .set('reports', List(action.reports));
 
     case FETCH_ERROR:
@@ -43,12 +43,11 @@ function reportsTabReducer(state = initialState, action) {
         .set('error', action.error);
 
     case CREATE:
-      return state
-        .set('error', '');
+      return state;
 
     case CREATE_SUCCESS:
       return state
-        .set('error', '')
+        .set('error', {})
         .set('createDialog', false)
         .update('reports', (reports) => reports.unshift(Map(action.report)));
 
@@ -62,7 +61,8 @@ function reportsTabReducer(state = initialState, action) {
 
     case CLOSE_DIALOG:
       return state
-        .set(action.dialog, false);
+        .set(action.dialog, false)
+        .set('error', {});
 
     default:
       return state;

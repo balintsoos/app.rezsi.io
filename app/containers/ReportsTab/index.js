@@ -56,12 +56,24 @@ export class ReportsTab extends React.Component { // eslint-disable-line react/p
 
   isMember = () => this.props.user.role === 'MEMBER'
 
-  errorMessage = () => {
-    if (!messages[this.props.error]) {
-      return this.props.error;
+  errors = () => {
+    if (!this.props.error.response || !this.props.error.response.errors) {
+      return null;
     }
 
-    return <FormattedMessage {...messages[this.props.error]} />;
+    return this.props.error.response.errors;
+  }
+
+  errorMessage = () => {
+    if (this.errors()) {
+      return false;
+    }
+
+    if (!messages[this.props.error.message]) {
+      return this.props.error.message;
+    }
+
+    return <FormattedMessage {...messages[this.props.error.message]} />;
   }
 
   CreateButton = (primary = false) => (
@@ -101,10 +113,11 @@ export class ReportsTab extends React.Component { // eslint-disable-line react/p
           open={this.props.createDialog}
           cancel={() => this.props.closeDialog('createDialog')}
           submit={this.onCreate}
+          errors={this.errors()}
         />
 
         <Notification
-          watcher={this.props.error}
+          watcher={this.errorMessage()}
           message={this.errorMessage()}
         />
       </div>
@@ -119,7 +132,7 @@ ReportsTab.propTypes = {
   closeDialog: PropTypes.func.isRequired,
   createDialog: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
-  error: PropTypes.string.isRequired,
+  error: PropTypes.object.isRequired,
   reports: PropTypes.array.isRequired,
   user: PropTypes.shape({
     role: PropTypes.string.isRequired,

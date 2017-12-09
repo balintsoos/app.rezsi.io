@@ -19,7 +19,7 @@ export function* fetchReports({ groupId, userId }) {
     const reports = yield call(API.group.user.reports.get, { groupId, userId });
     yield put(fetchSuccess(reports));
   } catch (err) {
-    yield put(fetchError(err.message));
+    yield put(fetchError(err));
   }
 }
 
@@ -28,7 +28,7 @@ export function* createReport({ groupId, userId, report: payload }) {
     const report = yield call(API.group.user.reports.post, { groupId, userId, payload });
     yield put(createSuccess(report));
   } catch (err) {
-    yield put(createError(err.message));
+    yield put(createError(err));
   }
 }
 

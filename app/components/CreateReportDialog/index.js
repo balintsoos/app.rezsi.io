@@ -53,6 +53,20 @@ class CreateReportDialog extends React.Component { // eslint-disable-line react/
     />,
   ]
 
+  errorMessage = (field) => {
+    if (!this.props.errors || !this.props.errors[field]) {
+      return null;
+    }
+
+    const error = this.props.errors[field];
+
+    if (!messages[error.message]) {
+      return error.message;
+    }
+
+    return <FormattedMessage {...messages[error.message]} />;
+  }
+
   render() {
     return (
       <Dialog
@@ -61,12 +75,14 @@ class CreateReportDialog extends React.Component { // eslint-disable-line react/
         modal={false}
         open={this.props.open}
         onRequestClose={this.props.cancel}
+        autoScrollBodyContent
       >
         <TextField
           fullWidth
           name="heat"
           type="number"
           floatingLabelText={<FormattedMessage {...messages.heat} />}
+          errorText={this.errorMessage('heat')}
           onChange={this.onFieldChanged}
         />
         <TextField
@@ -74,6 +90,7 @@ class CreateReportDialog extends React.Component { // eslint-disable-line react/
           name="hotWater"
           type="number"
           floatingLabelText={<FormattedMessage {...messages.hotWater} values={{ cubicMeter: <CubicMeter /> }} />}
+          errorText={this.errorMessage('hotWater')}
           onChange={this.onFieldChanged}
         />
         <TextField
@@ -81,6 +98,7 @@ class CreateReportDialog extends React.Component { // eslint-disable-line react/
           name="coldWater"
           type="number"
           floatingLabelText={<FormattedMessage {...messages.coldWater} values={{ cubicMeter: <CubicMeter /> }} />}
+          errorText={this.errorMessage('coldWater')}
           onChange={this.onFieldChanged}
         />
       </Dialog>
@@ -92,6 +110,7 @@ CreateReportDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   submit: PropTypes.func.isRequired,
   cancel: PropTypes.func.isRequired,
+  errors: PropTypes.object,
 };
 
 export default CreateReportDialog;

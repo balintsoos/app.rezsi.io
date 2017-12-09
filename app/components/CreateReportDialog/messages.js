@@ -30,4 +30,8 @@ export default defineMessages({
     id: 'app.components.CreateReportDialog.coldWater',
     defaultMessage: 'Cold water ({cubicMeter})',
   },
+  LESS: {
+    id: 'app.components.CreateReportDialog.LESS',
+    defaultMessage: 'LESS THAN LAST REPORT',
+  },
 });
