@@ -12,6 +12,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 import BillList from 'components/BillList';
+import ContentLayout from 'components/ContentLayout';
 import Notification from 'components/Notification';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -61,11 +62,13 @@ export class BillsTab extends React.Component { // eslint-disable-line react/pre
   render() {
     return (
       <div>
-        <BillList
-          bills={this.props.bills}
-          placeholder={this.BillListPlaceholder()}
-          download={this.onDownload}
-        />
+        <ContentLayout>
+          <BillList
+            bills={this.props.bills}
+            placeholder={this.BillListPlaceholder()}
+            download={this.onDownload}
+          />
+        </ContentLayout>
 
         <Notification
           watcher={this.props.error}

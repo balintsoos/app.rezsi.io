@@ -15,6 +15,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import AddIcon from 'material-ui/svg-icons/content/add';
 
 import Subheader from 'components/Subheader';
+import ContentLayout from 'components/ContentLayout';
 import Notification from 'components/Notification';
 import SummaryList from 'components/SummaryList';
 import CreateSummaryDialog from 'components/CreateSummaryDialog';
@@ -102,11 +103,13 @@ export class SummariesTab extends React.Component { // eslint-disable-line react
         </Subheader>
 
         {!this.props.loading ? (
-          <SummaryList
-            summaries={this.props.summaries}
-            placeholder={this.SummaryListPlaceholder()}
-            download={this.onDownload}
-          />
+          <ContentLayout>
+            <SummaryList
+              summaries={this.props.summaries}
+              placeholder={this.SummaryListPlaceholder()}
+              download={this.onDownload}
+            />
+          </ContentLayout>
         ) : null}
 
         <CreateSummaryDialog
